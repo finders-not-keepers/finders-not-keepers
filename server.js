@@ -17,11 +17,17 @@ app.get('/*', function(request, response) {
 app.post('/searchAccount', function(req, res){
   //ACCOUNT IS IN DATABASE SEND BACK REROUTE
   //IF  NOT SEND BACK ERROR MESSAGE
+  
+  
+  
   res.send({msg: 'ok', account: 'Whistler_Blackcomb'})
   
 });
 
 app.post('/searchItem', function(req, res) {
+  
+  
+  
   res.send({msg: "ok", items: [{name: "red hat"}, {name: "the north face jacket"}, {name: "hello kitty keys"}]})
 })
 
