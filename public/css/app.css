@@ -1,0 +1,40 @@
+html {
+    background-color: #424242;
+    font-family: "Avenir Next";
+    color: white;
+}
+
+img {
+    height: 100px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+}
+
+textarea {
+    margin: 5px;
+}
+
+input {
+    margin: 5px;
+}
+
+button {
+    margin: 5px;
+}
+
+p {
+    margin: 5px;
+}
+
+a {
+    text-decoration: none;
+    color: #d6fb81;
+}
+
+a:hover {
+ color: orange;   
+}
