@@ -7,6 +7,7 @@ var SignUp = React.createClass({
     render: function () {
         return(
             <div>
+            <h2>Sign Up</h2>
                 <form onSubmit={this._handleSubmit}>
                     <input ref="companyNameInput" className="input-field" type="text" placeholder="Company name" />
                     <p>**select company category (will be a drop down menu)**</p>

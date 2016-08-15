@@ -1,4 +1,5 @@
 var React = require('react');
+var Link = require('react-router').Link;
 
 /*display the accounts related to that search*/
 
@@ -7,8 +8,11 @@ var Account = React.createClass ({
       return (
           <div>
             <h1>Select a place to find your item:</h1>
-            {/*return a list of accounts that match search that are clickable*/}
+            <Link to={`/account/${this.props.params.username}/searchItem`}>{this.props.params.username}</Link>
+            {this.props.children}
           </div>
           )   
     }
 })
+
+module.exports = Account;

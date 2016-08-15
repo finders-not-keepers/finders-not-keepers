@@ -9,10 +9,12 @@ var App = React.createClass({
         return (
             <div className="main-app">
                 <header className="main-header">
-                    <h1><Link to="/">Finders Not Keepers</Link></h1>
+                    <h1><Link to="/"><img src="img/logo.png"/></Link></h1>
+                    <hr/>
                 </header>
                 <main className="main-content">
                     <Nav/>
+                    <hr/>
                     {this.props.children}
                 </main>
             </div>

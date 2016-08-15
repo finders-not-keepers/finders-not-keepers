@@ -7,6 +7,7 @@ var LogIn = React.createClass({
     render: function () {
         return(
             <div>
+                <h2>Welcome back! Log In:</h2>
                 <form onSubmit={this._handleSubmit}>
                     <input ref="usernameInput" className="input-field" type="text" placeholder="Enter your username" />
                     <input ref="passwordInput" className="input-field" type="password" placeholder="Enter your password" />
