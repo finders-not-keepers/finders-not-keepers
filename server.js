@@ -9,10 +9,10 @@ var connection = mysql.createConnection({
   database: 'reddit'
 });
 
-app.use(express.static(__dirname + '/public'));
-
 var finders = require('./src/js/api/finders');
-var FindersAPI = finders(connection);
+var findersAPI = finders(connection);
+
+app.use(express.static(__dirname + '/public'));
 
 /* insert any app.get or app.post you need here */
 
@@ -30,9 +30,14 @@ app.post('/searchAccount', function(req, res){
   //IF  NOT SEND BACK ERROR MESSAGE
   
   
-  
-  res.send({msg: 'ok', account: 'Whistler_Blackcomb'})
-  
+  findersAPI.getAccounts(req.account, function(accounts, err){
+    if(err) {
+      res.send(err);
+    } else {
+      res.send({msg: 'ok', accounts: accounts})
+    }
+    
+  })
 });
 
 app.post('/searchItem', function(req, res) {
@@ -46,18 +51,4 @@ app.listen(process.env.PORT || 8080, function() {
   console.log('Server started');
 });
 
-app.get('/', function (req, res){
-  console.log("do I get here");
-   console.log(req.query)
-  FindersAPI( req.query, function (err, items) {
-    if (err){
-      console.log(err.stack);
-      res.sendStatus(403).send("Try again later");
-    }
-    else {
-      res.send("some html");
-      console.log("some html");
-    }
-  })
-  
-});
+
