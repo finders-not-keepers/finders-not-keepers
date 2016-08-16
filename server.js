@@ -43,11 +43,11 @@ app.post('/searchAccount', function(req, res){
   })
 });
 
-app.post('/searchItem', function(req, res) {
+// app.post('/searchItem', function(req, res) {
+//   findersAPI.getAllItemsForSearch 
   
-  
-  res.send({msg: "ok", items: [{name: "red hat"}, {name: "the north face jacket"}, {name: "hello kitty keys"}]})
-})
+//   res.send({msg: "ok", items: [{name: "red hat"}, {name: "the north face jacket"}, {name: "hello kitty keys"}]})
+// })
 
 app.listen(process.env.PORT || 8080, function() {
   console.log('Server started');
