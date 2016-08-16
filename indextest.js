@@ -116,7 +116,7 @@ var FindersAPI = finders(connection);
 //   }
 // });
 
-var accountname = "McDonalds";
+var accountname = "timhortons";
 
 FindersAPI.getAccounts( accountname ,  function(err, post) {
   if(err){

@@ -21,10 +21,10 @@ var SearchAccount = React.createClass({
             })
             .then(function(response) {
                 //  var testing = JSON.parse(response.config.data);
-                console.log(response.config.data.account);
+                console.log(response.config.data);
                 if(response.data.msg === 'ok'){
                 //that.props.router.push(`/account/${response.data.account}`);
-                that.props.router.push(`/account/${response.config.data.account}`);
+                that.props.router.push(`/account/${response.config.data}`);
                 }
             })
             .catch(function(error) {
