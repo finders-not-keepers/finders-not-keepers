@@ -19,8 +19,8 @@ var FindersAPI = finders(connection);
 var item = {
     categoryId: 3,
     accountId: 5,
-    title : "Glass water pipe ",
-    description: "Someone got so high and left their bong at Tim Hortons on Sainte Catherine St", 
+    title : "Water ski",
+    description: "Found water ski at Tim hortons. ", 
     media: "http://1.bp.blogspot.com/-18IF5e9EEyI/VqO0qYLujSI/AAAAAAAAEh0/7dDCQvlAKFY/s1600/hello_kitty_pink_sr1.gif" ,
     createdAt: "2016-08-15", 
     updatedAt: "2016-08-15"

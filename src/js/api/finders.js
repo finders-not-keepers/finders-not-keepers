@@ -58,7 +58,7 @@ return {
           var itemname = itemsearch.item;
           var itemaccountname = itemsearch.username;
           conn.query( `
-            SELECT accounts.name, items.title, accounts.id 
+            SELECT accounts.name, items.title, items.id, items.media , items.description
             FROM accounts 
             LEFT JOIN items 
             ON items.accountId = accounts.id 

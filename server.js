@@ -7,7 +7,7 @@ var axios =require('axios');
 
 var connection = mysql.createConnection({
   host: 'localhost',
-  user: 'cbroomhead',
+  user: 'root',
   password: '',
   database: 'finders'
 });
