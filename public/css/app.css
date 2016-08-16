@@ -5,7 +5,7 @@ html {
 }
 
 img {
-    height: 100px;
+    height: 160px;
 }
 
 form {
@@ -20,10 +20,20 @@ textarea {
 
 input {
     margin: 5px;
+    font-size: 16px;
 }
 
 button {
     margin: 5px;
+    font-size: 16px;
+    background-color: orange;
+    border-radius: 20px;
+    color: white;
+}
+
+button:hover {
+    background-color: #d6fb81;
+    color: black;
 }
 
 p {
