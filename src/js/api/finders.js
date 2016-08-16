@@ -132,7 +132,6 @@ return {
                 }
                 else {
                     callback(null, res);
-                    conn.end();
                 }
             })
         },

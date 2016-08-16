@@ -3,7 +3,7 @@ var Link = require('react-router').Link;
 
 /*display the accounts related to that search*/
 
-var Account = React.createClass ({
+var AccountSearch = React.createClass ({
     render: function () {
       return (
           <div>
@@ -15,4 +15,4 @@ var Account = React.createClass ({
     }
 })
 
-module.exports = Account;
+module.exports = AccountSearch;

@@ -8,7 +8,7 @@ var IndexRoute = ReactRouter.IndexRoute;
 
 //project files
 var SearchAccount = require("./components/SearchAccount.jsx")
-var Account = require("./components/Account.jsx")
+var AccountSearch = require("./components/AccountSearch.jsx")
 var LogIn = require("./components/LogIn.jsx")
 var SignUp = require("./components/SignUp.jsx")
 var SearchItem = require("./components/SearchItem.jsx")
@@ -23,7 +23,7 @@ var routes = (
     <Router history={ReactRouter.browserHistory}>
         <Route path="/" component={App}>
         <IndexRoute component={SearchAccount}/>
-            <Route path="account/:username" component={Account}>
+            <Route path="account/:username" component={AccountSearch}>
                 <Route path="searchItem" component={SearchItem}>
                     <Route path="items/:query" component={Items} />
                 </Route>
