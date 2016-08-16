@@ -42,7 +42,6 @@ var SearchItem = React.createClass({
         this._fetchData();
     },
     render: function() {
-        console.log(this.props.params.query)
         var that = this;
         console.log(this.props.params);
         return (
