@@ -23,12 +23,12 @@ var Items = React.createClass({
             });
     },
     render: function() {
-        console.log(this.props)
+        var that = this;
         return (
             <div>
             <ul>
                 {this.props.items.map(function(item) {
-                    return <li key={Math.random()}>{item.name}<button onClick={this._handleClick}>View Description</button></li>
+                    return <li key={item.id}>{item.name}<button onClick={that._handleClick}>View Description</button></li>
                 })}
                 </ul>
             </div>
