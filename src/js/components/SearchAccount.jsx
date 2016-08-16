@@ -19,7 +19,6 @@ var SearchAccount = React.createClass({
             })
             .then(function(response) {
                 if(response.data.msg === 'ok'){
-                    console.log(response.data)
                     that.setState({
                         accounts: response.data.account
                     })
