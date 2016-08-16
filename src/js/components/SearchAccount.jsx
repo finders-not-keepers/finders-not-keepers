@@ -1,6 +1,7 @@
 var React = require('react');
 var history = require('react-router').browserHistory;
 import { withRouter } from 'react-router'
+var Link = require('react-router').Link;
 
 var axios = require("axios");
 
@@ -39,7 +40,7 @@ var SearchAccount = React.createClass({
                 <button onClick={this._handleClick} className="submit-button">Go</button>
                 <ul>
                 {that.state.accounts ? that.state.accounts.map(acc => {
-                    return <li key={acc.id}>{acc.name}</li>
+                    return <li key={acc.id}><Link to={`/account/${acc.name}/searchItem`}>{acc.name}</Link></li>
                 }) : ""}
                 </ul>
                 {this.props.children}

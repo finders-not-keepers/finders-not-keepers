@@ -14,6 +14,7 @@ var Nav = React.createClass({
                             <li><Link to="accountPage">View account landing page</Link></li>
                         </ul>
                     <li><Link to="signup">Sign Up</Link></li>
+                    <li><Link to="FAQ">FAQ</Link></li>
                 </ul>
             </div>
         )
