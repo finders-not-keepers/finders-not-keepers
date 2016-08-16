@@ -38,16 +38,32 @@ app.post('/searchAccount', function(req, res){
     if(err) {
       res.send(err);
     } else {
-      res.send({msg: 'ok', account: accountsArray})
+      res.send({msg: 'ok', account: accountsArray});
     }
-  })
+  });
 });
 
 // app.post('/searchItem', function(req, res) {
-//   findersAPI.getAllItemsForSearch 
-  
-//   res.send({msg: "ok", items: [{name: "red hat"}, {name: "the north face jacket"}, {name: "hello kitty keys"}]})
-// })
+//   findersAPI.getItemsForSearch (req.body, function (err, itemsArray){
+//     if(err) {
+//       res.send(err);
+//     } else {
+//       res.send({msg: 'ok', account: itemsArray});
+//     }
+//   });
+// });
+
+// app.post ('/createPost', function (req, res){
+//   findersAPI.createItem(req.body, function (err, itemArray){
+//     if (err){
+//       res.send(err);  
+//     }
+//     else {
+//       res.send({msg: 'ok', account: itemArray});
+//     }
+//   })
+// });
+
 
 app.listen(process.env.PORT || 8080, function() {
   console.log('Server started');

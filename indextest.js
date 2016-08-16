@@ -35,24 +35,24 @@ var FindersAPI = finders(connection);
 //   }
 // });
 
-// var account = {
-//     name: "McDonalds",
-//     addressId: 4,
-//     media : "http://logok.org/wp-content/uploads/2014/06/McDonalds-logo.png",
-//     category_account: 1,
-//     createdAt: "2016-08-15", 
-//     updatedAt: "2016-08-15"
-// }
+var account = {
+    name: "McDonalds West",
+    addressId: 4,
+    media : "http://logok.org/wp-content/uploads/2014/06/McDonalds-logo.png",
+    category_account: 1,
+    createdAt: "2016-08-16", 
+    updatedAt: "2016-08-16"
+}
 
-// FindersAPI.createAccount(account, function(err, post) {
-//   console.log(account)
-//   if(err){
-//     console.log(err);
-//   }
-//   else {
-//     console.log(post);
-//   }
-// });
+FindersAPI.createAccount(account, function(err, post) {
+  console.log("this is", account)
+  if(err){
+    console.log(err);
+  }
+  else {
+    console.log(post);
+  }
+});
 
 
 
@@ -116,16 +116,16 @@ var FindersAPI = finders(connection);
 //   }
 // });
 
-var accountname = "timhortons";
+// var accountname = "timhortons";
 
-FindersAPI.getAccounts( accountname ,  function(err, post) {
-  if(err){
-    console.log(err);
-  }
-  else {
-    console.log(post);
-  }
-});
+// FindersAPI.getAccounts( accountname ,  function(err, post) {
+//   if(err){
+//     console.log(err);
+//   }
+//   else {
+//     console.log(post);
+//   }
+// });
 
 // var itemobj = {
 //   accountId: 1,
