@@ -28,7 +28,7 @@ var Items = React.createClass({
             <div>
             <ul>
                 {this.props.items.map(function(item) {
-                    return <li key={item.id}>{item.name}<button onClick={that._handleClick}>View Description</button></li>
+                    return <li key={item.id}>{item.title}<br/>{item.media}<br/>{item.description}<br/><button onClick={that._handleClick}>View Description</button></li>
                 })}
                 </ul>
             </div>
