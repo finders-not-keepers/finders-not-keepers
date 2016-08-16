@@ -16,36 +16,17 @@ var connection = mysql.createConnection({
 var FindersAPI = finders(connection);
 
 
-// var item = {
-//     categoryId: 3,
-//     accountId: 1,
-//     title : "Hello Kitty Pink Keys",
-//     description: "Hello Kitty Key Fell out at Tim Hortons", 
-//     media: "http://1.bp.blogspot.com/-18IF5e9EEyI/VqO0qYLujSI/AAAAAAAAEh0/7dDCQvlAKFY/s1600/hello_kitty_pink_sr1.gif" ,
-//     createdAt: "2016-08-15", 
-//     updatedAt: "2016-08-15"
-// }
-
-// FindersAPI.createItem( item, function(err, post) {
-//   if(err){
-//     console.log(err);
-//   }
-//   else {
-//     console.log(post);
-//   }
-// });
-
-var account = {
-    name: "McDonalds West",
-    addressId: 4,
-    media : "http://logok.org/wp-content/uploads/2014/06/McDonalds-logo.png",
-    category_account: 1,
-    createdAt: "2016-08-16", 
-    updatedAt: "2016-08-16"
+var item = {
+    categoryId: 3,
+    accountId: 5,
+    title : "Glass water pipe ",
+    description: "Someone got so high and left their bong at Tim Hortons on Sainte Catherine St", 
+    media: "http://1.bp.blogspot.com/-18IF5e9EEyI/VqO0qYLujSI/AAAAAAAAEh0/7dDCQvlAKFY/s1600/hello_kitty_pink_sr1.gif" ,
+    createdAt: "2016-08-15", 
+    updatedAt: "2016-08-15"
 }
 
-FindersAPI.createAccount(account, function(err, post) {
-  console.log("this is", account)
+FindersAPI.createItem( item, function(err, post) {
   if(err){
     console.log(err);
   }
@@ -53,6 +34,26 @@ FindersAPI.createAccount(account, function(err, post) {
     console.log(post);
   }
 });
+
+// var account = {
+//     name: "McDonalds West",
+//     addressId: 4,
+//     media : "http://logok.org/wp-content/uploads/2014/06/McDonalds-logo.png",
+//     category_account: 1,
+//     createdAt: "2016-08-16", 
+//     updatedAt: "2016-08-16"
+// }
+
+// FindersAPI.createAccount(account, function(err, post) {
+//   console.log("this is", account)
+//   if(err){
+//     console.log(err);
+//   }
+//   else {
+
+//     console.log(post);
+//   }
+// });
 
 
 

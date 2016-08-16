@@ -132,6 +132,15 @@ VALUES
  ("timhortonstwo", 2, "http://www.actuallywecreate.com/wp-content/uploads/2012/10/tim-hortons-always-fresh.jpg", "Restaurant", "2016-08-15 19:38:49", "2016-08-15 19:40:00"),
  ("timhortonsthree", 3, "http://www.actuallywecreate.com/wp-content/uploads/2012/10/tim-hortons-always-fresh.jpg", "Restaurant", "2016-08-15 19:38:49", "2016-08-15 19:40:00")
 
+SELECT accounts.name, items.title, accounts.id
+FROM accounts
+LEFT JOIN items
+ON items.accountId = accounts.id
+SELECT accounts.name, items.title, accounts.id FROM accounts LEFT JOIN items ON items.accountId = accounts.id WHERE accounts.name = 'timhortonsone' ;
 
-
-
+SELECT accounts.name, items.title, accounts.id 
+            FROM accounts 
+            LEFT JOIN items 
+            ON items.accountId = accounts.id 
+            WHERE accounts.name = 'timhortons' AND MATCH (title, description)
+            AGAINST ('water' IN BOOLEAN MODE);

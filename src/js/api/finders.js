@@ -55,14 +55,16 @@ return {
                 })
         },
         getAllItemsForSearch : function (itemsearch, callback){ //itemsearch must be object with string and accountId properties 
-          var itemstring = itemsearch.string;
-          var itemaccountid = itemsearch.accountId;
-          conn.query( `SELECT * 
-                        FROM items 
-                        WHERE accountId = ? AND MATCH (title, description)
-                        AGAINST (? IN BOOLEAN MODE);`, [itemaccountid, itemstring],
+          var itemname = itemsearch.item;
+          var itemaccountname = itemsearch.username;
+          conn.query( `
+            SELECT accounts.name, items.title, accounts.id 
+            FROM accounts 
+            LEFT JOIN items 
+            ON items.accountId = accounts.id 
+            WHERE accounts.name = ? AND MATCH (title, description)
+            AGAINST (? IN BOOLEAN MODE);`, [itemaccountname, itemname],
                         function (err, res){
-                            console.log(res);
                             if(err){
                                 callback(err);
                             }

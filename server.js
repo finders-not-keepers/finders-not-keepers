@@ -7,7 +7,7 @@ var axios =require('axios');
 
 var connection = mysql.createConnection({
   host: 'localhost',
-  user: 'klingat',
+  user: 'cbroomhead',
   password: '',
   database: 'finders'
 });
@@ -36,6 +36,7 @@ app.get('/*', function(request, response) {
 app.post('/searchAccount', function(req, res){
   findersAPI.getAccounts(req.body, function(err, accountsArray){
     if(err) {
+      console.log(err);
       res.send(err);
     } else {
       res.send({msg: 'ok', account: accountsArray});
@@ -43,15 +44,17 @@ app.post('/searchAccount', function(req, res){
   });
 });
 
-// app.post('/searchItem', function(req, res) {
-//   findersAPI.getItemsForSearch (req.body, function (err, itemsArray){
-//     if(err) {
-//       res.send(err);
-//     } else {
-//       res.send({msg: 'ok', account: itemsArray});
-//     }
-//   });
-// });
+app.post('/searchItem', function(req, res) {
+  findersAPI.getAllItemsForSearch (req.body, function (err, itemArray){
+    if(err) {
+      console.log(err);
+      res.send(err);
+    } else {
+      console.log(itemArray);
+      res.send({msg: 'ok', account: itemArray});
+    }
+  });
+});
 
 // app.post ('/createPost', function (req, res){
 //   findersAPI.createItem(req.body, function (err, itemArray){
