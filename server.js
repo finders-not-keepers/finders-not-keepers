@@ -34,22 +34,16 @@ app.get('/*', function(request, response) {
 });
 
 app.post('/searchAccount', function(req, res){
-  //ACCOUNT IS IN DATABASE SEND BACK REROUTE
-  //IF  NOT SEND BACK ERROR MESSAGE
-
   findersAPI.getAccounts(req.body, function(err, accountsArray){
     if(err) {
       res.send(err);
     } else {
       res.send({msg: 'ok', account: accountsArray})
-      //res.send(accountsArray) 
     }
-    
   })
 });
 
 app.post('/searchItem', function(req, res) {
-  
   
   
   res.send({msg: "ok", items: [{name: "red hat"}, {name: "the north face jacket"}, {name: "hello kitty keys"}]})

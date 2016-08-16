@@ -131,8 +131,6 @@ return {
                     callback(err);
                 }
                 else {
-                    
-                    console.log(res)
                     callback(null, res);
                     conn.end();
                 }
