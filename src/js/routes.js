@@ -15,6 +15,7 @@ var SearchItem = require("./components/SearchItem.jsx")
 var Items = require("./components/Items.jsx")
 var AccountPage = require("./components/AccountPage.jsx")
 var CreatePost = require("./components/CreatePost.jsx")
+var FAQ = require("./components/FAQ.jsx")
 
 var App = require("./components/App.jsx");
 
@@ -32,6 +33,7 @@ var routes = (
             <Route path="accountPage" component={AccountPage} />
             <Route path="signup" component={SignUp} />
             <Route path="createPost" component={CreatePost} />
+            <Route path="FAQ" component={FAQ} />
         </Route>
         
     </Router>
