@@ -17,6 +17,7 @@ var AccountPage = require("./components/AccountPage.jsx")
 var CreatePost = require("./components/CreatePost.jsx")
 var FAQ = require("./components/FAQ.jsx")
 var ClaimItemForm = require("./components/ClaimItemForm.jsx")
+var ItemDesc = require("./components/ItemDesc.jsx")
 
 var App = require("./components/App.jsx");
 
@@ -36,6 +37,7 @@ var routes = (
             <Route path="createPost" component={CreatePost} />
             <Route path="FAQ" component={FAQ} />
             <Route path="claimItem" component={ClaimItemForm} />
+            <Route path="account/:username/items/:itemId" component={ItemDesc} />
         </Route>
         
     </Router>
