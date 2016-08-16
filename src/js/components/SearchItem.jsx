@@ -23,7 +23,8 @@ var SearchItem = React.createClass({
         searchTerms = this.refs.userInput.value;
     }
     axios.post('/searchItem', {
-            item: searchTerms
+            item: searchTerms, 
+            username: that.props.params.username
         })
         .then(function(response) {
             that.setState({items: response.data.items})
@@ -41,8 +42,9 @@ var SearchItem = React.createClass({
         this._fetchData();
     },
     render: function() {
-        console.log(this.props.params.query, "HERE IS STUPID")
+        console.log(this.props.params.query)
         var that = this;
+        console.log(this.props.params);
         return (
             <div>
             <h2>What did you lose at {this.props.params.username}?</h2>
