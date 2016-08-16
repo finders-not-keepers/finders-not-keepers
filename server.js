@@ -20,7 +20,7 @@ app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({
     extended: false
   }));
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 
 /* insert any app.get or app.post you need here */
 
@@ -34,22 +34,16 @@ app.get('/*', function(request, response) {
 });
 
 app.post('/searchAccount', function(req, res){
-  console.log(req.body)
-  //ACCOUNT IS IN DATABASE SEND BACK REROUTE
-  //IF  NOT SEND BACK ERROR MESSAGE
-
-  findersAPI.getAccounts(req.body, function(accounts, err){
+  findersAPI.getAccounts(req.body, function(err, accountsArray){
     if(err) {
       res.send(err);
     } else {
-      res.send({msg: 'ok', account: accounts})
+      res.send({msg: 'ok', account: accountsArray})
     }
-    
   })
 });
 
 app.post('/searchItem', function(req, res) {
-  
   
   
   res.send({msg: "ok", items: [{name: "red hat"}, {name: "the north face jacket"}, {name: "hello kitty keys"}]})

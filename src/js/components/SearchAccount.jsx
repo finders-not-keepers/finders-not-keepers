@@ -5,11 +5,9 @@ import { withRouter } from 'react-router'
 var axios = require("axios");
 
 var SearchAccount = React.createClass({
-    // getInitialState: function() {
-    //   return {
-    //       accounts: []
-    //   }  
-    // },
+    getInitialState: function(){
+        return {};
+    },
     _handleClick: function(event) {
         // this.setState({
         //     acounts: this.state.accounts.concat(following)
@@ -20,11 +18,13 @@ var SearchAccount = React.createClass({
                 account: this.refs.userInput.value
             })
             .then(function(response) {
-                //  var testing = JSON.parse(response.config.data);
-                console.log(response.config.data);
                 if(response.data.msg === 'ok'){
+                    console.log(response.data)
+                    that.setState({
+                        accounts: response.data.account
+                    })
                 //that.props.router.push(`/account/${response.data.account}`);
-                that.props.router.push(`/account/${response.config.data}`);
+                //that.props.router.push(`/account/${response.data}`);
                 }
             })
             .catch(function(error) {
@@ -32,12 +32,17 @@ var SearchAccount = React.createClass({
             });
     },
     render: function() {
+        var that = this;
         return (
             <div>
             <h2>Where did you lose your item?</h2>
                 <input ref="userInput" className="input-field" type="text" />
                 <button onClick={this._handleClick} className="submit-button">Go</button>
-                
+                <ul>
+                {that.state.accounts ? that.state.accounts.map(acc => {
+                    return <li key={acc.id}>{acc.name}</li>
+                }) : ""}
+                </ul>
                 {this.props.children}
             </div>
         )

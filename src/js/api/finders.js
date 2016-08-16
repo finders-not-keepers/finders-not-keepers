@@ -123,25 +123,9 @@ return {
                             }
                         }) 
         }, 
-        // getAccounts : function (accountstring, callback ){
-        //     conn.query( `
-        //     SELECT id FROM accounts
-        //     WHERE MATCH (name)
-        //     AGAINST (? IN BOOLEAN MODE)
-        //     `, [accountstring], function (err, res) {
-        //         if(err){
-        //             callback(err);
-        //         }
-        //         else {
-        //             callback(null, res);
-        //             conn.end();
-        //         }
-        //     }
-        //     )
-        // }, 
         getAccounts : function (accountname, callback){
             conn.query (`
-            SELECT * FROM accounts WHERE name LIKE '%${accountname}%'`,
+            SELECT * FROM accounts WHERE name LIKE '%${accountname.account}%'`,
             function (err, res) {
                 if(err){
                     callback(err);
@@ -152,7 +136,6 @@ return {
                 }
             })
         },
-        
         deleteItem : function (itemid, callback){
             conn.query(`
             DELETE
