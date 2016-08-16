@@ -142,5 +142,5 @@ SELECT accounts.name, items.title, accounts.id
             FROM accounts 
             LEFT JOIN items 
             ON items.accountId = accounts.id 
-            WHERE accounts.name = 'timhortons' AND MATCH (title, description)
+            WHERE accounts.name = 'timhortonsone' AND MATCH (title, description)
             AGAINST ('water' IN BOOLEAN MODE);

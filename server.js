@@ -45,13 +45,14 @@ app.post('/searchAccount', function(req, res){
 });
 
 app.post('/searchItem', function(req, res) {
+  console.log(req.body);
   findersAPI.getAllItemsForSearch (req.body, function (err, itemArray){
     if(err) {
       console.log(err);
       res.send(err);
     } else {
       console.log(itemArray);
-      res.send({msg: 'ok', account: itemArray});
+      res.send({msg: 'ok', item: itemArray});
     }
   });
 });
