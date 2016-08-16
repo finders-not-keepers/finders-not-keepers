@@ -118,14 +118,14 @@ var FindersAPI = finders(connection);
 
 var accountname = "McDonalds";
 
-// FindersAPI.getAccount( accountname ,  function(err, post) {
-//   if(err){
-//     console.log(err);
-//   }
-//   else {
-//     console.log(post);
-//   }
-// });
+FindersAPI.getAccounts( accountname ,  function(err, post) {
+  if(err){
+    console.log(err);
+  }
+  else {
+    console.log(post);
+  }
+});
 
 // var itemobj = {
 //   accountId: 1,

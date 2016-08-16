@@ -102,8 +102,8 @@ ON accounts.addressId = addresses.id
 WHERE addresses.id = 1;
 
 SELECT * FROM accounts
-WHERE MATCH (name)
-AGAINST ('Tim Hortons' IN BOOLEAN MODE);
+WHERE (name='%timhortons%') OR MATCH (name)
+AGAINST ('timhortons' IN BOOLEAN MODE);
 
 
 SELECT * 
@@ -124,6 +124,14 @@ WHERE id = 2;
 UPDATE items
 SET  media="http://1.bp.blogspot.com/-18IF5e9EEyI/VqO0qYLujSI/AAAAAAAAEh0/7dDCQvlAKFY/s1600/hello_kitty_pink_sr1.gif"
 WHERE id = 3;
+
+INSERT INTO accounts 
+  (name, addressId, media, category_account, createdAt, updatedAt)
+VALUES 
+ ("timhortonsone", 1, "http://www.actuallywecreate.com/wp-content/uploads/2012/10/tim-hortons-always-fresh.jpg", "Restaurant", "2016-08-15 19:38:49", "2016-08-15 19:40:00"),
+ ("timhortonstwo", 2, "http://www.actuallywecreate.com/wp-content/uploads/2012/10/tim-hortons-always-fresh.jpg", "Restaurant", "2016-08-15 19:38:49", "2016-08-15 19:40:00"),
+ ("timhortonsthree", 3, "http://www.actuallywecreate.com/wp-content/uploads/2012/10/tim-hortons-always-fresh.jpg", "Restaurant", "2016-08-15 19:38:49", "2016-08-15 19:40:00")
+
 
 
 

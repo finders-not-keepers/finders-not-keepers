@@ -20,11 +20,13 @@ var SearchAccount = React.createClass({
                 account: this.refs.userInput.value
             })
             .then(function(response) {
+                //  var testing = JSON.parse(response.config.data);
+                console.log(response.config.data.account);
                 if(response.data.msg === 'ok'){
-                    that.props.router.push(`/account/${response.data.account}`);
+                //that.props.router.push(`/account/${response.data.account}`);
+                that.props.router.push(`/account/${response.config.data.account}`);
                 }
             })
-            
             .catch(function(error) {
                 console.log(error);
             });
