@@ -11,7 +11,6 @@ return {
                     }
                     else{
                         callback(null, res);
-                        conn.end();
                     }
                 })
         },
@@ -24,8 +23,8 @@ return {
                         callback(err);
                     }
                     else{
+                        console.log(res)
                         callback(null, res);
-                        conn.end();
                     }
                 })
         },
@@ -39,7 +38,6 @@ return {
                     }
                     else {
                         callback(null, res);
-                        conn.end();
                     }
                 })
         },
@@ -53,7 +51,6 @@ return {
                     }
                     else {
                         callback(null, res);
-                        conn.end();
                     }
                 })
         },
@@ -71,7 +68,6 @@ return {
                             }
                             else {
                                 callback(null, res);
-                                conn.end();
                             }
                         })  
         },
@@ -87,7 +83,6 @@ return {
                 }
                 else {
                     callback(null, res);
-                    conn.end();
                 }
             })
         },
@@ -102,7 +97,6 @@ return {
                             }
                             else {
                                 callback(null, res);
-                                conn.end();
                             }
                         }) 
         },
@@ -119,7 +113,6 @@ return {
                             }
                             else {
                                 callback(null, res);
-                                conn.end();
                             }
                         }) 
         }, 
@@ -132,7 +125,6 @@ return {
                 }
                 else {
                     callback(null, res);
-                    conn.end();
                 }
             })
         },
@@ -147,7 +139,6 @@ return {
                 }
                 else {
                     callback(null, res);
-                    conn.end();
                 }
             })
         },
@@ -162,7 +153,6 @@ return {
                 }
                 else {
                     callback(null, res);
-                    conn.end();
                 }
             })
         }, 
@@ -177,7 +167,6 @@ return {
                 }
                 else {
                     callback(null, res);
-                    conn.end();
                 }
             })
         }
