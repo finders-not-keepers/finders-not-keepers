@@ -1,9 +1,28 @@
 var React = require('react');
 var axios = require("axios");
 
+
+
+
 var ClaimItemForm = React.createClass ({
-    _handleClick: function() {
+    _sendData: function() {
         // send to primary account holder e-mail
+        axios.post('/claimItem/send', {
+            name: 'Finders',
+            email: 'Keepers',
+            message :'hello world'
+        })
+        .then(function(response){
+            console.log(response)
+        })
+        .catch (function(error){
+            console.log(error, "bla");
+        })
+        
+    },
+    _handleClick: function(event) {
+        event.preventDefault();
+        this._sendData();
     },
     render: function() {
         return (

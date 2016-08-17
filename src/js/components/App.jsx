@@ -1,11 +1,20 @@
 var React = require('react');
 var Link = require('react-router').Link;
+var Login = require('./Login.jsx')
+
 
 // project files
 var Nav = require("./Nav.jsx")
 
 var App = React.createClass({
     render: function() {
+        
+    var children = null;
+    if (this.props.children) {
+      children = React.cloneElement(this.props.children, {
+        auth: this.props.route.auth //sends auth instance from route to children
+      })
+    }
         return (
             <div className="main-app">
                 <header className="main-header">
@@ -15,7 +24,7 @@ var App = React.createClass({
                 <main className="main-content">
                     <Nav/>
                     <hr/>
-                    {this.props.children}
+                    {children}
                 </main>
             </div>
         );

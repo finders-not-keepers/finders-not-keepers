@@ -57,24 +57,24 @@ FindersAPI.createItem( item, function(err, post) {
 
 
 
-// var admin = {
-//   firstname: "John" ,
-//   lastname: "Smith",
-//   email: "john.smith@hortons.com",
-//   phone: "123-123-1234",
-//   accountId: "1",
-//   createdAt: "2016-08-18", 
-//   updatedAt: "2016-08-18"
-// }
+var admin = {
+  firstname: 'Marc', 
+  lastname: 'Germain',
+  email: 'wecare@ritzcarlton.com',
+  phone: '514 842 4212',
+  accountId: '2',
+  createdAt: '2016-08-14',
+  updatedAt: '2016-08-14'
+}
 
-// FindersAPI.createAdmin(admin, 1, function(err, post) {
-//   if(err){
-//     console.log(err);
-//   }
-//   else {
-//     console.log(post);
-//   }
-// });
+FindersAPI.createAdmin(admin, 2, function(err, post) {
+  if(err){
+    console.log(err);
+  }
+  else {
+    console.log(post);
+  }
+});
 
 // var address= {
 //   streetNumber: 640,
@@ -154,5 +154,13 @@ FindersAPI.editItem(itemid, function(err, post) {
 });
 
 
-
+// var accountId = 1 ;
+// FindersAPI.getAdminEmail(accountId, function(err, post) {
+//   if(err){
+//     console.log(err);
+//   }
+//   else {
+//     console.log(post);
+//   }
+// });
 
