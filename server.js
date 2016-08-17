@@ -6,9 +6,8 @@ var axios =require('axios');
 
 
 var connection = mysql.createConnection({
-  host: '0.tcp.ngrok.io',
-  port: 18067,
-  user: 'root',
+  host: 'localhost',
+  user: 'klingat',
   password: '',
   database: 'finders'
 });
