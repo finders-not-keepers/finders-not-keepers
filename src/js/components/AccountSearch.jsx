@@ -7,8 +7,6 @@ var AccountSearch = React.createClass ({
     render: function () {
       return (
           <div>
-            <h1>Select a place to find your item:</h1>
-            <Link to={`/account/${this.props.params.username}/searchItem`}>{this.props.params.username}</Link>
             {this.props.children}
           </div>
           )   

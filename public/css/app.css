@@ -1,51 +1,33 @@
-html {
-    background-color: #424242;
-    font-family: "Avenir Next";
+body {
+    background: url("/img/Elegant_Background-3.jpg") no-repeat fixed;
+}
+
+.btn {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+#not {
+    font-family: "Yellowtail";
+    color: #d9534f;
+}
+
+h2 {
     color: white;
 }
 
-img {
-    height: 160px;
+#locationSpan {
+    color: #d9534f;
 }
 
-form {
-    display: flex;
-    flex-direction: column;
-    width: 400px;
-}
-
-textarea {
-    margin: 5px;
-    font-size: 16px;
-}
-
-input {
-    margin: 5px;
-    font-size: 16px;
-}
-
-button {
-    margin: 5px;
-    font-size: 16px;
-    background-color: orange;
-    border-radius: 20px;
+h1 {
     color: white;
 }
 
-button:hover {
-    background-color: #d6fb81;
-    color: black;
+.jumbotron {
+   background: rgba(255, 255, 255, 0.4); 
 }
 
 p {
-    margin: 5px;
-}
-
-a {
-    text-decoration: none;
-    color: #d6fb81;
-}
-
-a:hover {
- color: orange;   
+    color: black;
 }
