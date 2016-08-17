@@ -57,3 +57,4 @@ var SearchItem = React.createClass({
 
 var SearchItemRoute = withRouter(SearchItem)
 module.exports = SearchItemRoute;
+

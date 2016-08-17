@@ -46,17 +46,28 @@ app.post('/searchAccount', function(req, res){
 });
 
 app.post('/searchItem', function(req, res) {
-  console.log(req.body);
   findersAPI.getAllItemsForSearch (req.body, function (err, itemArray){
     if(err) {
       console.log(err);
       res.send(err);
     } else {
-      console.log(itemArray);
       res.send({msg: 'ok', item: itemArray});
     }
   });
 });
+
+app.post ('/itemDescription', function (req, res){
+  var itemId = req.body.ID
+  findersAPI.getItemDescription(itemId, function (err, descriptionArray){
+    if(err) {
+      console.log(err);
+      res.status(500).send(err);
+    } else {
+      res.send({msg: 'ok', description: descriptionArray});
+    }
+  });
+});
+
 
 // app.post ('/createPost', function (req, res){
 //   findersAPI.createItem(req.body, function (err, itemArray){
