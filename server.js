@@ -2,7 +2,7 @@ var express = require('express');
 var app = express();
 var mysql = require('mysql');
 var bodyParser = require('body-parser');
-var axios =require('axios');
+var axios = require('axios');
 var nodemailer = require("nodemailer");
 
 
@@ -20,9 +20,9 @@ var findersAPI = finders(connection);
 app.use(express.static(__dirname + '/public'));
 
 app.use(bodyParser.urlencoded({
-    extended: false
-  }));
-  
+  extended: false
+}));
+
 app.use(bodyParser.json());
 
 /* insert any app.get or app.post you need here */
@@ -34,24 +34,32 @@ This will enable us to do url-based routing on the front-end.
 */
 
 
-app.post('/searchAccount', function(req, res){
-  findersAPI.getAccounts(req.body, function(err, accountsArray){
-    if(err) {
+app.post('/searchAccount', function(req, res) {
+  findersAPI.getAccounts(req.body, function(err, accountsArray) {
+    if (err) {
       console.log(err);
       res.send(err);
-    } else {
-      res.send({msg: 'ok', account: accountsArray});
+    }
+    else {
+      res.send({
+        msg: 'ok',
+        account: accountsArray
+      });
     }
   });
 });
 
 app.post('/searchItem', function(req, res) {
-  findersAPI.getAllItemsForSearch (req.body, function (err, itemArray){
-    if(err) {
+  findersAPI.getAllItemsForSearch(req.body, function(err, itemArray) {
+    if (err) {
       console.log(err);
       res.send(err);
-    } else {
-      res.send({msg: 'ok', item: itemArray});
+    }
+    else {
+      res.send({
+        msg: 'ok',
+        item: itemArray
+      });
     }
   });
 });
@@ -67,53 +75,67 @@ app.post('/searchItem', function(req, res) {
 //     }
 //   });
 // });
- 
-  
 
-app.post ('/claimItem/:id', function (req, res){
-  findersAPI.getAccountEmail(req.body.itemId, function (err, email){
+app.post('/claimItem/:id', function(req, res) {
+  findersAPI.getAccountEmail(req.body.itemId, function(err, email) {
+    if (err) {
+      console.log(err);
+      res.status(500).send(err);
+    }
+    else {
+      res.send({
+        msg: 'ok',
+        title: email[0].title,
+        media: email[0].media
+      });
+      var transporter = nodemailer.createTransport({
+        service: 'Gmail',
+        auth: {
+          user: 'findersnotkeepers1@gmail.com',
+          pass: 'finders123'
+        }
+      });
+      var mailOptions = {
+        from: `${req.body.name} <${req.body.email}>`,
+        to: 'findersnotkeepers1@gmail.com',
+        subject: 'Someone has claimed an item!',
+        text: `You have a submission with these details... Name: ${req.body.name} Email: ${req.body.email} Message: ${req.body.message}`,
+        html: `
+              <p>
+              <ul>
+              <li>Name: ${req.body.name}</li>
+              <li>Email: ${req.body.email}</li>
+              <li>Message: ${req.body.message}</li>
+              </ul>
+              </p>`
+      };
+      transporter.sendMail(mailOptions, function(err, info) {
+        if (err) {
+          console.log(err);
+        }
+        else {
+          console.log(`Message Sent: ${info.response}`);
+        }
+      });
+    }
+  });
+});
+  
+app.post('/crap', function (req, res){
+  findersAPI.getItem(req.body.itemId, function (err, itemArray){
     if(err) {
       console.log(err);
       res.status(500).send(err);
     } else {
-      console.log(email[0].email);
-      var emailArr = email[0].title;
-      console.log(emailArr);
-      res.send({msg: 'ok', title: emailArr});
+      console.log(itemArray);
+      res.send({msg: 'ok', item: itemArray});
     }
   });
-    var transporter = nodemailer.createTransport({
-    service: 'Gmail',
-    auth: {
-      user: 'findersnotkeepers1@gmail.com', 
-      pass: 'finders123'
-    }
-  });
-    var mailOptions = {
-    from: `${req.body.name} <${req.body.email}>`,
-    to: ' findersnotkeepers1@gmail.com',
-    subject: 'Someone has claimed an item!',
-    text: `You have a submission with these details... Name: ${req.body.name} Email: ${req.body.email} Message: ${req.body.message}`,
-    html: `
-    <p>
-    <ul>
-    <li>Name: ${req.body.name}</li>
-    <li>Email: ${req.body.email}</li>
-    <li>Message: ${req.body.message}</li>
-    </ul>
-    </p>`
-  };
-  transporter.sendMail(mailOptions, function(err, info) {
-   if(err) {
-  console.log(err);
-   res.redirect('/');
-   } else {
-   console.log(`Message Sent: ${info.response}`);
-   //res.redirect('/');
-   }
-  });
-});
-  
+})
+
+
+
+
 
 // app.post ('/createPost', function (req, res){
 //   findersAPI.createItem(req.body, function (err, itemArray){
