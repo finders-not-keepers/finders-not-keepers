@@ -28,19 +28,6 @@ return {
                     }
                 })
         },
-        createAdmin: function (admin, accountId, callback){
-                conn.query(`INSERT INTO admins (firstname, lastname, email, phone, accountId, createdAt, updatedAt)
-                VALUES (?,?,?,?,?,?,?)`, [admin.firstname, admin.lastname, admin.email, admin.phone, accountId.id, new Date(), new Date()],  
-                function (err, res){
-                    if(err){
-                        callback(err);
-                        console.log(err);
-                    }
-                    else {
-                        callback(null, res);
-                    }
-                })
-        },
         createAddress : function (address, accountId, callback){
             conn.query(`INSERT INTO addresses (street_number, streetline1, streetline2, city, province, country, zip)
                 VALUES (?,?,?,?,?,?,?)`, [address.street_number, address.streetline1, address.streetline2, address.city, address.province, address.country, address.zip], 
@@ -143,20 +130,6 @@ return {
                     callback(null, res);
                 }
             })
-        },
-        deleteAdmin : function(adminid, callback){
-            conn.query(`
-            DELETE
-            FROM admins 
-            WHERE id = ?`, [adminid], function (err, res){
-                if (err){
-                    console.log(err);
-                    callback(err);
-                }
-                else {
-                    callback(null, res);
-                }
-            })
         }, 
         editItem : function (itemid, callback) {
             conn.query(`
@@ -185,20 +158,23 @@ return {
                         callback(null, res);
                     }
                 })
-        },
-        getAdminEmail: function(accountId, callback) {
-            conn.query(`SELECT  email
-                        FROM admins
-                        WHERE accountId = ?;`, [accountId],
+        }, 
+        getAccountEmail: function (itemid, callback){
+            conn.query(`
+                SELECT items.accountId, accounts.email, items.title
+                FROM items 
+                LEFT JOIN accounts 
+                ON items.accountId = accounts.id 
+                WHERE items.id = ?;`, [itemid],
                 function(err, res) {
                     if (err) {
                         callback(err);
                     }
                     else {
+                        console.log(res);
                         callback(null, res);
                     }
                 })
-        
         }
     }
 }

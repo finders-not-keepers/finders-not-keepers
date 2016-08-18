@@ -144,3 +144,17 @@ SELECT accounts.name, items.title, accounts.id
             ON items.accountId = accounts.id 
             WHERE accounts.name = 'timhortonsone' AND MATCH (title, description)
             AGAINST ('water' IN BOOLEAN MODE);
+            
+
+ALTER TABLE accounts
+ADD email VARCHAR(500);
+
+UPDATE accounts
+SET email ="hellokitty@a.com" 
+WHERE id = 9;
+
+SELECT items.accountId, accounts.email
+FROM items 
+LEFT JOIN accounts 
+ON items.accountId = accounts.id 
+WHERE items.id = 6;

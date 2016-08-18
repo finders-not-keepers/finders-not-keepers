@@ -1,12 +1,14 @@
 var React = require('react');
 var Link = require('react-router').Link;
-var Login = require('./Login.jsx')
 
 
 // project files
 var Nav = require("./Nav.jsx")
 
 var App = React.createClass({
+    
+    
+    
     render: function() {
         
     var children = null;
@@ -16,10 +18,10 @@ var App = React.createClass({
       })
     }
         return (
-            <div className="container">
+            <div className="container-fluid">
             <div className="row">
             <div className="col-xs-12">
-            <Nav/>
+            <Nav auth={this.props.route.auth} />
                 <main>
                     {children}
                 </main>

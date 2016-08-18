@@ -2,6 +2,7 @@
 /* ===== ./src/utils/AuthService.js ===== */
 import Auth0Lock from 'auth0-lock'
 import {browserHistory} from 'react-router';
+import AuthEmmitter from './AuthEmmitter';
 
 export default class AuthService {
   constructor(clientId, domain, options) {
@@ -14,15 +15,35 @@ export default class AuthService {
   }
 
   _doAuthentication(authResult){
+    
+    var that = this;
     // Saves the user token
     this.setToken(authResult.idToken)
+    AuthEmmitter.emitter.emit('loggedIn');
+    this.lock.getProfile(authResult.idToken, function(error, profile) {
+    if (error) {
+      console.log(error);
+      return;
+    } else {
+      that.setProfile(profile)
+    }
+    
+    
+    
     browserHistory.push(localStorage.getItem('last_url'));
     localStorage.removeItem('last_url');
+  })
+  }
+  
+  setProfile(profile) {
+    localStorage.setItem('profile', JSON.stringify(profile));
   }
 
   login() {
     // Call the show method to display the widget.
-    this.lock.show()
+    this.lock.show({
+          disableSignupAction: true
+    });
   }
 
   loggedIn(){
@@ -32,7 +53,7 @@ export default class AuthService {
 
   setToken(idToken){
     // Saves user token to localStorage
-    localStorage.setItem('id_token', idToken)
+    localStorage.setItem('id_token', idToken);
   }
 
   getToken(){
@@ -43,5 +64,6 @@ export default class AuthService {
   logout(){
     // Clear user token and profile data from localStorage
     localStorage.removeItem('id_token');
+    localStorage.removeItem('profile');
   }
 }

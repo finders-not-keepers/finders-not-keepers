@@ -18,20 +18,21 @@ var AccountPage = require("./components/AccountPage.jsx")
 var CreatePost = require("./components/CreatePost.jsx")
 var FAQ = require("./components/FAQ.jsx")
 var ClaimItemForm = require("./components/ClaimItemForm.jsx")
-var ItemDesc = require("./components/ItemDesc.jsx")
 var Guidelines = require("./components/Guidelines.jsx")
 import AuthService from "./utils/AuthService";
-var Login = require('./components/Login');
 var Logout = require('./components/Logout');
 
 var App = require("./components/App.jsx");
 var auth = new AuthService("PmdbxTpKHsOulN583eoykb8Z8lizNulQ", "findersnotkeepers.auth0.com");
 
-var requireAuth = function(nextState, replace) {
+var requireAuth = function(nextState, replace, next) {
     if (!auth.loggedIn()) {
         localStorage.setItem('last_url', window.location.pathname);
-        replace({ pathname: '/login' + window.location.hash})
+        replace({ pathname: '/' + window.location.hash})
     }
+    
+    
+    next();  
 }
 
 
@@ -40,7 +41,6 @@ var routes = (
     <Router history={ReactRouter.browserHistory}>
         <Route path="/" component={App} auth={auth}>
         <IndexRoute component={SearchAccount} />
-            <Route path="login" component={Login} />
             <Route path="account/:username" component={AccountSearch}>
                 <Route path="searchItem" component={SearchItem}>
                     <Route path="items/:query" component={Items}/>
@@ -52,9 +52,8 @@ var routes = (
             <Route path="createPost" component={CreatePost} onEnter={requireAuth} />
             <Route path="FAQ" component={FAQ} />
             <Route path="claimItem/:itemId" component={ClaimItemForm}  />
-            <Route path="itemDescription/:itemId" component={ItemDesc} />
             <Route path="guidelines" component={Guidelines} />
-            
+            <Route path="logout" component={Logout} />
         </Route>
         
     </Router>

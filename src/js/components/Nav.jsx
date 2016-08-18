@@ -1,13 +1,61 @@
 var React = require('react');
 var Link = require('react-router').Link;
 var IndexLink = require("react-router").IndexLink;
-var ACTIVE = { background: '#d9534f', color: '#fff'}
+
+var AuthEmmitter = require('../utils/AuthEmmitter.js');
+import {withRouter} from 'react-router';
+
+
+var ACTIVE = {
+  background: '#d9534f',
+  color: '#fff'
+}
 
 var Nav = React.createClass({
-    render: function() {
+  componentDidMount: function(){
+    var that = this;
+    AuthEmmitter.emitter.on('loggedIn', function(){
+      that.props.router.push('/accountPage')
+    })
+  },
+  checkLogin: function() {
+    var auth = this.props.auth;
+    var loggedIn = auth.loggedIn();
+    return loggedIn;
+  },
+  render: function() {
+    var that = this;
+    function renderNav() {
+      
+      if(that.checkLogin()) {
         return (
-            
-        <nav className="navbar navbar-default">
+          <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <ul className="nav navbar-nav">
+                <li><IndexLink to={"/accountPage"} activeStyle={ACTIVE}>Home{/*<span className="sr-only">(current)</span>*/}</IndexLink></li>
+                <li><Link to={"FAQ"} activeStyle={ACTIVE}>FAQ</Link></li>
+              </ul>
+               <ul className="nav navbar-nav navbar-right">
+                  <li><Link to={"Logout"} activeStyle={ACTIVE}>Logout</Link></li>
+              </ul>
+            </div>
+          );
+      } else {
+        return (
+          <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <ul className="nav navbar-nav">
+                <li><IndexLink to={"/"} activeStyle={ACTIVE}>Home{/*<span className="sr-only">(current)</span>*/}</IndexLink></li>
+                <li><Link onClick={(e) => {e.preventDefault(); that.props.auth.login();}} to={"login"} activeStyle={ACTIVE}>Log In</Link></li>
+                <li><Link onClick={(e) => {e.preventDefault(); that.props.auth.signUp();}} to={"signup"} activeStyle={ACTIVE}>Sign Up</Link></li>
+                <li><Link to={"FAQ"} activeStyle={ACTIVE}>FAQ</Link></li>
+              </ul>
+            </div>
+          );
+      }
+    }
+    
+    return (
+
+      <nav className="navbar navbar-default">
           <div className="container-fluid">
             {/*<!-- Brand and toggle get grouped for better mobile display -->*/}
             <div className="navbar-header">
@@ -21,18 +69,13 @@ var Nav = React.createClass({
             </div>
         
             {/*<!-- Collect the nav links, forms, and other content for toggling -->*/}
-            <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-              <ul className="nav navbar-nav">
-                <li><IndexLink to={"/"} activeStyle={ACTIVE}>Home{/*<span className="sr-only">(current)</span>*/}</IndexLink></li>
-                <li><Link to={"login"} activeStyle={ACTIVE}>Log In</Link></li>
-                <li><Link to={"signup"} activeStyle={ACTIVE}>Sign Up</Link></li>
-                <li><Link to={"FAQ"} activeStyle={ACTIVE}>FAQ</Link></li>
-              </ul>
-            </div>{/*<!-- /.navbar-collapse -->*/}
+            {renderNav()}
           </div>{/*<!-- /.container-fluid -->*/}
         </nav>
-        )
-    }
+    )
+  }
 })
 
-module.exports = Nav;
+var NavWithRouter = withRouter(Nav);
+
+module.exports = NavWithRouter;

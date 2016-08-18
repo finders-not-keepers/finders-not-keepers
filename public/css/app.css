@@ -6,6 +6,10 @@ input {
     margin: 5px;
 }
 
+textarea {
+    margin: 5px;
+}
+
 .btn {
     margin: 5px;
 }
@@ -43,3 +47,4 @@ p {
 .modal-dialog {
     margin-top: 15%;
 }
+
