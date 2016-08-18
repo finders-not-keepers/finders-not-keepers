@@ -189,7 +189,7 @@ return {
         getAdminEmail: function(accountId, callback) {
             conn.query(`SELECT  email
                         FROM admins
-                        WHERE accountId=?;`, [accountId],
+                        WHERE accountId = ?;`, [accountId],
                 function(err, res) {
                     if (err) {
                         callback(err);

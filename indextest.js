@@ -19,11 +19,11 @@ var FindersAPI = finders(connection);
 var item = {
     categoryId: 3,
     accountId: 5,
-    title : "Water ski",
-    description: "Found water ski at Tim hortons. ", 
-    media: "http://1.bp.blogspot.com/-18IF5e9EEyI/VqO0qYLujSI/AAAAAAAAEh0/7dDCQvlAKFY/s1600/hello_kitty_pink_sr1.gif" ,
-    createdAt: "2016-08-15", 
-    updatedAt: "2016-08-15"
+    title : "hello kitty skis",
+    description: "Found hello kitty skis. ", 
+    media: "http://www.kittyhell.com/wp-content/uploads/2009/10/hello-kitty-angel-skis.jpg" ,
+    createdAt: "2016-08-16", 
+    updatedAt: "2016-08-16"
 }
 
 FindersAPI.createItem( item, function(err, post) {
@@ -57,24 +57,24 @@ FindersAPI.createItem( item, function(err, post) {
 
 
 
-var admin = {
-  firstname: 'Marc', 
-  lastname: 'Germain',
-  email: 'wecare@ritzcarlton.com',
-  phone: '514 842 4212',
-  accountId: '2',
-  createdAt: '2016-08-14',
-  updatedAt: '2016-08-14'
-}
+// var admin = {
+//   firstname: 'Marc', 
+//   lastname: 'Germain',
+//   email: 'wecare@ritzcarlton.com',
+//   phone: '514 842 4212',
+//   accountId: 2,
+//   createdAt: '2016-08-14',
+//   updatedAt: '2016-08-14'
+// }
 
-FindersAPI.createAdmin(admin, 2, function(err, post) {
-  if(err){
-    console.log(err);
-  }
-  else {
-    console.log(post);
-  }
-});
+// FindersAPI.createAdmin(admin, 2, function(err, post) {
+//   if(err){
+//     console.log(err);
+//   }
+//   else {
+//     console.log(post);
+//   }
+// });
 
 // var address= {
 //   streetNumber: 640,
@@ -142,16 +142,16 @@ FindersAPI.createAdmin(admin, 2, function(err, post) {
 //   }
 // });
 
-var itemid = 2;
+// var itemid = 2;
 
-FindersAPI.editItem(itemid, function(err, post) {
-  if(err){
-    console.log(err);
-  }
-  else {
-    console.log(post);
-  }
-});
+// FindersAPI.editItem(itemid, function(err, post) {
+//   if(err){
+//     console.log(err);
+//   }
+//   else {
+//     console.log(post);
+//   }
+// });
 
 
 // var accountId = 1 ;

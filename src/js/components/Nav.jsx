@@ -2,6 +2,7 @@ var React = require('react');
 var Link = require('react-router').Link;
 var IndexLink = require("react-router").IndexLink;
 var ACTIVE = { background: '#d9534f', color: '#fff'}
+
 var Nav = React.createClass({
     render: function() {
         return (

@@ -7,4 +7,4 @@ var routes = require("./routes");
 
 var App = require('./components/App');
 
-ReactDOM.render(routes, document.getElementById('app'));
+ReactDOM.render(routes, document.getElementById('app')); 

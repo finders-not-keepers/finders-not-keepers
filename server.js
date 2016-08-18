@@ -9,7 +9,7 @@ var nodemailer = require("nodemailer");
 
 var connection = mysql.createConnection({
   host: 'localhost',
-  user: 'klingat',
+  user: 'cbroomhead',
   password: '',
   database: 'finders'
 });
@@ -70,8 +70,8 @@ app.post ('/itemDescription', function (req, res){
 });
 
 app.post ('/claimItem/send', function (req, res){
-  console.log("HERE");
-  
+  console.log("this is the REQ BODY");
+  console.log(req.body)
   var transporter = nodemailer.createTransport({
     service: 'Gmail',
     auth: {
@@ -82,8 +82,8 @@ app.post ('/claimItem/send', function (req, res){
     var mailOptions = {
      from: `${req.body.name} <${req.body.email}>`,
      to: ' findersnotkeepers1@gmail.com',
-     subject: 'Website submission',
-     text: `You have a submission with these details... Name: ${req.body.name} Email: ${req.body.email} Message: ${req.body.message}}`,
+     subject: 'Someone has claimed an item!',
+     text: `You have a submission with these details... Name: ${req.body.name} Email: ${req.body.email} Message: ${req.body.message}`,
      html: `
      <p>
          <ul>

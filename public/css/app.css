@@ -2,9 +2,12 @@ body {
     background: url("/img/Elegant_Background-3.jpg") no-repeat fixed;
 }
 
+input {
+    margin: 5px;
+}
+
 .btn {
-    margin-top: 5px;
-    margin-bottom: 5px;
+    margin: 5px;
 }
 
 #not {
@@ -30,4 +33,13 @@ h1 {
 
 p {
     color: black;
+}
+
+.well {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.modal-dialog {
+    margin-top: 15%;
 }
