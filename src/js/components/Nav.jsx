@@ -2,7 +2,8 @@ var React = require('react');
 var Link = require('react-router').Link;
 var IndexLink = require("react-router").IndexLink;
 
-var AuthEmmitter = require('../utils/AuthEmmitter.js');
+import AuthEmmitter from '../utils/AuthEmmitter.js';
+
 import {withRouter} from 'react-router';
 
 
@@ -22,6 +23,11 @@ var Nav = React.createClass({
     var auth = this.props.auth;
     var loggedIn = auth.loggedIn();
     return loggedIn;
+  },
+  login: function(e) {
+    e.preventDefault();
+    this.props.auth.login();
+    console.log("INSIDE LOGIN")
   },
   render: function() {
     var that = this;
@@ -44,9 +50,9 @@ var Nav = React.createClass({
           <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul className="nav navbar-nav">
                 <li><IndexLink to={"/"} activeStyle={ACTIVE}>Home{/*<span className="sr-only">(current)</span>*/}</IndexLink></li>
-                <li><Link onClick={(e) => {e.preventDefault(); that.props.auth.login();}} to={"login"} activeStyle={ACTIVE}>Log In</Link></li>
-                <li><Link onClick={(e) => {e.preventDefault(); that.props.auth.signUp();}} to={"signup"} activeStyle={ACTIVE}>Sign Up</Link></li>
                 <li><Link to={"FAQ"} activeStyle={ACTIVE}>FAQ</Link></li>
+                <li><Link onClick={that.login} to={"login"} activeStyle={ACTIVE}>Log In or Sign Up</Link></li>
+                
               </ul>
             </div>
           );
