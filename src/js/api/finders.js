@@ -58,7 +58,7 @@ return {
           var itemname = itemsearch.item;
           var itemaccountname = itemsearch.username;
           conn.query( `
-            SELECT accounts.name, items.title, items.id, items.media , items.description
+            SELECT accounts.name, items.title, items.id, items.media , items.description, items.createdAt
             FROM accounts 
             LEFT JOIN items 
             ON items.accountId = accounts.id 
@@ -171,6 +171,34 @@ return {
                     callback(null, res);
                 }
             })
+        }, 
+        getItemDescription: function(itemid, callback) {
+            conn.query(`
+                    SELECT  description, title, media, createdAt
+                    FROM items 
+                    WHERE id =?`, [itemid],
+                function(err, res) {
+                    if (err) {
+                        callback(err);
+                    }
+                    else {
+                        callback(null, res);
+                    }
+                })
+        },
+        getAdminEmail: function(accountId, callback) {
+            conn.query(`SELECT  email
+                        FROM admins
+                        WHERE accountId=?;`, [accountId],
+                function(err, res) {
+                    if (err) {
+                        callback(err);
+                    }
+                    else {
+                        callback(null, res);
+                    }
+                })
+        
         }
     }
 }

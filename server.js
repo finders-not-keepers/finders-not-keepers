@@ -3,11 +3,13 @@ var app = express();
 var mysql = require('mysql');
 var bodyParser = require('body-parser');
 var axios =require('axios');
+var nodemailer = require("nodemailer");
+
 
 
 var connection = mysql.createConnection({
   host: 'localhost',
-  user: 'klingat',
+  user: 'cbroomhead',
   password: '',
   database: 'finders'
 });
@@ -45,17 +47,75 @@ app.post('/searchAccount', function(req, res){
 });
 
 app.post('/searchItem', function(req, res) {
-  console.log(req.body);
   findersAPI.getAllItemsForSearch (req.body, function (err, itemArray){
     if(err) {
       console.log(err);
       res.send(err);
     } else {
-      console.log(itemArray);
       res.send({msg: 'ok', item: itemArray});
     }
   });
 });
+
+app.post ('/itemDescription', function (req, res){
+  var itemId = req.body.ID
+  findersAPI.getItemDescription(itemId, function (err, descriptionArray){
+    if(err) {
+      console.log(err);
+      res.status(500).send(err);
+    } else {
+      res.send({msg: 'ok', description: descriptionArray});
+    }
+  });
+});
+
+app.post ('/claimItem/send', function (req, res){
+  console.log("HERE");
+  
+  var transporter = nodemailer.createTransport({
+    service: 'Gmail',
+    auth: {
+      user: 'findersnotkeepers1@gmail.com', 
+      pass: 'finders123'
+    }
+  });
+    var mailOptions = {
+     from: `${req.body.name} <${req.body.email}>`,
+     to: ' findersnotkeepers1@gmail.com',
+     subject: 'Website submission',
+     text: `You have a submission with these details... Name: ${req.body.name} Email: ${req.body.email} Message: ${req.body.message}}`,
+     html: `
+     <p>
+         <ul>
+           <li>Name: ${req.body.name}</li>
+           <li>Email: ${req.body.email}</li>
+           <li>Message: ${req.body.message}</li>
+         </ul>
+     </p>`
+   };
+   console.log(mailOptions);
+   transporter.sendMail(mailOptions, function(err, info) {
+     if(err) {
+         console.log(err);
+         res.redirect('/');
+     } else {
+         console.log(`Message Sent: ${info.response}`);
+         res.redirect('/');
+     }
+   });
+    
+  });
+  
+  // findersAPI.getItemDescription(PUT ITEM ID, function (err, descriptionArray){
+  //   if(err) {
+  //     console.log(err);
+  //     res.status(500).send(err);
+  //   } else {
+  //     res.send({msg: 'ok', description: descriptionArray});
+  //   }
+  // });
+
+
 
 // app.post ('/createPost', function (req, res){
 //   findersAPI.createItem(req.body, function (err, itemArray){

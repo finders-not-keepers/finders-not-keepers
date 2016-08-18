@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/finders-not-keepers/finders-not-keepers#readme",
   "dependencies": {
+    "auth0-lock": "^10.1.0",
     "axios": "^0.13.1",
     "babel-core": "^6.13.2",
     "babel-loader": "^6.2.4",
@@ -30,8 +31,10 @@
     "babel-preset-react": "^6.11.1",
     "express": "^4.14.0",
     "mysql": "^2.11.1",
+    "nodemailer": "^2.5.0",
     "nodemon": "^1.10.0",
     "react": "^15.3.0",
+    "react-bootstrap": "^0.30.2",
     "react-dom": "^15.3.0",
     "react-router": "^2.6.1",
     "webpack": "^1.13.1"
