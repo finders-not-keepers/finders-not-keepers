@@ -15,20 +15,17 @@ export default class AuthService {
   }
 
   _doAuthentication(authResult){
-    
+     console.log("I'M HERE")
     var that = this;
     // Saves the user token
     this.setToken(authResult.idToken)
     AuthEmmitter.emitter.emit('loggedIn');
+    
+   
     this.lock.getProfile(authResult.idToken, function(error, profile) {
-    if (error) {
-      console.log(error);
-      return;
-    } else {
-      that.setProfile(profile)
-    }
-    
-    
+      console.log("SHIT BE RUNNING!!!!!", profile)
+    AuthEmmitter.emitter.emit('profile', {profile: profile});
+  
     
     browserHistory.push(localStorage.getItem('last_url'));
     localStorage.removeItem('last_url');
