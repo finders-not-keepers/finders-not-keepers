@@ -160,6 +160,7 @@ ON items.accountId = accounts.id
 WHERE items.id = 6;
 
 ALTER TABLE accounts
+<<<<<<< HEAD
 ADD clientid VARCHAR(500);
 
 
@@ -170,3 +171,6 @@ WHERE id = 5;
 
 SELECT * FROM accounts
 WHERE clientid = "PmdbxTpKHsOulN583eoykb8Z8lizNulQ";
+=======
+ADD address VARCHAR(500);
+>>>>>>> backend

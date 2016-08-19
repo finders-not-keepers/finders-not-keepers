@@ -23,7 +23,10 @@ export default class AuthService {
     
    
     this.lock.getProfile(authResult.idToken, function(error, profile) {
+<<<<<<< HEAD
      
+=======
+>>>>>>> backend
     AuthEmmitter.emitter.emit('profile', {profile: profile});
     // var that = this;
     // axios.post('/storesignup', {

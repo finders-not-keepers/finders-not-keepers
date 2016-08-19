@@ -4,6 +4,27 @@ var mysql = require('mysql');
 var bodyParser = require('body-parser');
 var axios = require('axios');
 var nodemailer = require("nodemailer");
+var jwt = require('express-jwt');
+
+
+
+var jwtCheck = jwt({
+  secret: new Buffer('iKtmQ6lhYlaKbX1QlixUiHl3eqmzhsCJMF5gXi8_rxzDLTgBNlHVF5BaJ3eS_gaW', 'base64'),
+  audience: 'PmdbxTpKHsOulN583eoykb8Z8lizNulQ'
+});
+
+
+var AuthenticationClient = require('auth0').AuthenticationClient;
+var auth0 = new AuthenticationClient({
+  domain: 'findersnotkeepers.auth0.com',
+  clientId: 'PmdbxTpKHsOulN583eoykb8Z8lizNulQ'
+});
+
+var ManagementClient = require('auth0').ManagementClient;
+var management = new ManagementClient({
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJQQ09od3psU29GZEJraWdlVkF0MXJXNGhMUnZZU2ZVRCIsInNjb3BlcyI6eyJ1c2VycyI6eyJhY3Rpb25zIjpbInJlYWQiXX19LCJpYXQiOjE0NzE2Mjg2MDQsImp0aSI6ImFiN2Y0MzI3NTdhMGY0ZDY4NGM5ZTk5MmZmZjI5MWIyIn0.GIZ8V4fSWBoR7G1waPpkh3A8metchHGoOr59Y38vXts',
+  domain: 'findersnotkeepers.auth0.com'
+});
 
 
 
@@ -64,20 +85,6 @@ app.post('/searchItem', function(req, res) {
   });
 });
 
-// app.post ('/itemDescription', function (req, res){
-//   var itemId = req.body.ID
-//   findersAPI.getItemDescription(itemId, function (err, descriptionArray){
-//     if(err) {
-//       console.log(err);
-//       res.status(500).send(err);
-//     } else {
-//       res.send({msg: 'ok', description: descriptionArray});
-//     }
-//   });
-// });
-
-
-
 app.post('/claimItem/:id', function(req, res) {
   findersAPI.getAccountEmail(req.body.itemId, function(err, email) {
     if (err) {
@@ -134,19 +141,26 @@ app.post('/crap', function (req, res){
   });
 })
 
+app.post ('/login', jwtCheck , function(req, res){
+  management.getUser({id: req.user.sub}, function(err, profile) {
+    // here we have access to the profle of the user from auth0
+    findersAPI.createProfile(profile, function (req, profileArray){
+      if(err){
+        console.log(err);
+      }
+      else {
+        console.log(profileArray);
+        res.send({msg: 'ok', item: profileArray})
+      }
+    } )
+  })
+})
 
-// app.post('/storesignup', function (req, res){
-//   console.log(req.body);
-//   findersAPI.checkAccountExist(req.body.itemId, function (err, itemArray){
-//     if(err) {
-//       console.log(err);
-//       res.status(500).send(err);
-//     } else {
-//       console.log(itemArray);
-//       res.send({msg: 'ok', item: itemArray});
-//     }
-//   });
-// })
+
+app.post ('/stuff', function (req, res){
+  
+})
+
 
 
 
@@ -162,9 +176,9 @@ app.post('/crap', function (req, res){
 // });
 
 
-// app.get('/*', function(request, response) {
-//   response.sendFile(__dirname + '/public/index.html');
-// });
+app.get('/*', function(request, response) {
+  response.sendFile(__dirname + '/public/index.html');
+});
 
 app.listen(process.env.PORT || 8080, function() {
   console.log('Server started');

@@ -39,9 +39,11 @@ var ClaimItemForm = React.createClass ({
             message : that.refs.description.value
         })
         .then(function(response){
+
             if(response.data.msg === 'ok'){
                console.log(response);
             }
+
         })
         .catch (function(error){
             console.log(error);
