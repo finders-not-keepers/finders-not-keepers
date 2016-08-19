@@ -24,10 +24,11 @@ var Nav = React.createClass({
     var loggedIn = auth.loggedIn();
     return loggedIn;
   },
-  login: function(e) {
-    e.preventDefault();
+  login: function(event) {
+    event.preventDefault();
     this.props.auth.login();
     console.log("INSIDE LOGIN")
+    console.log(this.props.auth);
   },
   render: function() {
     var that = this;

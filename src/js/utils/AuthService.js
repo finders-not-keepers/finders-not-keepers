@@ -25,8 +25,19 @@ export default class AuthService {
     this.lock.getProfile(authResult.idToken, function(error, profile) {
      
     AuthEmmitter.emitter.emit('profile', {profile: profile});
-
-    //put acios post here
+    // var that = this;
+    // axios.post('/storesignup', {
+    //         profile: that.profile
+    //     })
+    //     .then(function(response){
+    //       console.log("AXIOS POST INSIDE AUTHEMIT");
+    //         if(response.data.msg === 'ok'){
+    //           console.log(response);
+    //         }
+    //     })
+    //     .catch (function(error){
+    //         console.log(error);
+    //     })
         
     browserHistory.push(localStorage.getItem('last_url'));
     localStorage.removeItem('last_url');

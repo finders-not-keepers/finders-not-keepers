@@ -176,7 +176,7 @@ return {
         }, 
         checkAccountExist : function (clientid, callback) {
             conn.query(`
-                SELECT clientid
+                SELECT *
                 FROM accounts
                 WHERE accounts.clientid = ?;`, [clientid],
                 function(err, res) {

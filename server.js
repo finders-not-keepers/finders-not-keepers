@@ -135,17 +135,18 @@ app.post('/crap', function (req, res){
 })
 
 
-app.post('/storesignup', function (req, res){
-  findersAPI.checkAccountExist(req.body.itemId, function (err, itemArray){
-    if(err) {
-      console.log(err);
-      res.status(500).send(err);
-    } else {
-      console.log(itemArray);
-      res.send({msg: 'ok', item: itemArray});
-    }
-  });
-})
+// app.post('/storesignup', function (req, res){
+//   console.log(req.body);
+//   findersAPI.checkAccountExist(req.body.itemId, function (err, itemArray){
+//     if(err) {
+//       console.log(err);
+//       res.status(500).send(err);
+//     } else {
+//       console.log(itemArray);
+//       res.send({msg: 'ok', item: itemArray});
+//     }
+//   });
+// })
 
 
 

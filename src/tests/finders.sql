@@ -167,3 +167,6 @@ ADD clientid VARCHAR(500);
 UPDATE accounts
 SET clientId ="PmdbxTpKHsOulN583eoykb8Z8lizNulQ" 
 WHERE id = 5;
+
+SELECT * FROM accounts
+WHERE clientid = "PmdbxTpKHsOulN583eoykb8Z8lizNulQ";
