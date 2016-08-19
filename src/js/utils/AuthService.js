@@ -15,7 +15,6 @@ export default class AuthService {
   }
 
   _doAuthentication(authResult){
-     console.log("I'M HERE")
     var that = this;
     // Saves the user token
     this.setToken(authResult.idToken)
@@ -23,7 +22,6 @@ export default class AuthService {
     
    
     this.lock.getProfile(authResult.idToken, function(error, profile) {
-      console.log("SHIT BE RUNNING!!!!!", profile)
     AuthEmmitter.emitter.emit('profile', {profile: profile});
   
     

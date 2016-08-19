@@ -4,7 +4,21 @@ var mysql = require('mysql');
 var bodyParser = require('body-parser');
 var axios = require('axios');
 var nodemailer = require("nodemailer");
+var jwt = require('express-jwt');
+var Auth0 = require('auth0-js');
 
+
+var jwtCheck = jwt({
+  secret: new Buffer('iKtmQ6lhYlaKbX1QlixUiHl3eqmzhsCJMF5gXi8_rxzDLTgBNlHVF5BaJ3eS_gaW', 'base64'),
+  audience: 'PmdbxTpKHsOulN583eoykb8Z8lizNulQ'
+});
+
+var auth0 = new Auth0({
+    domain:       'findersnotkeepers.auth0.com',
+    clientID:     'PmdbxTpKHsOulN583eoykb8Z8lizNulQ',
+    callbackURL:  'https://finders-not-keepers-final-cbroomhead.c9users.io/accountPage',
+    responseType: 'token'
+  });
 
 
 var connection = mysql.createConnection({
@@ -64,18 +78,6 @@ app.post('/searchItem', function(req, res) {
   });
 });
 
-// app.post ('/itemDescription', function (req, res){
-//   var itemId = req.body.ID
-//   findersAPI.getItemDescription(itemId, function (err, descriptionArray){
-//     if(err) {
-//       console.log(err);
-//       res.status(500).send(err);
-//     } else {
-//       res.send({msg: 'ok', description: descriptionArray});
-//     }
-//   });
-// });
-
 app.post('/claimItem/:id', function(req, res) {
   findersAPI.getAccountEmail(req.body.itemId, function(err, email) {
     if (err) {
@@ -133,7 +135,25 @@ app.post('/crap', function (req, res){
   });
 })
 
-
+app.post ('/login', jwtCheck , function(req, res){
+  findersAPI.findProfile (req.user.sub, function(err, profile) {
+    if(err){
+      console.log(err);
+    }
+    else {
+    if (!profile) {
+          auth0.getProfile(req.body.id_token, function(err, auth0Profile) {
+            if (err){
+              console.log(err);
+            }
+            else {
+              findersAPI.createProfile({name: auth0Profile.full_name})
+            }
+        })
+      }
+    }
+  })
+})
 
 
 
@@ -149,9 +169,9 @@ app.post('/crap', function (req, res){
 // });
 
 
-// app.get('/*', function(request, response) {
-//   response.sendFile(__dirname + '/public/index.html');
-// });
+app.get('/*', function(request, response) {
+  response.sendFile(__dirname + '/public/index.html');
+});
 
 app.listen(process.env.PORT || 8080, function() {
   console.log('Server started');
