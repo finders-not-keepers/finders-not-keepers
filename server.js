@@ -136,7 +136,6 @@ app.post('/crap', function (req, res){
       console.log(err);
       res.status(500).send(err);
     } else {
-      console.log(itemArray);
       res.send({msg: 'ok', item: itemArray});
     }
   });
@@ -157,9 +156,11 @@ app.post ('/login', jwtCheck , function(req, res){
   })
 })
 
+
 app.post ('/stuff', function (req, res){
   
 })
+
 
 
 

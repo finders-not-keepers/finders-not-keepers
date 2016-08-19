@@ -32,7 +32,6 @@ var auth = window.auth = new AuthService("PmdbxTpKHsOulN583eoykb8Z8lizNulQ", "fi
             name: "bizname",
             placeholder: "Enter name of your business",
             // The following properties are optionalicon: "https://example.com/assests/address_icon.png",
-            prefill: "",
             validator: function(bizname) {
                 return {
                     valid: bizname.length >= 5,

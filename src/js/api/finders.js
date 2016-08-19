@@ -60,13 +60,11 @@ return {
                             }
                         })  
         },
-        getItem : function (item, callback){
-            var itemaccountId=  item.accountId;
-            var itemtitle =item.title
+        getItem : function (itemid, callback){
             conn.query(`
             SELECT * 
             FROM items 
-            WHERE accountId = ? AND title = ?`, [itemaccountId, itemtitle], function (err, res){
+            WHERE id = ? `, [itemid], function (err, res){
                 if(err){
                     callback(err)
                 }
@@ -176,6 +174,20 @@ return {
                     }
                 })
         }, 
+        checkAccountExist : function (clientid, callback) {
+            conn.query(`
+                SELECT *
+                FROM accounts
+                WHERE accounts.clientid = ?;`, [clientid],
+                function(err, res) {
+                    if (err) {
+                        callback(err);
+                    }
+                    else {
+                        console.log(res);
+                    }
+            })
+        },
         createProfile : function (account, callback){
              conn.query(`INSERT INTO accounts (name, address, media, category_account, email, createdAt, updatedAt)
                 VALUES (?,?,?,?,?,?,?)`, [account.user_metadata.bizname, account.user_metadata.address, account.picture, account.user_metadata.type, account.email, account.created_at, account.updated_at], 

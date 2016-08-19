@@ -37,8 +37,8 @@ var Nav = React.createClass({
     var loggedIn = auth.loggedIn();
     return loggedIn;
   },
-  login: function(e) {
-    e.preventDefault();
+  login: function(event) {
+    event.preventDefault();
     this.props.auth.login();
   },
   render: function() {
@@ -83,7 +83,7 @@ var Nav = React.createClass({
                 <span className="icon-bar"></span>
                 <span className="icon-bar"></span>
               </button>
-             {/*<a className="navbar-brand" href="/">Finders Not Keepers</a>*/}
+             <a className="navbar-brand" href="/"><img src="img/favicon.png" width="27px" /></a>
             </div>
         
             {/*<!-- Collect the nav links, forms, and other content for toggling -->*/}
