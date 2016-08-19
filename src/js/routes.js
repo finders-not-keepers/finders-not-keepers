@@ -27,6 +27,7 @@ var App = require("./components/App.jsx");
 
 
 var auth = new AuthService("PmdbxTpKHsOulN583eoykb8Z8lizNulQ", "findersnotkeepers.auth0.com", {
+    redirectUrl: window.location.href,
     allowedConnections: ['Username-Password-Authentication'],
     additionalSignUpFields: [{
             name: "bizname",

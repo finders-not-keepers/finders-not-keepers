@@ -76,6 +76,8 @@ app.post('/searchItem', function(req, res) {
 //   });
 // });
 
+
+
 app.post('/claimItem/:id', function(req, res) {
   findersAPI.getAccountEmail(req.body.itemId, function(err, email) {
     if (err) {
@@ -127,13 +129,23 @@ app.post('/crap', function (req, res){
       console.log(err);
       res.status(500).send(err);
     } else {
-      console.log(itemArray);
       res.send({msg: 'ok', item: itemArray});
     }
   });
 })
 
 
+app.post('/storesignup', function (req, res){
+  findersAPI.checkAccountExist(req.body.itemId, function (err, itemArray){
+    if(err) {
+      console.log(err);
+      res.status(500).send(err);
+    } else {
+      console.log(itemArray);
+      res.send({msg: 'ok', item: itemArray});
+    }
+  });
+})
 
 
 

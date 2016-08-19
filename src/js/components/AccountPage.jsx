@@ -1,5 +1,6 @@
 var React = require('react');
 var Link = require('react-router').Link;
+var axios = require("axios");
 import AuthEmmitter from '../utils/AuthEmmitter';
 
 var AccountPage = React.createClass({

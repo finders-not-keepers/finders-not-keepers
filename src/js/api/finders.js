@@ -60,13 +60,11 @@ return {
                             }
                         })  
         },
-        getItem : function (item, callback){
-            var itemaccountId=  item.accountId;
-            var itemtitle =item.title
+        getItem : function (itemid, callback){
             conn.query(`
             SELECT * 
             FROM items 
-            WHERE accountId = ? AND title = ?`, [itemaccountId, itemtitle], function (err, res){
+            WHERE id = ? `, [itemid], function (err, res){
                 if(err){
                     callback(err)
                 }
@@ -166,6 +164,21 @@ return {
                 LEFT JOIN accounts 
                 ON items.accountId = accounts.id 
                 WHERE items.id = ?;`, [itemid],
+                function(err, res) {
+                    if (err) {
+                        callback(err);
+                    }
+                    else {
+                        console.log(res);
+                        callback(null, res);
+                    }
+                })
+        }, 
+        checkAccountExist : function (clientid, callback) {
+            conn.query(`
+                SELECT clientid
+                FROM accounts
+                WHERE accounts.clientid = ?;`, [clientid],
                 function(err, res) {
                     if (err) {
                         callback(err);

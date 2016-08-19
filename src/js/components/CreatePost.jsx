@@ -1,6 +1,10 @@
 var React = require('react');
 
 var CreatePost = React.createClass({
+    _handleClick: function(event) {
+        event.preventDefault();
+        this._sendData();
+    },
     render: function() {
         return(
             <div>

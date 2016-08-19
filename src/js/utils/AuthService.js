@@ -3,6 +3,7 @@
 import Auth0Lock from 'auth0-lock'
 import {browserHistory} from 'react-router';
 import AuthEmmitter from './AuthEmmitter';
+var axios = require("axios");
 
 export default class AuthService {
   constructor(clientId, domain, options) {
@@ -15,7 +16,6 @@ export default class AuthService {
   }
 
   _doAuthentication(authResult){
-     console.log("I'M HERE")
     var that = this;
     // Saves the user token
     this.setToken(authResult.idToken)
@@ -23,10 +23,11 @@ export default class AuthService {
     
    
     this.lock.getProfile(authResult.idToken, function(error, profile) {
-      console.log("SHIT BE RUNNING!!!!!", profile)
+     
     AuthEmmitter.emitter.emit('profile', {profile: profile});
-  
-    
+
+    //put acios post here
+        
     browserHistory.push(localStorage.getItem('last_url'));
     localStorage.removeItem('last_url');
   })

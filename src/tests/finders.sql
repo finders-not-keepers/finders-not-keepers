@@ -139,11 +139,11 @@ ON items.accountId = accounts.id
 SELECT accounts.name, items.title, accounts.id FROM accounts LEFT JOIN items ON items.accountId = accounts.id WHERE accounts.name = 'timhortonsone' ;
 
 SELECT accounts.name, items.title, accounts.id 
-            FROM accounts 
-            LEFT JOIN items 
-            ON items.accountId = accounts.id 
-            WHERE accounts.name = 'timhortonsone' AND MATCH (title, description)
-            AGAINST ('water' IN BOOLEAN MODE);
+FROM accounts 
+LEFT JOIN items 
+ON items.accountId = accounts.id 
+WHERE accounts.name = 'timhortonsone' AND MATCH (title, description)
+AGAINST ('water' IN BOOLEAN MODE);
             
 
 ALTER TABLE accounts
@@ -158,3 +158,12 @@ FROM items
 LEFT JOIN accounts 
 ON items.accountId = accounts.id 
 WHERE items.id = 6;
+
+ALTER TABLE accounts
+ADD clientid VARCHAR(500);
+
+
+
+UPDATE accounts
+SET clientId ="PmdbxTpKHsOulN583eoykb8Z8lizNulQ" 
+WHERE id = 5;
