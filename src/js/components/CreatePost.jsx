@@ -1,6 +1,9 @@
 var React = require('react');
 
 var CreatePost = React.createClass({
+    _handleSubmit: function () {
+        
+    },
     render: function() {
         return(
             <div>

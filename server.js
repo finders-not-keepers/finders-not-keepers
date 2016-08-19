@@ -5,7 +5,7 @@ var bodyParser = require('body-parser');
 var axios = require('axios');
 var nodemailer = require("nodemailer");
 var jwt = require('express-jwt');
-var Auth0 = require('auth0-js');
+
 
 
 var jwtCheck = jwt({
@@ -13,12 +13,19 @@ var jwtCheck = jwt({
   audience: 'PmdbxTpKHsOulN583eoykb8Z8lizNulQ'
 });
 
-var auth0 = new Auth0({
-    domain:       'findersnotkeepers.auth0.com',
-    clientID:     'PmdbxTpKHsOulN583eoykb8Z8lizNulQ',
-    callbackURL:  'https://finders-not-keepers-final-cbroomhead.c9users.io/accountPage',
-    responseType: 'token'
-  });
+
+var AuthenticationClient = require('auth0').AuthenticationClient;
+var auth0 = new AuthenticationClient({
+  domain: 'findersnotkeepers.auth0.com',
+  clientId: 'PmdbxTpKHsOulN583eoykb8Z8lizNulQ'
+});
+
+var ManagementClient = require('auth0').ManagementClient;
+var management = new ManagementClient({
+  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJQQ09od3psU29GZEJraWdlVkF0MXJXNGhMUnZZU2ZVRCIsInNjb3BlcyI6eyJ1c2VycyI6eyJhY3Rpb25zIjpbInJlYWQiXX19LCJpYXQiOjE0NzE2Mjg2MDQsImp0aSI6ImFiN2Y0MzI3NTdhMGY0ZDY4NGM5ZTk5MmZmZjI5MWIyIn0.GIZ8V4fSWBoR7G1waPpkh3A8metchHGoOr59Y38vXts',
+  domain: 'findersnotkeepers.auth0.com'
+});
+
 
 
 var connection = mysql.createConnection({
@@ -136,23 +143,22 @@ app.post('/crap', function (req, res){
 })
 
 app.post ('/login', jwtCheck , function(req, res){
-  findersAPI.findProfile (req.user.sub, function(err, profile) {
-    if(err){
-      console.log(err);
-    }
-    else {
-    if (!profile) {
-          auth0.getProfile(req.body.id_token, function(err, auth0Profile) {
-            if (err){
-              console.log(err);
-            }
-            else {
-              findersAPI.createProfile({name: auth0Profile.full_name})
-            }
-        })
+  management.getUser({id: req.user.sub}, function(err, profile) {
+    // here we have access to the profle of the user from auth0
+    findersAPI.createProfile(profile, function (req, profileArray){
+      if(err){
+        console.log(err);
       }
-    }
+      else {
+        console.log(profileArray);
+        res.send({msg: 'ok', item: profileArray})
+      }
+    } )
   })
+})
+
+app.post ('/stuff', function (req, res){
+  
 })
 
 

@@ -1,24 +1,35 @@
+/*global localStorage */
+
 var React = require('react');
 var Link = require('react-router').Link;
 import AuthEmmitter from '../utils/AuthEmmitter';
+var axios = require('axios');
 
 var AccountPage = React.createClass({
     getInitialState: function() {
         return {}
     },
+    _fetchData : function (){
+        axios.post('/stuff', {
+            tokenId: localStorage.getItem('id_token')
+        })
+        .then(function(response){
+        })
+        .catch (function(error){
+            console.log(error);
+        })
+    },
     componentDidMount: function() {
+        console.log(this.props); 
+        
         var that  = this;
         AuthEmmitter.emitter.on('profile', function(profile){
-            console.log("THIS IS IN")
             that.setState({
                 account: profile
             })
         })
     },
     render: function() {
-        console.log(this.state);
-        //console.log(JSON.parse(localStorage.getItem("profile")));
-        
         return (
             <div className="jumbotron center">
                 <h1 className="text-center"> Welcome back,</h1>

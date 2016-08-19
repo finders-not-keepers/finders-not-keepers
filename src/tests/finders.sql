@@ -158,3 +158,6 @@ FROM items
 LEFT JOIN accounts 
 ON items.accountId = accounts.id 
 WHERE items.id = 6;
+
+ALTER TABLE accounts
+ADD address VARCHAR(500);

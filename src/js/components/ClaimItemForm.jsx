@@ -12,11 +12,10 @@ var ClaimItemForm = React.createClass ({
             message : that.refs.description.value
         })
         .then(function(response){
-            console.log("FRONT END RES")
             var emailobj = response.data;
         })
         .catch (function(error){
-            console.log(error, "bla");
+            console.log(error);
         })
     },
     _handleClick: function(event) {

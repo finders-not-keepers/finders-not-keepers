@@ -26,7 +26,7 @@ var App = require("./components/App.jsx");
 
 
 
-var auth = new AuthService("PmdbxTpKHsOulN583eoykb8Z8lizNulQ", "findersnotkeepers.auth0.com", {
+var auth = window.auth = new AuthService("PmdbxTpKHsOulN583eoykb8Z8lizNulQ", "findersnotkeepers.auth0.com", {
     allowedConnections: ['Username-Password-Authentication'],
     additionalSignUpFields: [{
             name: "bizname",

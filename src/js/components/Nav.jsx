@@ -1,6 +1,9 @@
+/*global localStorage*/
+
 var React = require('react');
 var Link = require('react-router').Link;
 var IndexLink = require("react-router").IndexLink;
+var axios = require('axios');
 
 import AuthEmmitter from '../utils/AuthEmmitter.js';
 
@@ -16,6 +19,16 @@ var Nav = React.createClass({
   componentDidMount: function(){
     var that = this;
     AuthEmmitter.emitter.on('loggedIn', function(){
+        axios.create({
+        headers: { 
+            authorization: 'Bearer ' + localStorage.getItem('id_token')
+        }
+        }).post('/login', {idToken: localStorage.getItem('id_token')})
+        .then(function(response){
+        })
+        .catch (function(error){
+            console.log(error);
+        })
       that.props.router.push('/accountPage')
     })
   },
@@ -27,7 +40,6 @@ var Nav = React.createClass({
   login: function(e) {
     e.preventDefault();
     this.props.auth.login();
-    console.log("INSIDE LOGIN")
   },
   render: function() {
     var that = this;
