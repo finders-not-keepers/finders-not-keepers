@@ -30,7 +30,7 @@ var management = new ManagementClient({
 
 var connection = mysql.createConnection({
   host: 'localhost',
-  user: 'klingat',
+  user: 'cbroomhead',
   password: '',
   database: 'finders'
 });

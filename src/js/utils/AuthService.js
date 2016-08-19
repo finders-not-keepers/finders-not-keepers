@@ -3,7 +3,6 @@
 import Auth0Lock from 'auth0-lock'
 import {browserHistory} from 'react-router';
 import AuthEmmitter from './AuthEmmitter';
-var axios = require("axios");
 
 export default class AuthService {
   constructor(clientId, domain, options) {
@@ -23,25 +22,9 @@ export default class AuthService {
     
    
     this.lock.getProfile(authResult.idToken, function(error, profile) {
-<<<<<<< HEAD
-     
-=======
->>>>>>> backend
     AuthEmmitter.emitter.emit('profile', {profile: profile});
-    // var that = this;
-    // axios.post('/storesignup', {
-    //         profile: that.profile
-    //     })
-    //     .then(function(response){
-    //       console.log("AXIOS POST INSIDE AUTHEMIT");
-    //         if(response.data.msg === 'ok'){
-    //           console.log(response);
-    //         }
-    //     })
-    //     .catch (function(error){
-    //         console.log(error);
-    //     })
-        
+  
+    
     browserHistory.push(localStorage.getItem('last_url'));
     localStorage.removeItem('last_url');
   })

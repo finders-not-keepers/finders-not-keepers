@@ -174,7 +174,6 @@ return {
                     }
                 })
         }, 
-<<<<<<< HEAD
         checkAccountExist : function (clientid, callback) {
             conn.query(`
                 SELECT *
@@ -186,7 +185,9 @@ return {
                     }
                     else {
                         console.log(res);
-=======
+                    }
+            })
+        },
         createProfile : function (account, callback){
              conn.query(`INSERT INTO accounts (name, address, media, category_account, email, createdAt, updatedAt)
                 VALUES (?,?,?,?,?,?,?)`, [account.user_metadata.bizname, account.user_metadata.address, account.picture, account.user_metadata.type, account.email, account.created_at, account.updated_at], 
@@ -196,7 +197,6 @@ return {
                         callback(err);
                     }
                     else{
->>>>>>> backend
                         callback(null, res);
                     }
                 })
