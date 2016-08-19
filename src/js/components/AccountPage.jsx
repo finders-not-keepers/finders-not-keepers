@@ -34,7 +34,7 @@ var AccountPage = React.createClass({
         return (
             <div className="jumbotron center">
                 <h1 className="text-center"> Welcome back,</h1>
-                <h1 className="text-center"><span id="not">{this.state.account ? this.state.account.profile.user_metadata.bizname : ''}</span></h1>
+                <h1 className="text-center"><span id="accountName">{this.state.account ? this.state.account.profile.user_metadata.bizname : ''}</span></h1>
                 <p className="text-center">What would you like to do today?</p>
                 <div className="text-center">
                 <button type="button" className="btn btn-danger btn-lg"><span className="glyphicon glyphicon-eye-open"></span>  View/Delete Posts</button>
