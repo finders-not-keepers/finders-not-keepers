@@ -34,19 +34,17 @@ var SearchAccount = React.createClass({
     render: function() {
         var that = this;
         return (
-            <div>
-            <div className="jumbotron">
-                <h1 className="text-center">Finders<span id="not">Not</span> Keepers</h1>
-                <p className="text-center">We find the shit you forgot at the places you went to.</p>
-            </div>
-            
-            <h2>Where did you lose your item?</h2>
-            
-    
-                <div>   
-                    <input ref="userInput" className="form-control" type="text" />
-                    <button onClick={this._handleClick} className="btn btn-lg btn-danger">Go!</button>
-                </div>
+                <div className="container">
+                <h1 className="text-center element-animation">Finders<span id="not">Not</span> Keepers</h1>
+                <p className="text-center homePageSubtitle other-element-animation">We find the shit you forgot at the places you went to.</p>
+                <br/>
+                <hr/>
+                <br/>
+                <h2>Where did you lose your item?</h2>
+                <form name="myform">   
+                    <input ref="userInput" className="form-control input-lg" type="text" name="mytextfield" />
+                    <button onClick={this._handleClick} className="btn btn-lg btn-danger"><span className="glyphicon glyphicon-arrow-right"></span></button>
+                </form>
                 
                 <ul className="list-group">
                 {that.state.accounts ? that.state.accounts.map(acc => {
@@ -54,8 +52,10 @@ var SearchAccount = React.createClass({
                 }) : ""}
                 </ul>
                 {this.props.children}
+                
             </div>
-        )
+            
+            )
     }
 })
 

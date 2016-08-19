@@ -40,7 +40,7 @@ var Items = React.createClass({
                           
                             <div className = "caption">
                                  <h3>{item.title}</h3>
-                                 <p>Found on <span id="not">{item.createdAt}</span></p>
+                                 <p>Found on <span id="accountName">{item.createdAt}</span></p>
                                  
                                  <Link to={`claimItem/${item.id}`}><button className="btn btn-info btn-sm">Claim</button></Link>
                                  <button className="btn btn-warning btn-sm" type="button" data-toggle="modal" data-target={itemIdTarget}>View Description</button>

@@ -48,7 +48,7 @@ var SearchItem = React.createClass({
             <div>
             <h2>What did you lose at <span id="locationSpan">{this.props.params.username}</span>?</h2>
                 <input ref="userInput" className="form-control" type="text" />
-                <button onClick={this._handleClick} className=" btn-lg btn btn-danger">Find!</button>
+                <button onClick={this._handleClick} className=" btn-lg btn btn-danger"><span className="glyphicon glyphicon-search"></span></button>
                 {this.state.item ? <Items fetchData={this._handleClick} query={this.props.params.query} items={this.state.item}/> : ''}
             </div>
             )
