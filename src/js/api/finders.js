@@ -28,19 +28,6 @@ return {
                     }
                 })
         },
-        createAdmin: function (admin, accountId, callback){
-                conn.query(`INSERT INTO admins (firstname, lastname, email, phone, accountId, createdAt, updatedAt)
-                VALUES (?,?,?,?,?,?,?)`, [admin.firstname, admin.lastname, admin.email, admin.phone, accountId.id, new Date(), new Date()],  
-                function (err, res){
-                    if(err){
-                        callback(err);
-                        console.log(err);
-                    }
-                    else {
-                        callback(null, res);
-                    }
-                })
-        },
         createAddress : function (address, accountId, callback){
             conn.query(`INSERT INTO addresses (street_number, streetline1, streetline2, city, province, country, zip)
                 VALUES (?,?,?,?,?,?,?)`, [address.street_number, address.streetline1, address.streetline2, address.city, address.province, address.country, address.zip], 
@@ -55,14 +42,16 @@ return {
                 })
         },
         getAllItemsForSearch : function (itemsearch, callback){ //itemsearch must be object with string and accountId properties 
-          var itemstring = itemsearch.string;
-          var itemaccountid = itemsearch.accountId;
-          conn.query( `SELECT * 
-                        FROM items 
-                        WHERE accountId = ? AND MATCH (title, description)
-                        AGAINST (? IN BOOLEAN MODE);`, [itemaccountid, itemstring],
+          var itemname = itemsearch.item;
+          var itemaccountname = itemsearch.username;
+          conn.query( `
+            SELECT accounts.name, items.title, items.id, items.media , items.description, items.createdAt
+            FROM accounts 
+            LEFT JOIN items 
+            ON items.accountId = accounts.id 
+            WHERE accounts.name = ? AND MATCH (title, description)
+            AGAINST (? IN BOOLEAN MODE);`, [itemaccountname, itemname],
                         function (err, res){
-                            console.log(res);
                             if(err){
                                 callback(err);
                             }
@@ -141,20 +130,6 @@ return {
                     callback(null, res);
                 }
             })
-        },
-        deleteAdmin : function(adminid, callback){
-            conn.query(`
-            DELETE
-            FROM admins 
-            WHERE id = ?`, [adminid], function (err, res){
-                if (err){
-                    console.log(err);
-                    callback(err);
-                }
-                else {
-                    callback(null, res);
-                }
-            })
         }, 
         editItem : function (itemid, callback) {
             conn.query(`
@@ -169,6 +144,37 @@ return {
                     callback(null, res);
                 }
             })
+        }, 
+        getItemDescription: function(itemid, callback) {
+            conn.query(`
+                    SELECT  description, title, media, createdAt
+                    FROM items 
+                    WHERE id =?`, [itemid],
+                function(err, res) {
+                    if (err) {
+                        callback(err);
+                    }
+                    else {
+                        callback(null, res);
+                    }
+                })
+        }, 
+        getAccountEmail: function (itemid, callback){
+            conn.query(`
+                SELECT items.accountId, accounts.email, items.title
+                FROM items 
+                LEFT JOIN accounts 
+                ON items.accountId = accounts.id 
+                WHERE items.id = ?;`, [itemid],
+                function(err, res) {
+                    if (err) {
+                        callback(err);
+                    }
+                    else {
+                        console.log(res);
+                        callback(null, res);
+                    }
+                })
         }
     }
 }
