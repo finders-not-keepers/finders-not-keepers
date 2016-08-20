@@ -15,6 +15,7 @@ var SearchItem = React.createClass({
         }
     },
     _fetchData: function() {
+        console.log("FETCH DATA");
     var searchTerms = '';
     var that = this;
     if(this.props.params.query){

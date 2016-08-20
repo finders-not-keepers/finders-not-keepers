@@ -41,11 +41,13 @@ var PostsForAccount = React.createClass({
     },
     render: function() {
         console.log(this.state.allItems, "in render!!!")
+
         var that = this;
         return (
             <div>
                 
                    {that.state.allItems.map(function(item) {
+                  
                    var itemIdTarget = ("#" + item.id)
                     return (
                         <div key={item.id} className = "col-xs-12 col-sm-4 col-md-3 col-lg-3 well">
@@ -54,11 +56,13 @@ var PostsForAccount = React.createClass({
                             </div>
                           
                             <div className = "caption">
-                                 <h3>{item.title}</h3>
-                                 <p>Found on <span id="accountName">{item.createdAt}</span></p>
+                                 <h4>{item.title}</h4>
+                                 <p className="postsDateP">Found on <span id="accountName">{item.createdAt}</span></p>
                                  
-                                 <Link to={`/`}><button className="btn btn-default"><span className="glyphicon glyphicon-pencil"></span>  Edit</button></Link>
+                                 
+                                 
                                  <button className="btn btn-default" type="button" data-toggle="modal" data-target={itemIdTarget}><span className="glyphicon glyphicon-eye-open"></span>  View Description</button>
+                                 <Link to={`/`}><button className="btn btn-default"><span className="glyphicon glyphicon-pencil"></span>  Edit</button></Link>
                                  <Link to={"/deleteSuccess"}><button value={item.id} onClick={that._handleDelete.bind(that, item.id)} className="btn btn-danger" type="button"><span className="glyphicon glyphicon-remove"></span>  Delete</button></Link>
                                  
                                  <div className="modal fade" id={item.id}>

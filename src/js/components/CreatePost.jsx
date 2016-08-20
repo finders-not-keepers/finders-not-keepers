@@ -69,7 +69,7 @@ var CreatePost = React.createClass({
                     <p>Description:</p>
                     <textarea rows="10" ref="descriptionInput" className="form-control input-lg"></textarea>
                     <p>Image URL:</p>
-                    <input ref="imageUrlInput" className="form-control input-lg" type="text" placeholder="Image URL" />
+                    <input ref="imageUrlInput" className="form-control input-lg" type="text" />
                     
                     <Link to={"/postSuccess"}><button className="btn btn-success btn-lg" onClick={that._handleClick}><span className="glyphicon glyphicon-send"></span>  Submit</button></Link>
                 </form>

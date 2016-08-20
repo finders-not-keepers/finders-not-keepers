@@ -17,8 +17,8 @@ var Items = React.createClass({
                             </div>
                           
                             <div className = "caption">
-                                 <h3>{item.title}</h3>
-                                 <p>Found on <span id="accountName">{item.createdAt}</span></p>
+                                 <h4>{item.title}</h4>
+                                 <p className="postsDateP">Found on <span id="accountName">{item.createdAt}</span></p>
                                  
                                  <Link to={`claimItem/${item.id}`}><button className="btn btn-danger">Claim</button></Link>
                                  <button className="btn btn-default" type="button" data-toggle="modal" data-target={itemIdTarget}>View Description</button>

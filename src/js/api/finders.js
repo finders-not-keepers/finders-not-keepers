@@ -43,6 +43,7 @@ return {
                 })
         },
         getAllItemsForSearch : function (itemsearch, callback){
+            console.log("GETTIN INSIDE API FUNCTION");
           var itemname = itemsearch.item;
           var itemaccountname = itemsearch.username;
           conn.query( `

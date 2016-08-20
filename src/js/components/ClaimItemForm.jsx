@@ -56,15 +56,25 @@ var ClaimItemForm = React.createClass ({
         return (
             <div>
             <h2>{that.state.title}</h2>
-            <img src={that.state.media} />
+            <img src={that.state.media} className="col-xs-6 thumbnail claimPhoto"/>
+            <div className="row">
+            <div className="col-xs-12">
             <p>We highly suggest reading our guidelines, <a href="/guidelines">here</a>, for claiming an item if this is your first time.</p>
+                <hr/>
                 <form className="form-group form-group-lg">
-                    <input className="form-control" ref ="firstname" placeholder="First name"/>
-                    <input className="form-control" ref ="lastname" placeholder="Last name"/>
-                    <textarea rows="10" className="form-control" ref="description" placeholder="Provide as much detail here as possible to prove that the item is yours. View guidelines above for more info!"></textarea>
-                    <input className="form-control" ref ="email" placeholder="Email" />
-                    <button className="btn btn-info btn-lg" onClick={that._handleClick}>Send!</button>
+                    <p>First name:</p>
+                    <input className="form-control" ref ="firstname"/>
+                    <p>Last name:</p>
+                    <input className="form-control" ref ="lastname"/>
+                    <p>Description:</p>
+                    <p><em>Provide as much detail as possible to prove that this item is yours (serial numbers, markings, contents, colors, etc.)</em></p>
+                    <textarea rows="10" className="form-control" ref="description"></textarea>
+                    <p>E-mail:</p>
+                    <input className="form-control" ref ="email"/>
+                    <button className="btn btn-info btn-lg" onClick={that._handleClick}><span className="glyphicon glyphicon-send"></span>  Send!</button>
                 </form>
+                </div>
+            </div>
             </div>
             )
     }

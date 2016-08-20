@@ -176,4 +176,11 @@ ADD address VARCHAR(500);
 
 ALTER TABLE accounts
 
+SELECT accounts.name, items.title, items.id, items.media , items.description, items.createdAt
+FROM accounts 
+LEFT JOIN items 
+ON items.accountId = accounts.id 
+WHERE accounts.name = 'Sour Key' AND MATCH (title, description)
+AGAINST ('cat' IN BOOLEAN MODE);
+
 
