@@ -19,16 +19,6 @@ var Nav = React.createClass({
   componentDidMount: function(){
     var that = this;
     AuthEmmitter.emitter.on('loggedIn', function(){
-        axios.create({
-        headers: { 
-            authorization: 'Bearer ' + localStorage.getItem('id_token')
-        }
-        }).post('/login', {idToken: localStorage.getItem('id_token')})
-        .then(function(response){
-        })
-        .catch (function(error){
-            console.log(error);
-        })
       that.props.router.push('/accountPage')
     })
   },
@@ -49,7 +39,7 @@ var Nav = React.createClass({
         return (
           <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
               <ul className="nav navbar-nav">
-                <li><IndexLink to={"/accountPage"} activeStyle={ACTIVE}>Home{/*<span className="sr-only">(current)</span>*/}</IndexLink></li>
+                <li><IndexLink to={"/accountPage"} activeStyle={ACTIVE}>My Account{/*<span className="sr-only">(current)</span>*/}</IndexLink></li>
                 <li><Link to={"FAQ"} activeStyle={ACTIVE}>FAQ</Link></li>
               </ul>
                <ul className="nav navbar-nav navbar-right">

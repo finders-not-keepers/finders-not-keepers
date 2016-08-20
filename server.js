@@ -7,7 +7,6 @@ var nodemailer = require("nodemailer");
 var jwt = require('express-jwt');
 
 
-
 var jwtCheck = jwt({
   secret: new Buffer('iKtmQ6lhYlaKbX1QlixUiHl3eqmzhsCJMF5gXi8_rxzDLTgBNlHVF5BaJ3eS_gaW', 'base64'),
   audience: 'PmdbxTpKHsOulN583eoykb8Z8lizNulQ'
@@ -45,14 +44,6 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.use(bodyParser.json());
-
-/* insert any app.get or app.post you need here */
-
-/*
-This says: for any path NOT served by the middleware above, send the file called index.html instead.
-For example, if the client requests http://server/step-2 the server will send the file index.html, which will start the same React app.
-This will enable us to do url-based routing on the front-end.
-*/
 
 
 app.post('/searchAccount', function(req, res) {
@@ -104,9 +95,11 @@ app.post('/claimItem/:id', function(req, res) {
           pass: 'finders123'
         }
       });
+      console.log("TIHS IS THE MEAIL: ", email.EMAIL)
+      console.log("THIS IS THE RE BODY FOR THE CLAIM ITEM FORM", req.body);
       var mailOptions = {
         from: `${req.body.name} <${req.body.email}>`,
-        to: 'findersnotkeepers1@gmail.com',
+        to: email.email,
         subject: 'Someone has claimed an item!',
         text: `You have a submission with these details... Name: ${req.body.name} Email: ${req.body.email} Message: ${req.body.message}`,
         html: `
@@ -143,37 +136,75 @@ app.post('/crap', function (req, res){
 
 app.post ('/login', jwtCheck , function(req, res){
   management.getUser({id: req.user.sub}, function(err, profile) {
-    // here we have access to the profle of the user from auth0
+    // if (req.user.sub === profile.user_id) {
+    //   res.send(req.user);
+    // }
+    // else {
     findersAPI.createProfile(profile, function (req, profileArray){
       if(err){
-        console.log(err);
+        console.log(err); 
       }
       else {
-        console.log(profileArray);
         res.send({msg: 'ok', item: profileArray})
       }
-    } )
+    })
+    // }
   })
 })
 
 
-app.post ('/stuff', function (req, res){
-  
+app.post ('/createPost', function (req, res){
+  findersAPI.getAccountById(req.body.subid, function (err, accId){
+    if(err){
+      res.send(err);
+    }
+    else {
+      var account_id = accId[0].id;
+      console.log("THIS IS THE ID:" , accId[0].id);
+        findersAPI.createItem(req.body, account_id , function (err, itemPost){
+            if (err){
+              console.log("we are getting here for some reason")
+              res.send(err);  
+            }
+            else {
+              console.log(itemPost);
+              res.send({msg: 'ok', account: itemPost});
+            }
+      });
+    }
+  });
+});
+
+
+app.post ('/postsforaccounts' , function (req, res){
+   findersAPI.getAccountById( req.body.subid, function (err, accId){
+    if(err){
+      res.send(err);
+    }
+    else {
+        findersAPI.getAllItemsForAccount(req.body.subid, function (err, itemPosts){
+            if (err){
+              res.send(err);  
+            }
+            else {
+              console.log(itemPosts);
+              res.send({msg: 'ok', allitems: itemPosts});
+            }
+      });
+    }
+  });
 })
 
-
-
-
-// app.post ('/createPost', function (req, res){
-//   findersAPI.createItem(req.body, function (err, itemArray){
-//     if (err){
-//       res.send(err);  
-//     }
-//     else {
-//       res.send({msg: 'ok', account: itemArray});
-//     }
-//   })
-// });
+app.post('/delete', function (req, res){
+  findersAPI.deleteItem(req.body.itemId, function (err, removeItem){
+    if(err){
+      res.send(err);
+    }
+    else {
+       res.send({msg: 'ok', allitems: removeItem});
+    }
+  })
+})
 
 
 app.get('/*', function(request, response) {

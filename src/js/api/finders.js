@@ -2,14 +2,15 @@
 
 module.exports = function FindersAPI(conn) {
 return {
-        createItem : function (item, callback){
+        createItem : function (item, accountid, callback){
             conn.query( `INSERT INTO items (categoryId, accountId, title, description, media, createdAt, updatedAt)
-                VALUES (?,?,?,?,?,?,?)`, [item.categoryId, item.accountId, item.title, item.description, item.media, new Date(), new Date()],
+                VALUES (?,?,?,?,?,?,?)`, [item.categoryId, accountid, item.title, item.description, item.media, new Date(), new Date()],
                 function (err, res){
                     if(err){
                         callback(err);
                     }
                     else{
+                        console.log(res);
                         callback(null, res);
                     }
                 })
@@ -41,7 +42,7 @@ return {
                     }
                 })
         },
-        getAllItemsForSearch : function (itemsearch, callback){ //itemsearch must be object with string and accountId properties 
+        getAllItemsForSearch : function (itemsearch, callback){
           var itemname = itemsearch.item;
           var itemaccountname = itemsearch.username;
           conn.query( `
@@ -73,11 +74,13 @@ return {
                 }
             })
         },
-        getAllItemsForAccount : function (itemstring, accountId, callback){
-            conn.query( `SELECT * FROM items
-                            WHERE accountId = ? AND MATCH (title, description)
-                            AGAINST (? IN BOOLEAN MODE);`
-                        , [accountId, itemstring],
+        getAllItemsForAccount : function (subid, callback){
+            conn.query( `SELECT items.*, accounts.clientid, accounts.name
+                        FROM items 
+                        LEFT JOIN accounts 
+                        ON items.accountId = accounts.id 
+                        WHERE accounts.clientid = ?;`
+                        , [subid],
                         function (err, res){
                             if(err){
                                 callback(err);
@@ -189,8 +192,8 @@ return {
             })
         },
         createProfile : function (account, callback){
-             conn.query(`INSERT INTO accounts (name, address, media, category_account, email, createdAt, updatedAt)
-                VALUES (?,?,?,?,?,?,?)`, [account.user_metadata.bizname, account.user_metadata.address, account.picture, account.user_metadata.type, account.email, account.created_at, account.updated_at], 
+             conn.query(`INSERT INTO accounts (name, address, media, category_account, email, clientid, createdAt, updatedAt)
+                VALUES (?,?,?,?,?,?,?,?)`, [account.user_metadata.bizname, account.user_metadata.address, account.picture, account.user_metadata.type, account.email, account.user_id , account.created_at, account.updated_at], 
                 function (err, res) {
                     if(err){
                         console.log(err);
@@ -200,8 +203,20 @@ return {
                         callback(null, res);
                     }
                 })
+        }, 
+        getAccountById: function(subid, callback) {
+            conn.query(`SELECT id FROM accounts
+                        WHERE clientid = ?`, [subid],
+                function(err, res) {
+                    if (err) {
+                        callback(err);
+                    }
+                    else {
+                        callback(null, res);
+                    }
+                })
         }
     }
 }
-
+        
 

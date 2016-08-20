@@ -18,6 +18,7 @@ export default class AuthService {
     var that = this;
     // Saves the user token
     this.setToken(authResult.idToken)
+    localStorage.setItem('sub', authResult.idTokenPayload.sub);
     AuthEmmitter.emitter.emit('loggedIn');
     
    
