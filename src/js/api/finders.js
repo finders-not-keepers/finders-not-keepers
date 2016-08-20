@@ -42,7 +42,7 @@ return {
                     }
                 })
         },
-        getAllItemsForSearch : function (itemsearch, callback){ //itemsearch must be object with string and accountId properties 
+        getAllItemsForSearch : function (itemsearch, callback){
           var itemname = itemsearch.item;
           var itemaccountname = itemsearch.username;
           conn.query( `
@@ -74,17 +74,18 @@ return {
                 }
             })
         },
-        getAllItemsForAccount : function (itemstring, accountId, callback){
-            conn.query( `SELECT * FROM items
-                            WHERE accountId = ? AND MATCH (title, description)
-                            AGAINST (? IN BOOLEAN MODE);`
-                        , [accountId, itemstring],
+        getAllItemsForAccount : function (subid, callback){
+            conn.query( `SELECT items.*, accounts.clientid, accounts.name
+                        FROM items 
+                        LEFT JOIN accounts 
+                        ON items.accountId = accounts.id 
+                        WHERE accounts.clientid = ?;`
+                        , [subid],
                         function (err, res){
                             if(err){
                                 callback(err);
                             }
                             else {
-                                console.log("GET ALL ITEMS FOR ACCOUNT", res)
                                 callback(null, res);
                             }
                         }) 

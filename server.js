@@ -95,9 +95,11 @@ app.post('/claimItem/:id', function(req, res) {
           pass: 'finders123'
         }
       });
+      console.log("TIHS IS THE MEAIL: ", email.EMAIL)
+      console.log("THIS IS THE RE BODY FOR THE CLAIM ITEM FORM", req.body);
       var mailOptions = {
         from: `${req.body.name} <${req.body.email}>`,
-        to: 'findersnotkeepers1@gmail.com',
+        to: email.email,
         subject: 'Someone has claimed an item!',
         text: `You have a submission with these details... Name: ${req.body.name} Email: ${req.body.email} Message: ${req.body.message}`,
         html: `
@@ -180,21 +182,28 @@ app.post ('/postsforaccounts' , function (req, res){
       res.send(err);
     }
     else {
-      console.log(accId);
-      var account_id = accId[0].id;
-        findersAPI.getAllItemsForAccount(req.body, account_id , function (err, itemPost){
+        findersAPI.getAllItemsForAccount(req.body.subid, function (err, itemPosts){
             if (err){
               res.send(err);  
             }
             else {
-              console.log("THIS IS ITEM POST", itemPost);
-              res.send({msg: 'ok', account: itemPost});
+              console.log(itemPosts);
+              res.send({msg: 'ok', allitems: itemPosts});
             }
       });
     }
   });
-  
-  
+})
+
+app.post('/delete', function (req, res){
+  findersAPI.deleteItem(req.body.itemId, function (err, removeItem){
+    if(err){
+      res.send(err);
+    }
+    else {
+       res.send({msg: 'ok', allitems: removeItem});
+    }
+  })
 })
 
 

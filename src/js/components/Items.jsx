@@ -11,7 +11,7 @@ var Items = React.createClass({
                    {this.props.items.map(function(item) {
                    var itemIdTarget = ("#" + item.id)
                     return (
-                        <div key={item.id} className = "col-xs-12 col-sm-4 col-md-3 col-lg-3 well">
+                        <div key={item.id} className = "col-xs-12 col-sm-12 col-md-3 col-lg-3 well">
                             <div className = "thumbnail">
                                  <img src={item.media} alt="Generic placeholder thumbnail"/>
                             </div>

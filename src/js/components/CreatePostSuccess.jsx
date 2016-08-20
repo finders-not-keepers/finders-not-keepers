@@ -9,7 +9,7 @@ var CreatePostSuccess = React.createClass({
                 <h1 className="text-center">Thank you!</h1>
                 <h2 className="text-center">You're post was successfully submitted. Thanks for helping people find their shit.</h2>
                 <br/>
-                <Link to={"/accountPage"}><button className="btn btn-danger btn-lg">Back to homepage?</button></Link>
+                <Link to={"/accountPage"}><button className="btn btn-danger btn-lg"><span className="glyphicon glyphicon-home"></span>  Back to homepage?</button></Link>
             </div>
             )
     }

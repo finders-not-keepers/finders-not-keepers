@@ -153,11 +153,11 @@ UPDATE accounts
 SET email ="hellokitty@a.com" 
 WHERE id = 9;
 
-SELECT items.accountId, accounts.email
+SELECT items.*, accounts.clientid
 FROM items 
 LEFT JOIN accounts 
 ON items.accountId = accounts.id 
-WHERE items.id = 6;
+WHERE accounts.clientid = 'auth0|57b7d00f51d5092504a2442c';
 
 ALTER TABLE accounts
 
@@ -173,4 +173,7 @@ SELECT * FROM accounts
 WHERE clientid = "PmdbxTpKHsOulN583eoykb8Z8lizNulQ";
 
 ADD address VARCHAR(500);
+
+ALTER TABLE accounts
+
 

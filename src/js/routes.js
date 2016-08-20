@@ -23,6 +23,7 @@ import AuthService from "./utils/AuthService";
 var Logout = require('./components/Logout');
 var CreatePostSuccess = require("./components/CreatePostSuccess.jsx")
 var PostsForAccount = require("./components/PostsForAccount")
+var DeletePostSuccess = require("./components/DeletePostSuccess.jsx")
 
 var App = require("./components/App.jsx");
 
@@ -112,6 +113,7 @@ var routes = (
             <Route path="guidelines" component={Guidelines} />
             <Route path="logout" component={Logout} />
             <Route path="/postSuccess" component={CreatePostSuccess} onEnter={requireAuth} />
+            <Route path="/deleteSuccess" component={DeletePostSuccess} onEnter={requireAuth} />
             <Route path="/accountPosts" component={PostsForAccount} onEnter={requireAuth} />
         </Route>
         
