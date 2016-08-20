@@ -72,7 +72,7 @@ var PostsForAccount = React.createClass({
                                                 <h3>{item.title}</h3>
                                             </div>
                                             <div className="modal-body">
-                                                <p>{item.description}</p>
+                                                <p className="postsDateP">{item.description}</p>
                                             </div>
                                             <div className="modal-footer">
                                                 <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>

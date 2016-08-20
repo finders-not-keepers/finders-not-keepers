@@ -16,24 +16,24 @@ var connection = mysql.createConnection({
 var FindersAPI = finders(connection);
 
 
-var item = {
-    categoryId: 3,
-    accountId: 5,
-    title : "hello kitty skis",
-    description: "Found hello kitty skis. ", 
-    media: "http://www.kittyhell.com/wp-content/uploads/2009/10/hello-kitty-angel-skis.jpg" ,
-    createdAt: "2016-08-16", 
-    updatedAt: "2016-08-16"
-}
+// var item = {
+//     categoryId: 3,
+//     accountId: 5,
+//     title : "hello kitty skis",
+//     description: "Found hello kitty skis. ", 
+//     media: "http://www.kittyhell.com/wp-content/uploads/2009/10/hello-kitty-angel-skis.jpg" ,
+//     createdAt: "2016-08-16", 
+//     updatedAt: "2016-08-16"
+// }
 
-FindersAPI.createItem( item, function(err, post) {
-  if(err){
-    console.log(err);
-  }
-  else {
-    console.log(post);
-  }
-});
+// FindersAPI.createItem( item, function(err, post) {
+//   if(err){
+//     console.log(err);
+//   }
+//   else {
+//     console.log(post);
+//   }
+// });
 
 // var account = {
 //     name: "McDonalds West",
@@ -95,18 +95,18 @@ FindersAPI.createItem( item, function(err, post) {
 //   }
 // });
 
-// var searchstring= {string: 'pink',
-//           accountId: 1
-//           };
 
-// FindersAPI.getAllItemsForSearch(searchstring, function(err, post) { 
-//   if(err){
-//     console.log(err);
-//   }
-//   else {
-//     console.log(post);
-//   }
-// });
+
+var searchstring= {item: 'mount', username: 'Planet Earth'};
+
+FindersAPI.getAllItemsForSearch(searchstring, function(err, post) { 
+  if(err){
+    console.log(err);
+  }
+  else {
+    console.log(post);
+  }
+});
 
 // FindersAPI.getAllItemsForAccount(searchstring, 1, function(err, post) {
 //   if(err){

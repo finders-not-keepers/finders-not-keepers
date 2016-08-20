@@ -68,6 +68,7 @@ app.post('/searchItem', function(req, res) {
       res.send(err);
     }
     else {
+      console.log(itemArray)
       res.send({
         msg: 'ok',
         item: itemArray

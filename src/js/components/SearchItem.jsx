@@ -32,7 +32,7 @@ var SearchItem = React.createClass({
             
             if(response.data.msg === 'ok'){
                 that.setState({item: response.data.item})
-                that.props.router.push(`/account/${that.props.params.username}/searchItem/items/${searchTerms }`);
+                that.props.router.push(`/account/${that.props.params.username}/searchItem/items/${searchTerms}`);
             }
         })
         .catch(function(error) {

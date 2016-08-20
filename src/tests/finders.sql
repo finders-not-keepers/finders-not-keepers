@@ -180,7 +180,14 @@ SELECT accounts.name, items.title, items.id, items.media , items.description, it
 FROM accounts 
 LEFT JOIN items 
 ON items.accountId = accounts.id 
-WHERE accounts.name = 'Sour Key' AND MATCH (title, description)
-AGAINST ('cat' IN BOOLEAN MODE);
+WHERE accounts.name = 'The Code Chick ' AND MATCH (title, description)
+AGAINST ('dog' IN BOOLEAN MODE);
+
+accounts.name, items.title, items.id, items.media , items.description, items.createdAt
 
 
+SELECT accounts.name, items.title, items.id, items.media , items.description, items.createdAt
+FROM accounts 
+LEFT JOIN items 
+ON items.accountId = accounts.id 
+WHERE accounts.name = 'Planet Earth' AND WHERE items.title LIKE '%mount%'';
