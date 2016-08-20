@@ -12,33 +12,45 @@ var AccountPage = React.createClass({
     },
     _fetchData : function (){
         axios.post('/stuff', {
-            tokenId: localStorage.getItem('id_token')
+            tokenId: localStorage.getItem('sub')
         })
         .then(function(response){
+            console.log(response);
         })
         .catch (function(error){
             console.log(error);
         })
     },
-    componentDidMount: function() {
-        console.log(this.props); 
-        
+    componentDidMount: function() { 
         var that  = this;
         AuthEmmitter.emitter.on('profile', function(profile){
-            that.setState({
-                account: profile
-            })
+            that.setState({ account: profile })
         })
+
+        axios.create({
+        headers: { 
+            authorization: 'Bearer ' + localStorage.getItem('id_token')
+        }
+        }).post('/login', {idToken: localStorage.getItem('id_token')})
+        .then(function(response){
+        })
+        .catch (function(error){
+            console.log(error);
+        })
+
+       this._fetchData();
     },
     render: function() {
         return (
-            <div className="jumbotron center">
-                <h1 className="text-center"> Welcome back,</h1>
-                <h1 className="text-center"><span id="accountName">{this.state.account ? this.state.account.profile.user_metadata.bizname : ''}</span></h1>
-                <p className="text-center">What would you like to do today?</p>
+            <div className="container center">
+                <h1 id="welcomeBack" className="text-center element-animation"> Welcome back,</h1>
+                <h1 className="text-center other-element-animation"><span id="accountName">{this.state.account ? this.state.account.profile.user_metadata.bizname : ''}</span></h1>
+                <hr/>
+                <h2 className="text-center whatToDo">What would you like to do today?</h2>
+                <br/>
                 <div className="text-center">
-                <button type="button" className="btn btn-danger btn-lg"><span className="glyphicon glyphicon-eye-open"></span>  View/Delete Posts</button>
-                <Link to={"/createPost"}><button type="button" className="btn btn-warning btn-lg"><span className="glyphicon glyphicon-edit"></span>  Create New Post</button></Link>
+                <Link to={"/accountPosts"}><button type="button" className="btn btn-danger btn-lg"><span className="glyphicon glyphicon-eye-open"></span>  View/Delete Posts</button></Link>
+                <Link to={"/createPost"}><button type="button" className="btn btn-default btn-lg"><span className="glyphicon glyphicon-edit"></span>  Create New Post</button></Link>
                 </div>
             </div>
             )

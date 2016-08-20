@@ -19,16 +19,6 @@ var Nav = React.createClass({
   componentDidMount: function(){
     var that = this;
     AuthEmmitter.emitter.on('loggedIn', function(){
-        axios.create({
-        headers: { 
-            authorization: 'Bearer ' + localStorage.getItem('id_token')
-        }
-        }).post('/login', {idToken: localStorage.getItem('id_token')})
-        .then(function(response){
-        })
-        .catch (function(error){
-            console.log(error);
-        })
       that.props.router.push('/accountPage')
     })
   },

@@ -4,28 +4,6 @@ var axios = require("axios");
 import { withRouter } from 'react-router';
 
 var Items = React.createClass({
-    // _handleClick: function() {
-    //     /*go to item description*/
-    //     event.preventDefault();
-
-    //     var that = this;
-    //     console.log("we get here");
-    //     console.log(this.props.items)
-    //     axios.post(`/itemDesc`, {
-    //             item: that.props.params.id
-    //         })
-    //         .then(function(response) {
-    //             if(response.data.msg === 'ok'){
-    //                 that.setState({
-    //                     accounts: response.data.account
-    //                 })
-    //                 that.props.router.push(`/account/${that.props.params.username}/searchItem/items/${that.props.params.id}`);
-    //             }
-    //         })
-    //         .catch(function(error) {
-    //             console.log(error);
-    //         });
-    // },
     render: function() {
         var that = this;
         return (
@@ -42,8 +20,8 @@ var Items = React.createClass({
                                  <h3>{item.title}</h3>
                                  <p>Found on <span id="accountName">{item.createdAt}</span></p>
                                  
-                                 <Link to={`claimItem/${item.id}`}><button className="btn btn-info btn-sm">Claim</button></Link>
-                                 <button className="btn btn-warning btn-sm" type="button" data-toggle="modal" data-target={itemIdTarget}>View Description</button>
+                                 <Link to={`claimItem/${item.id}`}><button className="btn btn-danger">Claim</button></Link>
+                                 <button className="btn btn-default" type="button" data-toggle="modal" data-target={itemIdTarget}>View Description</button>
                                  
                                  <div className="modal fade" id={item.id}>
                                     <div className="modal-dialog">
@@ -55,7 +33,7 @@ var Items = React.createClass({
                                                 <p>{item.description}</p>
                                             </div>
                                             <div className="modal-footer">
-                                                <button type="button" className="btn btn-default btn-small" data-dismiss="modal">Close</button>
+                                                <button type="button" className="btn btn-default" data-dismiss="modal">Close</button>
                                             </div>
                                         </div>
                                     </div>

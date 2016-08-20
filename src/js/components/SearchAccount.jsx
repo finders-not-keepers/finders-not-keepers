@@ -34,7 +34,7 @@ var SearchAccount = React.createClass({
     render: function() {
         var that = this;
         return (
-                <div className="container">
+                <div className="container homePage">
                 <h1 className="text-center element-animation">Finders<span id="not">Not</span> Keepers</h1>
                 <p className="text-center homePageSubtitle other-element-animation">We find the shit you forgot at the places you went to.</p>
                 <br/>

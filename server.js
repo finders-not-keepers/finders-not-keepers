@@ -46,14 +46,6 @@ app.use(bodyParser.urlencoded({
 
 app.use(bodyParser.json());
 
-/* insert any app.get or app.post you need here */
-
-/*
-This says: for any path NOT served by the middleware above, send the file called index.html instead.
-For example, if the client requests http://server/step-2 the server will send the file index.html, which will start the same React app.
-This will enable us to do url-based routing on the front-end.
-*/
-
 
 app.post('/searchAccount', function(req, res) {
   findersAPI.getAccounts(req.body, function(err, accountsArray) {
@@ -143,37 +135,69 @@ app.post('/crap', function (req, res){
 
 app.post ('/login', jwtCheck , function(req, res){
   management.getUser({id: req.user.sub}, function(err, profile) {
-    // here we have access to the profle of the user from auth0
+    // if (req.user.sub === profile.user_id) {
+    //   res.send(req.user);
+    // }
+    // else {
     findersAPI.createProfile(profile, function (req, profileArray){
       if(err){
-        console.log(err);
+        console.log(err); 
       }
       else {
-        console.log(profileArray);
         res.send({msg: 'ok', item: profileArray})
       }
-    } )
+    })
+    // }
   })
 })
 
 
-app.post ('/stuff', function (req, res){
+app.post ('/createPost', function (req, res){
+  findersAPI.getAccountById(req.body.subid, function (err, accId){
+    if(err){
+      res.send(err);
+    }
+    else {
+      var account_id = accId[0].id;
+      console.log("THIS IS THE ID:" , accId[0].id);
+        findersAPI.createItem(req.body, account_id , function (err, itemPost){
+            if (err){
+              console.log("we are getting here for some reason")
+              res.send(err);  
+            }
+            else {
+              console.log(itemPost);
+              res.send({msg: 'ok', account: itemPost});
+            }
+      });
+    }
+  });
+});
+
+
+app.post ('/postsforaccounts' , function (req, res){
+  console.log(req.body.subid)
+   findersAPI.getAccountById( req.body.subid, function (err, accId){
+    if(err){
+      res.send(err);
+    }
+    else {
+      console.log(accId);
+      var account_id = accId[0].id;
+        findersAPI.getAllItemsForAccount(req.body, account_id , function (err, itemPost){
+            if (err){
+              res.send(err);  
+            }
+            else {
+              console.log(itemPost);
+              res.send({msg: 'ok', account: itemPost});
+            }
+      });
+    }
+  });
+  
   
 })
-
-
-
-
-// app.post ('/createPost', function (req, res){
-//   findersAPI.createItem(req.body, function (err, itemArray){
-//     if (err){
-//       res.send(err);  
-//     }
-//     else {
-//       res.send({msg: 'ok', account: itemArray});
-//     }
-//   })
-// });
 
 
 app.get('/*', function(request, response) {
