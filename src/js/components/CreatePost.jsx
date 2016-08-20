@@ -9,10 +9,10 @@ var CreatePost = React.createClass({
       var subid = localStorage.getItem('sub');
       var that = this
       axios.post('/createPost', {
-            title: that.refs.titleInput.value, 
-            description: that.refs.descriptionInput.value,
-            media: that.refs.imageUrlInput.value,
-            category: that.refs.category.value,
+            title: that.refs.titleInput.value.toLowerCase(), 
+            description: that.refs.descriptionInput.value.toLowerCase(),
+            media: that.refs.imageUrlInput.value.toLowerCase(),
+            category: that.refs.category.value.toLowerCase(),
             subid: subid
         })
         .then(function(response){

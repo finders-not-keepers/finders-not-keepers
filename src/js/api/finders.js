@@ -3,7 +3,6 @@
 module.exports = function FindersAPI(conn) {
 return {
         createItem : function (item, accountid, callback){
-            console.log("IN THE CREATEITEM")
             conn.query( `INSERT INTO items (categoryId, accountId, title, description, media, createdAt, updatedAt)
                 VALUES (?,?,?,?,?,?,?)`, [item.categoryId, accountid, item.title, item.description, item.media, new Date(), new Date()],
                 function (err, res){
@@ -85,6 +84,7 @@ return {
                                 callback(err);
                             }
                             else {
+                                console.log("GET ALL ITEMS FOR ACCOUNT", res)
                                 callback(null, res);
                             }
                         }) 

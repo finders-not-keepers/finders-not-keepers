@@ -7,7 +7,6 @@ var nodemailer = require("nodemailer");
 var jwt = require('express-jwt');
 
 
-
 var jwtCheck = jwt({
   secret: new Buffer('iKtmQ6lhYlaKbX1QlixUiHl3eqmzhsCJMF5gXi8_rxzDLTgBNlHVF5BaJ3eS_gaW', 'base64'),
   audience: 'PmdbxTpKHsOulN583eoykb8Z8lizNulQ'
@@ -176,7 +175,6 @@ app.post ('/createPost', function (req, res){
 
 
 app.post ('/postsforaccounts' , function (req, res){
-  console.log(req.body.subid)
    findersAPI.getAccountById( req.body.subid, function (err, accId){
     if(err){
       res.send(err);
@@ -189,7 +187,7 @@ app.post ('/postsforaccounts' , function (req, res){
               res.send(err);  
             }
             else {
-              console.log(itemPost);
+              console.log("THIS IS ITEM POST", itemPost);
               res.send({msg: 'ok', account: itemPost});
             }
       });
