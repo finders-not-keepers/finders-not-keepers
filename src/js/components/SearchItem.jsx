@@ -15,14 +15,8 @@ var SearchItem = React.createClass({
         }
     },
     _fetchData: function() {
-        console.log("FETCH DATA");
-    var searchTerms = '';
+    var searchTerms = this.refs.userInput.value.toLowerCase();
     var that = this;
-    if(this.props.params.query){
-          searchTerms = this.props.params.query.toLowerCase();
-    } else {
-        searchTerms = this.refs.userInput.value.toLowerCase();
-    }
     axios.post('/searchItem', {
             item: searchTerms, 
             username: that.props.params.username
@@ -36,7 +30,7 @@ var SearchItem = React.createClass({
             }
         })
         .catch(function(error) {
-            console.log(error, "bla");
+            console.log(error);
         }); 
         
     },
@@ -48,9 +42,11 @@ var SearchItem = React.createClass({
         return (
             <div>
             <h2>What did you lose at <span id="locationSpan">{this.props.params.username}</span>?</h2>
-                <input ref="userInput" className="form-control input-lg" type="text" />
+            <form name="myform">
+                <input ref="userInput" className="form-control input-lg" type="text" name="mytextfield"/>
                 <button onClick={this._handleClick} className=" btn-lg btn btn-danger"><span className="glyphicon glyphicon-search"></span></button>
                 {this.state.item ? <Items fetchData={this._handleClick} query={this.props.params.query} items={this.state.item}/> : ''}
+            </form>
             </div>
             )
     }

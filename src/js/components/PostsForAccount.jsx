@@ -52,12 +52,12 @@ var PostsForAccount = React.createClass({
                     return (
                         <div key={item.id} className = "col-xs-12 col-sm-4 col-md-3 col-lg-3 well">
                             <div className = "thumbnail">
-                                 <img src={item.media} alt="Generic placeholder thumbnail"/>
+                                 <img src={item.media} alt="Generic placeholder thumbnail"></img>
                             </div>
                           
                             <div className = "caption">
                                  <h4>{item.title}</h4>
-                                 <p className="postsDateP">Found on <span id="accountName">{item.createdAt}</span></p>
+                                 <p className="postsDateP">Found on: <span id="accountName">{item.createdAt}</span></p>
                                  
                                  
                                  

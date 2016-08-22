@@ -4,7 +4,7 @@ module.exports = function FindersAPI(conn) {
 return {
         createItem : function (item, accountid, callback){
             conn.query( `INSERT INTO items (categoryId, accountId, title, description, media, createdAt, updatedAt)
-                VALUES (?,?,?,?,?,?,?)`, [item.categoryId, accountid, item.title, item.description, item.media, new Date(), new Date()],
+                VALUES (?,?,?,?,?,?,?)`, [item.categoryId, accountid, item.title, item.description, item.imageUrl, new Date(), new Date()],
                 function (err, res){
                     if(err){
                         callback(err);
@@ -43,7 +43,7 @@ return {
                 })
         },
         getAllItemsForSearch : function (itemsearch, callback){
-            console.log("GETTIN INSIDE API FUNCTION");
+            // console.log("GETTIN INSIDE API FUNCTION");
           var itemname = itemsearch.item;
           var itemaccountname = itemsearch.username;
           conn.query( `
@@ -53,6 +53,24 @@ return {
             ON items.accountId = accounts.id 
             WHERE accounts.name = ? AND MATCH (title, description)
             AGAINST (? IN BOOLEAN MODE);`, [itemaccountname, itemname],
+                        function (err, res){
+                            if(err){
+                                callback(err);
+                            }
+                            else {
+                                callback(null, res);
+                            }
+                        })  
+        },
+        getAllItemsForSearch2 : function (itemsearch, callback){
+            // console.log("GETTIN INSIDE API FUNCTION");
+          conn.query( `
+            SELECT accounts.name, items.title, items.id, items.media , items.description, items.createdAt
+            FROM accounts 
+            LEFT JOIN items 
+            ON items.accountId = accounts.id 
+            WHERE accounts.name = "%${itemsearch.username}%" AND MATCH (title, description)
+            AGAINST ("%${itemsearch.item}%" IN BOOLEAN MODE);`,
                         function (err, res){
                             if(err){
                                 callback(err);
@@ -163,7 +181,7 @@ return {
         }, 
         getAccountEmail: function (itemid, callback){
             conn.query(`
-                SELECT items.accountId, accounts.email, items.title
+                SELECT items.accountId, accounts.email, items.title, items.media, items.description, accounts.name
                 FROM items 
                 LEFT JOIN accounts 
                 ON items.accountId = accounts.id 
@@ -216,7 +234,21 @@ return {
                         callback(null, res);
                     }
                 })
-        }
+        } //, 
+        // storeImgUrl: function (imgUrl, callback){
+        //     conn.query(`
+        //     INSERT INTO items (media)
+        //     VALUES (?)
+        //     `, [imgUrl], function (err, res){
+        //         if(err){
+        //           callback(err); 
+        //         }
+        //         else {
+        //           callback(null, err); 
+        //         }
+                
+        //     })
+        // }
     }
 }
         

@@ -3,6 +3,8 @@ var React = require('react');
 var FAQ = React.createClass({
     render: function(){
         return(
+            <div>
+              <h2>Frequently Asked Questions</h2>
                 <div className="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
                   <div className="panel panel-default">
                     <div className="panel-heading" role="tab" id="headingOne">
@@ -77,6 +79,7 @@ var FAQ = React.createClass({
                     </div>
                   </div>
                 </div>
+              </div>
             )
     }
 })

@@ -1,30 +1,7 @@
 body {
-    
     background: url("/img/itemsblurr.jpg") no-repeat fixed;
     background-size: cover;
-    
 }
-
-body::before {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    background-color: rgba(0,0,0,0.4);
-    z-index: 0;
-    content: "";
-}
-
-
-
-/*.posts {*/
-/*  background-color: rgba(255, 255, 255, 0.5);*/
-/*  border-radius: 5px;*/
-/*  padding: 5px;*/
-/*  margin-right: 5px;*/
-/*  width: (auto - 10px);*/
-/*}*/
 
 input {
     margin: 5px;
@@ -39,34 +16,7 @@ textarea {
     margin: 5px;
 }
 
-::-webkit-input-placeholder {
-  color: #FFF;
-}
 
-:-moz-placeholder {
-  /* Firefox 18- */
-  color: #FFF;
-}
-
-::-moz-placeholder {
-  /* Firefox 19+ */
-  color: #FFF;
-}
-
-:-ms-input-placeholder {
-  /* IE 10+ */
-  color: #FFF;
-}
-
-::-ms-input-placeholder {
-  /* Edge */
-  color: #FFF;
-}
-
-:placeholder-shown {
-  /* Standard one last! */
-  color: #FFF;
-}
 
 #not {
     font-family: "Yellowtail", cursive;
@@ -314,13 +264,11 @@ p {
   justify-content: center;
 }
 
-
-
 .btn.dropdown-toggle.btn-default {
   margin-left: 5px;
   background: rgba(255, 255, 255, 0.5);
     height: 48px;
-    color: white;
+    color: #FFF;
     font-size: 16px;
 }
 
@@ -336,3 +284,45 @@ p {
 .postsDateP {
   color: #000;
 }
+
+.whiteText {
+  color:white;
+  text-shadow: 0 0 5px #000;
+}
+
+.profileImg {
+  height: 20vh;
+  border-radius: 100%;
+  display: block;
+  margin: auto;
+}
+
+.profileImg:hover {
+  box-shadow: 0 0 20px #FFF;
+}
+
+profiles {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+h5 {
+  margin: 5px;
+}
+
+.decodeMTL {
+  color: #f95759 ;
+}
+
+.addressAccount {
+  color: black;
+}
+
+li {
+  margin: 0 5px 0 5px;
+  padding: 0;
+}
+

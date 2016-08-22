@@ -53,6 +53,7 @@ var Nav = React.createClass({
               <ul className="nav navbar-nav">
                 <li><IndexLink to={"/"} activeStyle={ACTIVE}>Home{/*<span className="sr-only">(current)</span>*/}</IndexLink></li>
                 <li><Link to={"FAQ"} activeStyle={ACTIVE}>FAQ</Link></li>
+                <li><Link to={"about"} activeStyle={ACTIVE}>About</Link></li>
                 <li><Link onClick={that.login} to={"login"} activeStyle={ACTIVE}>Log In or Sign Up</Link></li>
                 
               </ul>

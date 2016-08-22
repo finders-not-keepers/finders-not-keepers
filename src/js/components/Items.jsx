@@ -11,14 +11,14 @@ var Items = React.createClass({
                    {this.props.items.map(function(item) {
                    var itemIdTarget = ("#" + item.id)
                     return (
-                        <div key={item.id} className = "col-xs-12 col-sm-12 col-md-3 col-lg-3 well">
+                        <div key={item.id} className = "col-xs-12 col-sm-4 col-md-3 col-lg-3 well">
                             <div className = "thumbnail">
                                  <img src={item.media} alt="Generic placeholder thumbnail"/>
                             </div>
                           
                             <div className = "caption">
                                  <h4>{item.title}</h4>
-                                 <p className="postsDateP">Found on <span id="accountName">{item.createdAt}</span></p>
+                                 <p className="postsDateP">Found on: <span id="accountName">{item.createdAt}</span></p>
                                  
                                  <Link to={`claimItem/${item.id}`}><button className="btn btn-danger">Claim</button></Link>
                                  <button className="btn btn-default" type="button" data-toggle="modal" data-target={itemIdTarget}>View Description</button>

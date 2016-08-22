@@ -180,8 +180,8 @@ SELECT accounts.name, items.title, items.id, items.media , items.description, it
 FROM accounts 
 LEFT JOIN items 
 ON items.accountId = accounts.id 
-WHERE accounts.name = 'The Code Chick ' AND MATCH (title, description)
-AGAINST ('dog' IN BOOLEAN MODE);
+WHERE accounts.name = 'Planet Earth' AND MATCH (title, description)
+AGAINST ('capitan' IN BOOLEAN MODE);
 
 accounts.name, items.title, items.id, items.media , items.description, items.createdAt
 
@@ -191,3 +191,50 @@ FROM accounts
 LEFT JOIN items 
 ON items.accountId = accounts.id 
 WHERE accounts.name = 'Planet Earth' AND WHERE items.title LIKE '%mount%'';
+
+ALTER TABLE items DROP INDEX title, description
+CREATE FULLTEXT INDEX address_index ON addresses(street);
+
+SHOW VARIABLES LIKE 'ft_min_word_len'
+
+UPDATE accounts
+SET name = CASE
+   WHEN currency=1 THEN 0.81*final_price
+   ELSE final_price
+END
+
+UPDATE account
+    SET col_name1={expr1|DEFAULT} [, col_name2={expr2|DEFAULT}] ...
+    [WHERE where_condition]
+    [ORDER BY ...]
+    [LIMIT row_count]
+    
+
+
+CREATE TABLE `test` (
+  `id` INT(11) AUTO_INCREMENT NOT NULL ,
+  `firstnam` TEXT(256) DEFAULT NULL, 
+  `lastname` TEXT(1024),
+  `gender` TEXT(2000),
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+INSERT INTO test 
+  (firstnam, lastname, gender)
+VALUES 
+ ("Celine", "Broomhead", "female"),
+ ("Bud", "Broomhead", "male"),
+ ("Emma", "Broomhead", "female");
+ 
+UPDATE test
+  SET firstnam='Celine', lastname= '' , gender =   "female"
+WHERE firstnam = 'John';
+
+INSERT INTO items (media)
+VALUES 'https://findersnotkeepers.s3.amazonaws.com/CelineAvatar.png'
+WHERE items.id =
+
+ 
+
+
+

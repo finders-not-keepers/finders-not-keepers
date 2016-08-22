@@ -24,6 +24,8 @@ var Logout = require('./components/Logout');
 var CreatePostSuccess = require("./components/CreatePostSuccess.jsx")
 var PostsForAccount = require("./components/PostsForAccount")
 var DeletePostSuccess = require("./components/DeletePostSuccess.jsx")
+var ClaimItemSuccess = require("./components/ClaimItemSuccess.jsx")
+var About = require("./components/About.jsx")
 
 var App = require("./components/App.jsx");
 
@@ -115,6 +117,8 @@ var routes = (
             <Route path="/postSuccess" component={CreatePostSuccess} onEnter={requireAuth} />
             <Route path="/deleteSuccess" component={DeletePostSuccess} onEnter={requireAuth} />
             <Route path="/accountPosts" component={PostsForAccount} onEnter={requireAuth} />
+            <Route path="/claimSuccess" component={ClaimItemSuccess} />
+            <Route path="about" component={About}/>
         </Route>
         
     </Router>

@@ -2,18 +2,20 @@
 var React = require('react');
 var axios = require("axios");
 var Link = require('react-router').Link;
+import ImageUpload from './ImageUpload';
 
 var CreatePost = React.createClass({
     _sendData: function () {
-        
+      var imageUrl = this.state.imgUrl;
       var subid = localStorage.getItem('sub');
-      var that = this
+      var that = this;
       axios.post('/createPost', {
             title: that.refs.titleInput.value.toLowerCase(), 
             description: that.refs.descriptionInput.value.toLowerCase(),
             media: that.refs.imageUrlInput.value.toLowerCase(),
             category: that.refs.category.value.toLowerCase(),
-            subid: subid
+            subid: subid, 
+            imageUrl : imageUrl
         })
         .then(function(response){
             if(response.data.msg === 'ok'){
@@ -25,12 +27,13 @@ var CreatePost = React.createClass({
         })
     },
     _handleClick: function() {
-        // event.preventDefault();
         this._sendData();
     },
-    // componentDidMount: function() {
-        
-    // },
+    _handleImageUrl: function(imgUrl) {
+        this.setState({
+            imgUrl: imgUrl
+        })
+    },
     render: function() {
          var that = this;
         return(
@@ -48,28 +51,11 @@ var CreatePost = React.createClass({
                         <option value="Electronics">Electronic</option>
                         <option value="General">Other</option>
                     </select>
-                    
-                    
-                    {/*<div className="dropdown">
-                      <button className="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                        Select a category:
-                        <span className="caret"></span>
-                      </button>
-                      <ul className="dropdown-menu" aria-labelledby="dropdownMenu1">
-                        <option value="Accessories">Accessory</option>
-                        <option value="Keys">Keys</option>
-                        <option value="Clothing">Clothing</option>
-                        <option value="Wallets or Cards">Wallet or Card</option>
-                        <option value="Electronics">Electronic</option>
-                        <option value="General">Other</option>
-                      </ul>
-                    </div>*/}
-                    
-                    
                     <p>Description:</p>
                     <textarea rows="10" ref="descriptionInput" className="form-control input-lg"></textarea>
                     <p>Image URL:</p>
                     <input ref="imageUrlInput" className="form-control input-lg" type="text" />
+                    <ImageUpload handleImageUrl={this._handleImageUrl}/>
                     
                     <Link to={"/postSuccess"}><button className="btn btn-success btn-lg" onClick={that._handleClick}><span className="glyphicon glyphicon-send"></span>  Submit</button></Link>
                 </form>
