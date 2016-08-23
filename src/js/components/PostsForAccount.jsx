@@ -33,7 +33,6 @@ var PostsForAccount = React.createClass({
     _handleDelete: function(itemId) {
         /*item id is that.state.allItems.id*/
         var that = this;
-        console.log("AFTER DELETE", itemId);
         axios.post('/delete',
         {
             itemId: itemId

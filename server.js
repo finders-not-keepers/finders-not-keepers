@@ -73,7 +73,6 @@ app.post('/searchItem', function(req, res) {
       res.send(err);
     }
     else {
-      console.log(itemArray)
       res.send({
         msg: 'ok',
         item: itemArray
@@ -234,27 +233,34 @@ app.post('/crap', function (req, res){
 })
 
 app.post ('/login', jwtCheck , function(req, res){
-  // if(req.body.idToken){
-  // console.log("INSIDE THE LOGIN REQ", req.body.idToken);
-  // }
-  management.getUser({id: req.user.sub}, function(err, profile) {
-    //console.log(profile);
-    //[Error: ER_DUP_ENTRY: Duplicate entry 'vdfjkbvkjsdbc' for key 'name'] code: 'ER_DUP_ENTRY', errno: 1062, sqlState: '23000', index: 0 
-    // if (req.user.sub === profile.user_id) {
-    //   console.log("THE REQUIREMENTS ARE MET");
-    //   res.send({msg: 'ok', item: profile})
-    // }
-    // else {
-    findersAPI.createProfile(profile, function (req, profileArray){
-      if(err){
-        console.log(err); 
+  if(req.user) {
+    
+    findersAPI.getAccountById(req.user.sub, function(err, user){
+      if(err) {
+        res.send(err);
+      } else {
+        management.getUser({id: req.user.sub}, function(err, profile) {
+          if(err) {
+            res.send(err);
+          } else {
+           res.send({msg: 'ok', user: profile}) 
+          }
+        })
       }
-      else {
-        res.send({msg: 'ok', item: profileArray})
-      }
+      
     })
-    // }
-  })
+  } else {
+    management.getUser({id: req.user.sub}, function(err, profile) {
+      findersAPI.createProfile(profile, function (req, profileArray){
+        if(err){
+          res.send({msg: 'taken'}); 
+        }
+        else {
+          res.send({msg: 'ok', item: profileArray})
+        }
+      })
+  }) 
+  }
 })
 
 var S3_BUCKET = 'findersnotkeepers';
@@ -280,13 +286,12 @@ app.post('/save-details', function (req, res) {
       signedRequest: data,
       url: `https://${encodeURIComponent(S3_BUCKET)}.s3.amazonaws.com/${encodeURIComponent(fileName)}`
     };
-    console.log(returnData.url) //this has the url for the picture
-    
     res.send(JSON.stringify(returnData));
   });
 });
 
 app.post ('/createPost', function (req, res){
+  console.log("CREATE POST", req.body);
   findersAPI.getAccountById(req.body.subid, function (err, accId){
     if(err){
       res.send(err);
@@ -317,7 +322,6 @@ app.post ('/postsforaccounts' , function (req, res){
               res.send(err);  
             }
             else {
-              console.log(itemPosts);
               res.send({msg: 'ok', allitems: itemPosts});
             }
       });

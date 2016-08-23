@@ -301,7 +301,7 @@ p {
   box-shadow: 0 0 20px #FFF;
 }
 
-profiles {
+.profiles {
   display: flex;
   flex-direction: row;
   justify-content: center;

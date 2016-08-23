@@ -11,20 +11,20 @@ var AccountPage = React.createClass({
         return {}
     },
     _fetchData : function (){
-        axios.post('/stuff', {
-            tokenId: localStorage.getItem('sub')
-        })
-        .then(function(response){
-            console.log(response);
-        })
-        .catch (function(error){
-            console.log(error);
-        })
+        // axios.post('/stuff', {
+        //     tokenId: localStorage.getItem('sub')
+        // })
+        // .then(function(response){
+        //     console.log(response);
+        // })
+        // .catch (function(error){
+        //     console.log(error);
+        // })
     },
     componentDidMount: function() { 
         var that  = this;
         AuthEmmitter.emitter.on('profile', function(profile){
-            that.setState({ account: profile })
+            that.setState({ account: profile.profile })
         })
 
         axios.create({
@@ -33,6 +33,11 @@ var AccountPage = React.createClass({
         }
         }).post('/login', {idToken: localStorage.getItem('id_token')})
         .then(function(response){
+            var msg = response.data.msg;
+            var user = response.data.user;
+            if(user) {
+                that.setState({account: user})
+            }
         })
         .catch (function(error){
             console.log(error);
@@ -44,7 +49,7 @@ var AccountPage = React.createClass({
         return (
             <div className="container center">
                 <h1 id="welcomeBack" className="text-center element-animation"> Welcome back,</h1>
-                <h1 className="text-center other-element-animation"><span id="accountName">{this.state.account ? this.state.account.profile.user_metadata.bizname : ''}</span></h1>
+                <h1 className="text-center other-element-animation"><span id="accountName">{this.state.account ? this.state.account.user_metadata.bizname : ''}</span></h1>
                 <hr/>
                 <h2 className="text-center whatToDo">What would you like to do today?</h2>
                 <br/>

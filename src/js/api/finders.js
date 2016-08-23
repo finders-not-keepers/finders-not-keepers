@@ -20,11 +20,10 @@ return {
                 VALUES (?,?,?,?,?,?)`, [account.name, account.addressId, account.media, account.category_account,  new Date(), new Date()], 
                 function (err, res) {
                     if(err){
-                        console.log(err);
+                        console.log("THIS IS THE ERR", err);
                         callback(err);
                     }
                     else{
-                        console.log(res)
                         callback(null, res);
                     }
                 })
@@ -211,18 +210,32 @@ return {
             })
         },
         createProfile : function (account, callback){
-             conn.query(`INSERT INTO accounts (name, address, media, category_account, email, clientid, createdAt, updatedAt)
-                VALUES (?,?,?,?,?,?,?,?)`, [account.user_metadata.bizname, account.user_metadata.address, account.picture, account.user_metadata.type, account.email, account.user_id , account.created_at, account.updated_at], 
+            console.log("THIS IS BEING PASSE TO API FUNCS", account);
+             conn.query(`INSERT INTO accounts (name, address, media, category_account, email, clientid, createdAt)
+                VALUES (?,?,?,?,?,?,?)`, [account.user_metadata.bizname, account.user_metadata.address, account.picture, account.user_metadata.type, account.name, account.user_id , account.created_at], 
                 function (err, res) {
                     if(err){
-                        console.log(err);
+                        console.log("THIS IS THE ARR", err);
                         callback(err);
                     }
                     else{
+                        console.log("THIS IS THE RES");
                         callback(null, res);
                     }
                 })
         }, 
+        getProfileById: function(subid, callback) {
+            conn.query(`SELECT * FROM accounts
+                        WHERE clientid = ?`, [subid],
+                function(err, res) {
+                    if (err) {
+                        callback(err);
+                    }
+                    else {
+                        callback(null, res);
+                    }
+                })
+        },
         getAccountById: function(subid, callback) {
             conn.query(`SELECT id FROM accounts
                         WHERE clientid = ?`, [subid],

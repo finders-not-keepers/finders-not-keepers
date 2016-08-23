@@ -34,12 +34,11 @@ var ImageUpload = React.createClass({
       return (
           <div>
             <input type="file" id="file-input" ref="fileInput"/>
-             <p id="status">Please select a file</p>
              <img id="preview" src={that.imageUrl} />
              
             <form onSubmit={this._handleSubmit}>
-                <input type="hidden" id="avatar-url" name="avatar-url" value="/images/default.png"/>
-                <input type="submit" value="UPLOAD PICTURE" />
+                <input className="btn btn-default btn-lg" type="hidden" id="avatar-url" name="avatar-url" value="/images/default.png"/>
+                <input className="btn btn-success btn-lg" type="submit" value="UPLOAD PICTURE" />
             </form>
           </div>
       );

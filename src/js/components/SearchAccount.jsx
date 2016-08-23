@@ -32,7 +32,6 @@ var SearchAccount = React.createClass({
             });
     },
     render: function() {
-        console.log(this.state.accounts)
         var that = this;
         return (
                 <div className="container homePage">
