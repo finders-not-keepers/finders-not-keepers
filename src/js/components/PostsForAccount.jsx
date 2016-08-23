@@ -4,13 +4,14 @@ import { withRouter } from 'react-router'
 var Link = require('react-router').Link;
 var axios = require("axios");
 
+
+
 var PostsForAccount = React.createClass({
     getInitialState : function (){
       return {allItems: []};
     },
     componentWillMount : function (){
         this._fetchData();
-        console.log("component is mounting")
     }, 
     _fetchData : function (){
       var that = this;
@@ -20,7 +21,6 @@ var PostsForAccount = React.createClass({
         })
         .then (function (response){
             if (response.data.msg === 'ok'){
-              console.log("RESPONSE IS ALL GOOD", response.data.allitems);
                that.setState({allItems: response.data.allitems})
             }
             
@@ -31,7 +31,6 @@ var PostsForAccount = React.createClass({
         
     },
     _handleDelete: function(itemId) {
-        /*item id is that.state.allItems.id*/
         var that = this;
         axios.post('/delete',
         {
@@ -39,8 +38,8 @@ var PostsForAccount = React.createClass({
         })
     },
     render: function() {
-        console.log(this.state.allItems, "in render!!!")
-
+        console.log(this.state.allItems)
+        
         var that = this;
         return (
             <div>
@@ -51,14 +50,12 @@ var PostsForAccount = React.createClass({
                     return (
                         <div key={item.id} className = "col-xs-12 col-sm-4 col-md-3 col-lg-3 well">
                             <div className = "thumbnail">
-                                 <img src={item.media} alt="Generic placeholder thumbnail"></img>
+                                 <img src={item.media} alt="Generic Thumbnail"></img>
                             </div>
                           
                             <div className = "caption">
                                  <h4>{item.title}</h4>
                                  <p className="postsDateP">Found on: <span id="accountName">{item.createdAt}</span></p>
-                                 
-                                 
                                  
                                  <button className="btn btn-default" type="button" data-toggle="modal" data-target={itemIdTarget}><span className="glyphicon glyphicon-eye-open"></span>  View Description</button>
                                  <Link to={`/`}><button className="btn btn-default"><span className="glyphicon glyphicon-pencil"></span>  Edit</button></Link>

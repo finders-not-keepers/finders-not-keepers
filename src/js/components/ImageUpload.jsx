@@ -24,9 +24,11 @@ var ImageUpload = React.createClass({
         console.log(err)
       })
     } else {
-      this.setState({
-        fileSelected: false
-      })
+      // this.setState({
+      //   fileSelected: false
+      // })
+      var defaultUrl = 'https://s3-us-west-1.amazonaws.com/findersnotkeepers/Finder-Default-Img.jpg';
+      that.props.handleImageUrl(defaultUrl);
     }
   },
   render: function () {

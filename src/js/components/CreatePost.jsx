@@ -4,7 +4,11 @@ var axios = require("axios");
 var Link = require('react-router').Link;
 import ImageUpload from './ImageUpload';
 
+
 var CreatePost = React.createClass({
+    getInitialState : function (){
+        return {}
+    },
     _sendData: function () {
       var imageUrl = this.state.imgUrl;
       var subid = localStorage.getItem('sub');
@@ -12,7 +16,6 @@ var CreatePost = React.createClass({
       axios.post('/createPost', {
             title: that.refs.titleInput.value.toLowerCase(), 
             description: that.refs.descriptionInput.value.toLowerCase(),
-            media: that.refs.imageUrlInput.value.toLowerCase(),
             category: that.refs.category.value.toLowerCase(),
             subid: subid, 
             imageUrl : imageUrl
