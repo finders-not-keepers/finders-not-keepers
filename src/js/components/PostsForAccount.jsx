@@ -3,6 +3,7 @@ var React = require('react');
 import { withRouter } from 'react-router'
 var Link = require('react-router').Link;
 var axios = require("axios");
+import EditPost from './EditPost';
 
 
 
@@ -36,6 +37,8 @@ var PostsForAccount = React.createClass({
         axios.post('/delete',
         {
             itemId: itemId
+        }).then (function(){
+            that._fetchData();
         })
     },
     render: function() {
@@ -45,12 +48,13 @@ var PostsForAccount = React.createClass({
         return (
             <div>   
                 <h2>Your posts:</h2>
-                
+                <br/>
                    {that.state.allItems.map(function(item) {
-                  
-                   var itemIdTarget = ("#" + item.id)
+                    var itemIdTargetDel = ("#" + item.id + "1")
+                    var itemIdTarget = ("#" + item.id)
                     return (
-                        <div key={item.id} className = "col-xs-12 col-sm-4 col-md-3 col-lg-3 well">
+                        <div key={item.id} className = "col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                        <div className="well">
                             <div className = "thumbnail">
                                  <img src={item.media} alt="Generic Thumbnail"></img>
                             </div>
@@ -60,8 +64,24 @@ var PostsForAccount = React.createClass({
                                  <p className="postsDateP">Found on: <span id="accountName">{item.createdAt.substring(0,10)}</span></p>
                                  
                                  <button className="btn btn-default" type="button" data-toggle="modal" data-target={itemIdTarget}><span className="glyphicon glyphicon-eye-open"></span>  View Description</button>
-                                 <Link to={`/`}><button className="btn btn-default"><span className="glyphicon glyphicon-pencil"></span>  Edit</button></Link>
-                                 <Link to={"/deleteSuccess"}><button value={item.id} onClick={that._handleDelete.bind(that, item.id)} className="btn btn-danger" type="button"><span className="glyphicon glyphicon-remove"></span>  Delete</button></Link>
+                                 <Link to={`/editpost/${item.id}`}><button className="btn btn-default" value={item.id}><span className="glyphicon glyphicon-pencil"></span>  Edit</button></Link>
+                                 <button data-target={itemIdTargetDel} data-toggle="modal" className="btn btn-danger" type="button"><span className="glyphicon glyphicon-remove"></span>  Delete</button>
+                                 
+                                 
+                                 <div className="modal fade" id={item.id + "1"}>
+                                    <div className="modal-dialog modal-sm">
+                                        <div className="modal-content">
+                                            <div className="modal-body text-center">
+                                                <h3>Are you sure?</h3>
+                                            </div>
+                                            <div className="modal-footer center-block delete-modal-footer">
+                                                <button type="button" className="btn btn-success btn-lg" data-dismiss="modal" value={item.id} onClick={that._handleDelete.bind(that, item.id)}><span className="glyphicon glyphicon-ok"></span>  Yes</button>
+                                                <button id="no-btn" type="button" className="btn btn-danger btn-lg" data-dismiss="modal"><span className="glyphicon glyphicon-remove"></span>  No</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                 
                                  
                                  <div className="modal fade" id={item.id}>
                                     <div className="modal-dialog">
@@ -80,6 +100,7 @@ var PostsForAccount = React.createClass({
                                  </div>
                                  
                             </div>
+                        </div>
                         </div>)
                    })} 
             </div>
@@ -87,4 +108,5 @@ var PostsForAccount = React.createClass({
     }
 })
 
-module.exports = PostsForAccount
+var PostsForAccountRoute = withRouter(PostsForAccount)
+module.exports = PostsForAccountRoute;

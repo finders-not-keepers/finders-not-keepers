@@ -237,7 +237,7 @@ app.post('/claimItem/:id', function(req, res) {
   });
 });
 
-app.post('/crap', function(req, res) {
+app.post('/claim', function(req, res) {
   findersAPI.getItem(req.body.itemId, function(err, itemArray) {
     if (err) {
       console.log(err);
@@ -349,7 +349,6 @@ app.post('/postsforaccounts', function(req, res) {
       res.send(err);
     }
     else {
-      console.log("AACID", accId);
       findersAPI.getAllItemsForAccountSubid(req.body.subid, function(err, itemPosts) {
         if (err) {
           console.log(err)
@@ -395,7 +394,21 @@ app.post("/allItems", function(req, res) {
   })
 });
 
-
+app.post('/editpost/:id', function (req, res){
+  console.log("EDITPOST STUFF", req.body);
+  findersAPI.getItem(req.body.itemId, function(err, allItem) {
+    if (err) {
+      res.send(err);
+    }
+    else {
+      console.log("ALL ITEM", allItem)
+      res.send({
+        msg: 'ok',
+        allitem: allItem
+      });
+    }
+  })
+})
 
 // BOILERPLATE 
 app.get('/*', function(request, response) {

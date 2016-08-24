@@ -6,9 +6,12 @@ import ImageUpload from './ImageUpload';
 import { withRouter } from 'react-router';
 
 
+
 var CreatePost = React.createClass({
     getInitialState : function (){
-        return {}
+        return {
+            imgUrl: "https://s3-us-west-1.amazonaws.com/findersnotkeepers/Finder-Default-Img.jpg"
+        }
     },
     _sendData: function () {
       var imageUrl = this.state.imgUrl;
@@ -36,7 +39,6 @@ var CreatePost = React.createClass({
         this.props.router.push("/postSuccess");
     },
     _handleImageUrl: function(imgUrl) {
-        console.log("IMGAEGE URL", imgUrl);
         this.setState({
             imgUrl: imgUrl
         })
@@ -60,7 +62,6 @@ var CreatePost = React.createClass({
                     </select>
                     <p>Description:</p>
                     <textarea rows="10" ref="descriptionInput" className="form-control input-lg"></textarea>
-                    <p><span className="glyphicon glyphicon-camera"></span>  Upload an image:</p>
                     
                     <ImageUpload handleImageUrl={this._handleImageUrl}/>
                     

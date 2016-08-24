@@ -4,14 +4,15 @@ import axios from 'axios';
 
 var ImageUpload = React.createClass({
   getInitialState :function (){
-    var defaultUrl = 'https://s3-us-west-1.amazonaws.com/findersnotkeepers/Finder-Default-Img.jpg';
-    return { imgPreview: defaultUrl};
-    //return {}
+    // var defaultUrl = 'https://s3-us-west-1.amazonaws.com/findersnotkeepers/Finder-Default-Img.jpg';
+    // return { imgPreview: defaultUrl};
+    return {
+      
+    }
   },
   _handleSubmit: function(event) {
     event.preventDefault();
     var file = this.refs.fileInput.files[0];
-    console.log("FILESSSSS", file)
     var url = `/save-details?file-name=${file.name}&file-type=${file.type}`;
     var that = this;
     if(file) {
@@ -30,20 +31,18 @@ var ImageUpload = React.createClass({
         console.log(err)
       })
     } 
-    else {
-        var defaultUrl = 'https://s3-us-west-1.amazonaws.com/findersnotkeepers/Finder-Default-Img.jpg';
-        that.props.handleImageUrl(defaultUrl);
-        that.setState({imgPreview: defaultUrl});
-    }
   },
   render: function () {
       var that = this;
       return (
           <div>
-            <form>
-              <input className="btn btn-default" type="file" id="file-input" ref="fileInput" onChange={that._handleSubmit} />  
+            
+            <div className="fileUpload btn btn-default btn-lg">
+            <span><span className="glyphicon glyphicon-camera"></span>  Upload an image</span>
+            <input type="file" className="upload image-upload-btn" id="file-input" ref="fileInput" onChange={that._handleSubmit}/>
+            </div>
               <img className="imgPreview" id="preview" src={that.state.imgPreview} />
-            </form>
+            
           </div>
       );
     }

@@ -18,14 +18,14 @@ var App = React.createClass({
       })
     }
         return (
-            <div className="container-fluid">
-            <div className="row">
-            <div className="col-xs-12">
-            <Nav auth={this.props.route.auth} />
-                <main>
-                    {children}
-                </main>
-                </div>
+            <div className="container">
+                <div className="row">
+                    <div className="col-xs-12">
+                        <Nav auth={this.props.route.auth} />
+                        <main>
+                            {children}
+                        </main>
+                    </div>
                 </div>
             </div>
         );

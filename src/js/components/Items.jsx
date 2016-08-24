@@ -10,13 +10,14 @@ var Items = React.createClass({
             <div>
                    {this.props.items.map(function(item) {
                    var itemIdTarget = ("#" + item.id)
-                   var itemIdTargetImg = ("#" + item.id + "69")
+                   var itemIdTargetImg = ("#" + item.id + "1")
                     return (
-                        <div key={item.id} className = "col-xs-12 col-sm-4 col-md-3 col-lg-3 well">
-                            <div className="thumbnail">
+                        <div key={item.id} className = "col-xs-12 col-sm-6 col-md-4 col-lg-4">
+                        <div className="well">
+                            <div>
                                  <a data-target={itemIdTargetImg} data-toggle="modal"><img id="imageToBeClicked" src={item.media} alt={item.title} /></a>
                             </div>
-                            <div className="modal fade" id={item.id + "69"}>
+                            <div className="modal fade" id={item.id + "1"}>
                                 <div className="modal-dialog">
                                         <div className="modal-content">
                                             <div className="modal-body">
@@ -54,6 +55,7 @@ var Items = React.createClass({
                                  </div>
                                  
                             </div>
+                        </div>
                         </div>)
                    })} 
             </div>

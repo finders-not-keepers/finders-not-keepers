@@ -74,7 +74,7 @@ var Nav = React.createClass({
                 <span className="icon-bar"></span>
                 <span className="icon-bar"></span>
               </button>
-             <a className="navbar-brand" href="/"><img src="img/favicon.png" width="27px" /></a>
+             <a className="navbar-brand" href="/"><img className="navbar-brand-img" src="/img/bino-favicon-grey.png" width="40px" /></a>
             </div>
         
             {/*<!-- Collect the nav links, forms, and other content for toggling -->*/}

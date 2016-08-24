@@ -43,20 +43,19 @@ return {
         getAllItemsForSearch: function (searchterm, callback){
           var itemname = searchterm.item;
           var itemaccountid = searchterm.username;
-          console.log(itemaccountid, "TEH FUCKING ACOUNT ID");
           conn.query( `
             SELECT accounts.name, items.title, items.id, items.media , items.description, items.createdAt
             FROM accounts 
             LEFT JOIN items 
             ON items.accountId = accounts.id 
             WHERE accounts.id = ? AND ((MATCH (title, description)
-            AGAINST (? IN BOOLEAN MODE)) OR (items.title LIKE '%${itemname}%' OR items.description LIKE '%${itemname}%'));`, [itemaccountid, itemname],
+            AGAINST (? IN BOOLEAN MODE)) OR (items.title LIKE '%${itemname}%' OR items.description LIKE '%${itemname}%'))
+            ORDER BY items.createdAt DESC;`, [itemaccountid, itemname],
                         function (err, res){
                             if(err){
                                 callback(err);
                             }
                             else {
-                                console.log("QUERY RESULT", res)
                                 callback(null, res);
                             }
                         })  
@@ -97,7 +96,8 @@ return {
                         FROM items 
                         LEFT JOIN accounts 
                         ON items.accountId = accounts.id 
-                        WHERE accounts.id = ?;`
+                        WHERE accounts.id = ?
+                        ORDER BY items.createdAt DESC;`
                         , [id],
                         function (err, res){
                             if(err){
@@ -166,20 +166,19 @@ return {
                 }
             })
         }, 
-        editItem: function (itemid, callback) {
-            conn.query(`
-            DELETE
-            FROM admins 
-            WHERE id = ?`, [itemid], function (err, res){
-                if (err){
-                    console.log(err);
-                    callback(err);
-                }
-                else {
-                    callback(null, res);
-                }
-            })
-        }, 
+        // editItem: function (itemid, callback) {
+        //     conn.query( `INSERT INTO items (accountId, title, description, media, updatedAt)
+        //         VALUES (?,?,?,?,?,?,?)`, [accountid, item.title, item.description, item.imageUrl, new Date()],
+        //         function (err, res){
+        //             if(err){
+        //                 console.log(err);
+        //                 callback(err);
+        //             }
+        //             else{
+        //                 callback(null, res);
+        //             }
+        //         })
+        //  }, 
         getItemDescription: function(itemid, callback) {
             conn.query(`
                     SELECT  description, title, media, createdAt

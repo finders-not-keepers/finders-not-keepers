@@ -34,17 +34,23 @@ var SearchAccount = React.createClass({
     render: function() {
         var that = this;
         return (
-                <div className="container homePage">
+                <div className="homePage">
                 <h1 className="text-center element-animation">Finders<span id="not">Not</span> Keepers</h1>
-                <p className="text-center homePageSubtitle other-element-animation">We find the shit you forgot at the places you went to.</p>
+                <p className="text-center homePageSubtitle other-element-animation">We help find the stuff you forgot at the places you went to.</p>
                 <br/>
                 <hr/>
                 <br/>
-                <h2>Where did you lose your item?</h2>
-                <form name="myform">   
-                    <input ref="userInput" className="form-control input-lg" type="text" name="mytextfield" />
-                    <button onClick={this._handleClick} className="btn btn-lg btn-danger"><span className="glyphicon glyphicon-arrow-right"></span></button>
-                </form>
+                
+                <h2 className="text-center">Where did you lose your item?</h2>
+                    
+                <div>
+                    <form name="myform" className="input-group"> 
+                    
+                        <input ref="userInput" className="form-control input-lg" type="text" name="mytextfield" />
+                        <span className="input-group-btn"><button onClick={this._handleClick} className="btn btn-lg btn-danger"><span className="glyphicon glyphicon-arrow-right"></span></button></span>
+                    
+                    </form>
+                </div>
                 
                 <ul className="list-group">
                 {that.state.accounts ? that.state.accounts.map(acc => {

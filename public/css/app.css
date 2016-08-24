@@ -13,7 +13,11 @@ textarea {
 }
 
 .btn {
-    margin: 5px;
+  margin: 5px;
+}
+
+.delete-modal-footer {
+  text-align : center;
 }
 
 #not {
@@ -83,6 +87,7 @@ h1 {
 .form-control:focus {
   border-color: #FFF;
   box-shadow: none;
+  z-index: -1;
 }
 
 .navbar-brand {
@@ -324,15 +329,10 @@ li {
   padding: 0;
 }
 
-
 .modalImage {
   width: 500px;
   margin: 0 auto;
   border-radius: 4px;
-}
-
-.modal-footer {
-  padding: 5px;
 }
 
 option {
@@ -349,12 +349,76 @@ option {
 }
 
 .imgPreview {
+  display: block;
   width: 200px;
   margin: 6px 6px 4px 6px;
-  border: 1px solid #FFF;
   border-radius: 3px;
 }
 
 .glyphicon-map-marker {
   color: #f95759;
+}
+
+.input-group-btn {
+  z-index: 3;
+}
+
+form {
+  margin-bottom: 25px;
+}
+
+.well {
+  margin-bottom:30px;
+}
+
+#no-btn {
+  margin-bottom: 5px;
+}
+
+.fileUpload {
+    position: relative;
+    overflow: hidden;
+    margin-top: 15px;
+}
+
+.fileUpload input.upload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+
+form .image-upload-btn {
+  margin: 0;
+}
+
+.btn-lg {
+  line-height: 1.37;
+}
+
+.navbar-brand-img {
+  top: 5px;
+  position: absolute;
+}
+
+.navbar {
+  border: none;
+}
+
+.navbar-nav {
+      margin-left: 35px;
+}
+
+.claim-desc-color {
+  color: #f95759;
+}
+
+.claim-desc {
+  color: #FFF;
+  margin: 5px;
 }

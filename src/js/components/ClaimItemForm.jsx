@@ -14,7 +14,7 @@ var ClaimItemForm = React.createClass ({
     },
     _fetchData : function (){
         var that = this;
-        axios.post('/crap', {
+        axios.post('/claim', {
             itemId: that.props.params.itemId
         })
         .then (function (response){
@@ -32,7 +32,6 @@ var ClaimItemForm = React.createClass ({
         });
     },
     _sendData: function() {
-        console.log(this.props);
         var that = this;
         axios.post('/claimItem/:id', {
             itemId: that.props.params.itemId, 
@@ -52,7 +51,7 @@ var ClaimItemForm = React.createClass ({
     _handleClick: function(event) {
         event.preventDefault();
         this._sendData();
-        this.props.router.push(`/claimSuccess`);
+        this.props.router.push("/claimSuccess");
     },
     render: function() {
         var that = this;
@@ -62,8 +61,10 @@ var ClaimItemForm = React.createClass ({
             <img src={that.state.media} className="col-xs-6 thumbnail claimPhoto"/>
             <div className="row">
             <div className="col-xs-12">
+            <h4 className="claim-desc"><span className="claim-desc-color">Description:</span> {that.state.description}</h4>
+            <hr/>
             <p>We highly suggest reading our guidelines, <a href="/guidelines" className="decodeMTL">here</a>, for claiming an item if this is your first time.</p>
-                <hr/>
+                
                 <form className="form-group form-group-lg">
                     <p>First name:</p>
                     <input className="form-control" ref ="firstname"/>

@@ -257,10 +257,12 @@ SELECT accounts.name, items.title, items.id, items.media , items.description, it
             AGAINST ( 'hat' IN NATURAL LANGUAGE MODE)) OR (items.title LIKE '%hat%' OR items.description LIKE '%hat%')) ;
 
 UPDATE items
-  SET title='kitty hello hat'
-WHERE id = 1;
+  SET title='laptop case'
+WHERE id = 99;
 
 SELECT * FROM items WHERE items.title LIKE '%hello%';
 
 
-
+UPDATE accounts
+  SET name = 'black and white knitted hat'
+WHERE id = 134;

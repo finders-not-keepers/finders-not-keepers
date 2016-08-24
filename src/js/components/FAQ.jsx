@@ -16,8 +16,8 @@ var FAQ = React.createClass({
                     </div>
                     <div id="collapseOne" className="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                       <div className="panel-body">
-                        If you have found an item you had lost via our website “Finders Not Keeper”, you have to follow the instructions on clicking the ‘claim’ button on your object. Give as much details as possible as proofs of your item being yours. The business which posted your found item should get back to you shortly via e-mail and tell you how to proceed to retrieve it.. 
-                        <br/>Photo ID is required for all pick-ups in any business listed on “Finders Not Keepers”. When picking up an item you will be asked to present your ID, and note your name and a piece of contact information (either phone # or e-mail address), as well as sign for the item before it will be released.
+                        If you found an item you lost via our website “Finders Not Keeper”, follow the instructions after clicking the ‘claim’. Give as much details as possible as proof of the item being yours. The business that posted your item will get back to you shortly via e-mail and tell you how to proceed to retrieve it. 
+                        <br/>Photo ID is required for all pick-ups in any business listed on “Finders Not Keepers”. When picking up an item, you will be asked to present your ID, and note your name and contact information (either phone # or e-mail address), as well as sign for the item.
                       </div>
                     </div>
                   </div>
