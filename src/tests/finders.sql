@@ -234,7 +234,33 @@ INSERT INTO items (media)
 VALUES 'https://findersnotkeepers.s3.amazonaws.com/CelineAvatar.png'
 WHERE items.id =
 
+
+SELECT accounts.name, items.title, items.id, items.media , items.description, items.createdAt
+            FROM accounts 
+            LEFT JOIN items 
+            ON items.accountId = accounts.id 
+            WHERE accounts.name = 'Kash Money' AND MATCH (title, description)
+            AGAINST ('hat' IN BOOLEAN MODE);
  
+SELECT accounts.name, items.title, items.id, items.media , items.description, items.createdAt
+            FROM accounts 
+            LEFT JOIN items 
+            ON items.accountId = accounts.id 
+            WHERE accounts.name = 'Hello World!' AND MATCH (title, description)
+            AGAINST ('%hello%' IN BOOLEAN MODE);
+            
+            SELECT accounts.id ,accounts.name, items.title, items.id, items.media , items.description, items.createdAt
+            FROM accounts 
+            LEFT JOIN items 
+            ON items.accountId = accounts.id 
+            WHERE items.accountId = 1 AND ((MATCH (title, description)
+            AGAINST ( 'hat' IN NATURAL LANGUAGE MODE)) OR (items.title LIKE '%hat%' OR items.description LIKE '%hat%')) ;
+
+UPDATE items
+  SET title='kitty hello hat'
+WHERE id = 1;
+
+SELECT * FROM items WHERE items.title LIKE '%hello%';
 
 
 

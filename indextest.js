@@ -97,7 +97,7 @@ var FindersAPI = finders(connection);
 
 
 
-var searchstring= {item: 'mount', username: 'Planet Earth'};
+var searchstring= {item: 'earth', username: 1};
 
 FindersAPI.getAllItemsForSearch(searchstring, function(err, post) { 
   if(err){

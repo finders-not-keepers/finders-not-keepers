@@ -2,25 +2,24 @@
 
 module.exports = function FindersAPI(conn) {
 return {
-        createItem : function (item, accountid, callback){
-            conn.query( `INSERT INTO items (categoryId, accountId, title, description, media, createdAt, updatedAt)
-                VALUES (?,?,?,?,?,?,?)`, [item.categoryId, accountid, item.title, item.description, item.imageUrl, new Date(), new Date()],
+        createItem: function (item, accountid, callback){
+            conn.query( `INSERT INTO items (category, accountId, title, description, media, createdAt, updatedAt)
+                VALUES (?,?,?,?,?,?,?)`, [item.category , accountid, item.title, item.description, item.imageUrl, new Date(), new Date()],
                 function (err, res){
                     if(err){
+                        console.log(err);
                         callback(err);
                     }
                     else{
-                        console.log(res);
                         callback(null, res);
                     }
                 })
         },
-        createAccount : function (account, callback) {
-               conn.query(`INSERT INTO accounts (name, addressId, media, category_account, createdAt, updatedAt)
-                VALUES (?,?,?,?,?,?)`, [account.name, account.addressId, account.media, account.category_account,  new Date(), new Date()], 
+        createAccount: function (account, callback) {
+               conn.query(`INSERT INTO accounts (name, media, category_account, createdAt, updatedAt)
+                VALUES (?,?,?,?,?,?)`, [account.name,  account.media, account.category_account,  new Date(), new Date()], 
                 function (err, res) {
                     if(err){
-                        console.log("THIS IS THE ERR", err);
                         callback(err);
                     }
                     else{
@@ -28,7 +27,7 @@ return {
                     }
                 })
         },
-        createAddress : function (address, accountId, callback){
+        createAddress: function (address, accountId, callback){
             conn.query(`INSERT INTO addresses (street_number, streetline1, streetline2, city, province, country, zip)
                 VALUES (?,?,?,?,?,?,?)`, [address.street_number, address.streetline1, address.streetline2, address.city, address.province, address.country, address.zip], 
                 function(err, res){
@@ -41,27 +40,28 @@ return {
                     }
                 })
         },
-        getAllItemsForSearch : function (itemsearch, callback){
-            // console.log("GETTIN INSIDE API FUNCTION");
-          var itemname = itemsearch.item;
-          var itemaccountname = itemsearch.username;
+        getAllItemsForSearch: function (searchterm, callback){
+          var itemname = searchterm.item;
+          var itemaccountid = searchterm.username;
+          console.log(itemaccountid, "TEH FUCKING ACOUNT ID");
           conn.query( `
             SELECT accounts.name, items.title, items.id, items.media , items.description, items.createdAt
             FROM accounts 
             LEFT JOIN items 
             ON items.accountId = accounts.id 
-            WHERE accounts.name = ? AND MATCH (title, description)
-            AGAINST (? IN BOOLEAN MODE);`, [itemaccountname, itemname],
+            WHERE accounts.id = ? AND ((MATCH (title, description)
+            AGAINST (? IN BOOLEAN MODE)) OR (items.title LIKE '%${itemname}%' OR items.description LIKE '%${itemname}%'));`, [itemaccountid, itemname],
                         function (err, res){
                             if(err){
                                 callback(err);
                             }
                             else {
+                                console.log("QUERY RESULT", res)
                                 callback(null, res);
                             }
                         })  
         },
-        getAllItemsForSearch2 : function (itemsearch, callback){
+        getAllItemsForSearch2: function (itemsearch, callback){
             // console.log("GETTIN INSIDE API FUNCTION");
           conn.query( `
             SELECT accounts.name, items.title, items.id, items.media , items.description, items.createdAt
@@ -79,7 +79,7 @@ return {
                             }
                         })  
         },
-        getItem : function (itemid, callback){
+        getItem: function (itemid, callback){
             conn.query(`
             SELECT * 
             FROM items 
@@ -92,7 +92,23 @@ return {
                 }
             })
         },
-        getAllItemsForAccount : function (subid, callback){
+        getAllItemsForAccount: function (id, callback){
+            conn.query( `SELECT items.*, accounts.clientid, accounts.name
+                        FROM items 
+                        LEFT JOIN accounts 
+                        ON items.accountId = accounts.id 
+                        WHERE accounts.id = ?;`
+                        , [id],
+                        function (err, res){
+                            if(err){
+                                callback(err);
+                            }
+                            else {
+                                callback(null, res);
+                            }
+                        }) 
+        },
+        getAllItemsForAccountSubid: function (subid, callback){
             conn.query( `SELECT items.*, accounts.clientid, accounts.name
                         FROM items 
                         LEFT JOIN accounts 
@@ -108,7 +124,7 @@ return {
                             }
                         }) 
         },
-        getAddresses : function (accountId, callback) {
+        getAddresses: function (accountId, callback) {
             conn.query( `SELECT  * , addresses.id
                                 FROM addresses
                                 LEFT JOIN accounts
@@ -124,7 +140,7 @@ return {
                             }
                         }) 
         }, 
-        getAccounts : function (accountname, callback){
+        getAccounts: function (accountname, callback){
             conn.query (`
             SELECT * FROM accounts WHERE name LIKE '%${accountname.account}%'`,
             function (err, res) {
@@ -136,7 +152,7 @@ return {
                 }
             })
         },
-        deleteItem : function (itemid, callback){
+        deleteItem: function (itemid, callback){
             conn.query(`
             DELETE
             FROM items 
@@ -150,7 +166,7 @@ return {
                 }
             })
         }, 
-        editItem : function (itemid, callback) {
+        editItem: function (itemid, callback) {
             conn.query(`
             DELETE
             FROM admins 
@@ -190,12 +206,11 @@ return {
                         callback(err);
                     }
                     else {
-                        console.log(res);
                         callback(null, res);
                     }
                 })
         }, 
-        checkAccountExist : function (clientid, callback) {
+        checkAccountExist: function (clientid, callback) {
             conn.query(`
                 SELECT *
                 FROM accounts
@@ -209,17 +224,15 @@ return {
                     }
             })
         },
-        createProfile : function (account, callback){
-            console.log("THIS IS BEING PASSE TO API FUNCS", account);
+        createProfile: function (account, callback){
              conn.query(`INSERT INTO accounts (name, address, media, category_account, email, clientid, createdAt)
                 VALUES (?,?,?,?,?,?,?)`, [account.user_metadata.bizname, account.user_metadata.address, account.picture, account.user_metadata.type, account.name, account.user_id , account.created_at], 
                 function (err, res) {
                     if(err){
-                        console.log("THIS IS THE ARR", err);
+                        console.log( err);
                         callback(err);
                     }
                     else{
-                        console.log("THIS IS THE RES");
                         callback(null, res);
                     }
                 })
@@ -247,21 +260,7 @@ return {
                         callback(null, res);
                     }
                 })
-        } //, 
-        // storeImgUrl: function (imgUrl, callback){
-        //     conn.query(`
-        //     INSERT INTO items (media)
-        //     VALUES (?)
-        //     `, [imgUrl], function (err, res){
-        //         if(err){
-        //           callback(err); 
-        //         }
-        //         else {
-        //           callback(null, err); 
-        //         }
-                
-        //     })
-        // }
+        } 
     }
 }
         

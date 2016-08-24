@@ -48,8 +48,8 @@ var AccountPage = React.createClass({
     render: function() {
         return (
             <div className="container center">
-                <h1 id="welcomeBack" className="text-center element-animation"> Welcome back,</h1>
-                <h1 className="text-center other-element-animation"><span id="accountName">{this.state.account ? this.state.account.user_metadata.bizname : ''}</span></h1>
+                <h1 id="welcomeBack" className="text-center"> Welcome back,</h1>
+                <h1 className="text-center"><span id="accountName">{this.state.account ? this.state.account.user_metadata.bizname : ''}</span></h1>
                 <hr/>
                 <h2 className="text-center whatToDo">What would you like to do today?</h2>
                 <br/>

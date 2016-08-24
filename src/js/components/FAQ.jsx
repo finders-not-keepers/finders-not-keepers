@@ -10,13 +10,14 @@ var FAQ = React.createClass({
                     <div className="panel-heading" role="tab" id="headingOne">
                       <h4 className="panel-title">
                         <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                          What is Finders Not Keepers?
+                          How do I claim an item that I had lost but was found?
                         </a>
                       </h4>
                     </div>
                     <div id="collapseOne" className="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                       <div className="panel-body">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS
+                        If you have found an item you had lost via our website “Finders Not Keeper”, you have to follow the instructions on clicking the ‘claim’ button on your object. Give as much details as possible as proofs of your item being yours. The business which posted your found item should get back to you shortly via e-mail and tell you how to proceed to retrieve it.. 
+                        <br/>Photo ID is required for all pick-ups in any business listed on “Finders Not Keepers”. When picking up an item you will be asked to present your ID, and note your name and a piece of contact information (either phone # or e-mail address), as well as sign for the item before it will be released.
                       </div>
                     </div>
                   </div>
@@ -24,13 +25,13 @@ var FAQ = React.createClass({
                     <div className="panel-heading" role="tab" id="headingTwo">
                       <h4 className="panel-title">
                         <a className="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                          Hidden message!
+                          How long are found items held for?
                         </a>
                       </h4>
                     </div>
                     <div id="collapseTwo" className="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
                       <div className="panel-body">
-                        Hi Céline!🙈
+                        Items are typically held for a minimum of 30 days for most items turned in.
                       </div>
                     </div>
                   </div>
@@ -38,13 +39,13 @@ var FAQ = React.createClass({
                     <div className="panel-heading" role="tab" id="headingThree">
                       <h4 className="panel-title">
                         <a className="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                          How do I find the item I lost?
+                          What happens if nobody claims a found item?
                         </a>
                       </h4>
                     </div>
                     <div id="collapseThree" className="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
                       <div className="panel-body">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                          All unclaimed items are 'disposed of', either via destruction, recycling or donation.
                       </div>
                     </div>
                   </div>
@@ -53,13 +54,15 @@ var FAQ = React.createClass({
                     <div className="panel-heading" role="tab" id="headingFour">
                       <h4 className="panel-title">
                         <a className="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
-                          What if the place I lost my item isn't on this site?
+                          Can I ask a friend to pick up an item for me?
                         </a>
                       </h4>
                     </div>
                     <div id="collapseFour" className="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFour">
                       <div className="panel-body">
-                        Then you're shit out of luck. You should tell the place to should sign up!
+                        “Finders Not Keepers” listed businesses strive to ensure that the proper owners are the ones receiving their items. In the event the rightful owner is not able to pick the item up in person, a third party is permitted to pick up the item on the owner's behalf under certain circumstances:
+                        <br/>The owner must inform the business in advance of this request via e-mail, and have been provided the authorisation by the latter. 
+                        <br/>The third party individual who is identified by the owner as authorized to pick the item up on their behalf must bring a copy of the confirmation provided to the owner by the business involved hat has been signed by the owner.
                       </div>
                     </div>
                   </div>
@@ -68,13 +71,13 @@ var FAQ = React.createClass({
                     <div className="panel-heading" role="tab" id="heading5">
                       <h4 className="panel-title">
                         <a className="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse5" aria-expanded="false" aria-controls="collapse5">
-                          How do you deal with more valuable items?
+                          Disclaimer
                         </a>
                       </h4>
                     </div>
                     <div id="collapse5" className="panel-collapse collapse" role="tabpanel" aria-labelledby="heading5">
                       <div className="panel-body">
-                        We have stric guidelines for the account holders to follow when posting a lost item. That's why it is very important to provice as much detail as possible when claiming an item. Make sure to check <a href="#">these guidelines</a> if you are unsure how to prove your ownership.
+                        “Finders Not Keepers” listed businesses regret that they cannot be responsible for items of personal property left unattended on their grounds or within their buildings.
                       </div>
                     </div>
                   </div>

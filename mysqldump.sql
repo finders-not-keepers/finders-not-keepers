@@ -44,6 +44,10 @@ CREATE TABLE `accounts` (
 ) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+ALTER TABLE items
+DROP COLUMN categoryId;
+
+
 --
 -- Dumping data for table `accounts`
 --
@@ -136,6 +140,10 @@ CREATE TABLE `items` (
 ) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+
+
+ALTER TABLE items
+ADD category ENUM ('Accessories', 'Keys', 'Clothing', 'Wallets or Cards', 'Electronics', 'General');
 --
 -- Dumping data for table `items`
 --
@@ -156,3 +164,5 @@ UNLOCK TABLES;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2016-08-16 15:57:24
+
+

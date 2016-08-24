@@ -5,7 +5,7 @@ var ClaimItemSuccess = React.createClass({
     render: function(){
         return(
             <div className="postSuccess">
-                <span className="glyphicon glyphicon-ok-circle element-animation"></span>
+                <span className="glyphicon glyphicon-ok-circle fadein"></span>
                 <h3 className="text-center whiteText">We hope you get your item back soon!</h3>
                 <h4 className="text-center whiteText">You're e-mail was successfully sent. All interactions will now occur via e-mail with the business owner. Best of luck!</h4>
                 <br/>

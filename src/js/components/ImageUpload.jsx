@@ -3,11 +3,16 @@ import axios from 'axios';
 
 
 var ImageUpload = React.createClass({
-  _handleSubmit: function(e) {
-    e.preventDefault();
+  getInitialState :function (){
+    var defaultUrl = 'https://s3-us-west-1.amazonaws.com/findersnotkeepers/Finder-Default-Img.jpg';
+    return { imgPreview: defaultUrl};
+    //return {}
+  },
+  _handleSubmit: function(event) {
+    event.preventDefault();
     var file = this.refs.fileInput.files[0];
+    console.log("FILESSSSS", file)
     var url = `/save-details?file-name=${file.name}&file-type=${file.type}`;
-    //console.log(file);
     var that = this;
     if(file) {
       axios.post(url)
@@ -19,28 +24,25 @@ var ImageUpload = React.createClass({
             console.log(err);
         })
         that.props.handleImageUrl(imageUrl);
+        that.setState({imgPreview: imageUrl});
       })
       .catch(function(err){
         console.log(err)
       })
-    } else {
-      // this.setState({
-      //   fileSelected: false
-      // })
-      var defaultUrl = 'https://s3-us-west-1.amazonaws.com/findersnotkeepers/Finder-Default-Img.jpg';
-      that.props.handleImageUrl(defaultUrl);
+    } 
+    else {
+        var defaultUrl = 'https://s3-us-west-1.amazonaws.com/findersnotkeepers/Finder-Default-Img.jpg';
+        that.props.handleImageUrl(defaultUrl);
+        that.setState({imgPreview: defaultUrl});
     }
   },
   render: function () {
       var that = this;
       return (
           <div>
-            <input type="file" id="file-input" ref="fileInput"/>
-             <img id="preview" src={that.imageUrl} />
-             
-            <form onSubmit={this._handleSubmit}>
-                <input className="btn btn-default btn-lg" type="hidden" id="avatar-url" name="avatar-url" value="/images/default.png"/>
-                <input className="btn btn-success btn-lg" type="submit" value="UPLOAD PICTURE" />
+            <form>
+              <input className="btn btn-default" type="file" id="file-input" ref="fileInput" onChange={that._handleSubmit} />  
+              <img className="imgPreview" id="preview" src={that.state.imgPreview} />
             </form>
           </div>
       );

@@ -1,3 +1,6 @@
+/*********EXPRESS SERVER*********/
+
+//REQUIRES
 var express = require('express');
 var app = express();
 var mysql = require('mysql');
@@ -6,32 +9,40 @@ var axios = require('axios');
 var nodemailer = require("nodemailer");
 var jwt = require('express-jwt');
 var aws = require('aws-sdk');
+var finders = require('./src/js/api/finders');
+require('dotenv').config();
 
+
+
+//AWS ACCESS 
 aws.config.update({
-    accessKeyId: "AKIAIYY4CMQVWHHAOAIQ",
-    secretAccessKey: "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"
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.AWS_SECRET_KEY
 });
 
+var S3_BUCKET = process.env.S3_BUCKET;
+
+//AUTH0 AUTHETIFICATION & DATABSE CONNECTIONS
 var jwtCheck = jwt({
-  secret: new Buffer('iKtmQ6lhYlaKbX1QlixUiHl3eqmzhsCJMF5gXi8_rxzDLTgBNlHVF5BaJ3eS_gaW', 'base64'),
-  audience: 'PmdbxTpKHsOulN583eoykb8Z8lizNulQ'
+  secret: new Buffer(process.env.AUTH0_SECRET, 'base64'),
+  audience: process.env.AUTH0_CLIENT_ID
 });
 
 
 var AuthenticationClient = require('auth0').AuthenticationClient;
 var auth0 = new AuthenticationClient({
-  domain: 'findersnotkeepers.auth0.com',
-  clientId: 'PmdbxTpKHsOulN583eoykb8Z8lizNulQ'
+  domain: process.env.AUTH0_DOMAIN,
+  clientId: process.env.AUTH0_CLIENT_ID
 });
 
 var ManagementClient = require('auth0').ManagementClient;
 var management = new ManagementClient({
-  token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJQQ09od3psU29GZEJraWdlVkF0MXJXNGhMUnZZU2ZVRCIsInNjb3BlcyI6eyJ1c2VycyI6eyJhY3Rpb25zIjpbInJlYWQiXX19LCJpYXQiOjE0NzE2Mjg2MDQsImp0aSI6ImFiN2Y0MzI3NTdhMGY0ZDY4NGM5ZTk5MmZmZjI5MWIyIn0.GIZ8V4fSWBoR7G1waPpkh3A8metchHGoOr59Y38vXts',
-  domain: 'findersnotkeepers.auth0.com'
+  token: process.env.AUTH0_MANAGEMENT_TOKEN,
+  domain: process.env.AUTH0_DOMAIN
 });
 
 
-
+//LOCAL MYSQL CONNECTION
 var connection = mysql.createConnection({
   host: 'localhost',
   user: 'cbroomhead',
@@ -39,9 +50,9 @@ var connection = mysql.createConnection({
   database: 'finders'
 });
 
-var finders = require('./src/js/api/finders');
 var findersAPI = finders(connection);
 
+//MIDDLEWARE
 app.use(express.static(__dirname + '/public'));
 
 app.use(bodyParser.urlencoded({
@@ -51,6 +62,7 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 
 
+//ROUTES FROM FRONTEND
 app.post('/searchAccount', function(req, res) {
   findersAPI.getAccounts(req.body, function(err, accountsArray) {
     if (err) {
@@ -73,6 +85,7 @@ app.post('/searchItem', function(req, res) {
       res.send(err);
     }
     else {
+        console.log(itemArray);
       res.send({
         msg: 'ok',
         item: itemArray
@@ -88,7 +101,10 @@ app.post('/claimItem/:id', function(req, res) {
       res.status(500).send(err);
     }
     else {
-      res.send({msg: 'ok', resEmail});
+      res.send({
+        msg: 'ok',
+        resEmail
+      });
       var transporter = nodemailer.createTransport({
         service: 'Gmail',
         auth: {
@@ -220,52 +236,70 @@ app.post('/claimItem/:id', function(req, res) {
     }
   });
 });
-  
-app.post('/crap', function (req, res){
-  findersAPI.getItem(req.body.itemId, function (err, itemArray){
-    if(err) {
+
+app.post('/crap', function(req, res) {
+  findersAPI.getItem(req.body.itemId, function(err, itemArray) {
+    if (err) {
       console.log(err);
       res.status(500).send(err);
-    } else {
-      res.send({msg: 'ok', item: itemArray});
+    }
+    else {
+      res.send({
+        msg: 'ok',
+        item: itemArray
+      });
     }
   });
-})
+});
 
-app.post ('/login', jwtCheck , function(req, res){
-  if(req.user) {
-    
-    findersAPI.getAccountById(req.user.sub, function(err, user){
-      if(err) {
+app.post('/login', jwtCheck, function(req, res) {
+  if (req.user) {
+    findersAPI.getAccountById(req.user.sub, function(err, user) {
+      if (err) {
         res.send(err);
-      } else {
-        management.getUser({id: req.user.sub}, function(err, profile) {
-          if(err) {
+      }
+      else {
+
+        if (user.length === 0) {
+          management.getUser({
+            id: req.user.sub
+          }, function(err, profile) {
+            findersAPI.createProfile(profile, function(req, profileArray) {
+              if (err) {
+                res.send({
+                  msg: 'taken'
+                });
+              }
+              else {
+                res.send({
+                  msg: 'ok',
+                  item: profileArray
+                })
+              }
+            })
+          })
+        } else {
+          management.getUser({
+          id: req.user.sub
+        }, function(err, profile) {
+          if (err) {
             res.send(err);
-          } else {
-           res.send({msg: 'ok', user: profile}) 
+          }
+          else {
+            res.send({
+              msg: 'ok',
+              user: profile
+            })
           }
         })
+        }
       }
-      
+
     })
-  } else {
-    management.getUser({id: req.user.sub}, function(err, profile) {
-      findersAPI.createProfile(profile, function (req, profileArray){
-        if(err){
-          res.send({msg: 'taken'}); 
-        }
-        else {
-          res.send({msg: 'ok', item: profileArray})
-        }
-      })
-  }) 
   }
-})
+});
 
-var S3_BUCKET = 'findersnotkeepers';
-
-app.post('/save-details', function (req, res) {
+app.post('/save-details', function(req, res) {
   var s3 = new aws.S3();
   var fileName = req.query['file-name'];
   var fileType = req.query['file-type'];
@@ -278,7 +312,7 @@ app.post('/save-details', function (req, res) {
   };
 
   s3.getSignedUrl('putObject', s3Params, function(err, data) {
-    if(err){
+    if (err) {
       console.log(err);
       return res.end();
     }
@@ -290,58 +324,80 @@ app.post('/save-details', function (req, res) {
   });
 });
 
-app.post ('/createPost', function (req, res){
-  console.log("CREATE POST", req.body);
-  findersAPI.getAccountById(req.body.subid, function (err, accId){
-    if(err){
+app.post('/createPost', function(req, res) {
+  findersAPI.getAccountById(req.body.subid, function(err, accId) {
+    if (err) {
       res.send(err);
     }
     else {
       var account_id = accId[0].id;
-        findersAPI.createItem(req.body, account_id , function (err, itemPost){
-            if (err){
-              res.send(err);  
-            }
-            else {
-              res.send({msg: 'ok', account: itemPost});
-            }
+      findersAPI.createItem(req.body, account_id, function(err, itemPost) {
+        if (err) {
+          res.send(err);
+        }
+        else {
+          res.send({ msg: 'ok', account: itemPost });
+        }
       });
     }
   });
 });
 
-
-app.post ('/postsforaccounts' , function (req, res){
-   findersAPI.getAccountById( req.body.subid, function (err, accId){
-    if(err){
+app.post('/postsforaccounts', function(req, res) {
+  findersAPI.getAccountById(req.body.subid, function(err, accId) {
+    if (err) {
       res.send(err);
     }
     else {
-        findersAPI.getAllItemsForAccount(req.body.subid, function (err, itemPosts){
-            if (err){
-              res.send(err);  
-            }
-            else {
-              res.send({msg: 'ok', allitems: itemPosts});
-            }
+      console.log("AACID", accId);
+      findersAPI.getAllItemsForAccountSubid(req.body.subid, function(err, itemPosts) {
+        if (err) {
+          console.log(err)
+          res.send(err);
+        }
+        else {
+          res.send({
+            msg: 'ok',
+            allitems: itemPosts
+          });
+        }
       });
     }
   });
-})
+});
 
-app.post('/delete', function (req, res){
-  findersAPI.deleteItem(req.body.itemId, function (err, removeItem){
-    if(err){
+app.post('/delete', function(req, res) {
+  findersAPI.deleteItem(req.body.itemId, function(err, removeItem) {
+    if (err) {
       res.send(err);
     }
     else {
-       res.send({msg: 'ok', allitems: removeItem});
+      res.send({
+        msg: 'ok',
+        allitems: removeItem
+      });
     }
   })
-})
+});
+
+app.post("/allItems", function(req, res) {
+  findersAPI.getAllItemsForAccount(req.body.accountid, function(err, items) {
+    if (err) {
+      res.send(err);
+    }
+    else {
+
+      res.send({
+        msg: "ok",
+        items: items
+      })
+    }
+  })
+});
 
 
 
+// BOILERPLATE 
 app.get('/*', function(request, response) {
   response.sendFile(__dirname + '/public/index.html');
 });
@@ -349,5 +405,3 @@ app.get('/*', function(request, response) {
 app.listen(process.env.PORT || 8080, function() {
   console.log('Server started');
 });
-
-

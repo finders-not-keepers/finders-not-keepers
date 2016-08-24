@@ -3,6 +3,7 @@ var React = require('react');
 var axios = require("axios");
 var Link = require('react-router').Link;
 import ImageUpload from './ImageUpload';
+import { withRouter } from 'react-router';
 
 
 var CreatePost = React.createClass({
@@ -31,8 +32,11 @@ var CreatePost = React.createClass({
     },
     _handleClick: function() {
         this._sendData();
+        this._handleImageUrl();
+        this.props.router.push("/postSuccess");
     },
     _handleImageUrl: function(imgUrl) {
+        console.log("IMGAEGE URL", imgUrl);
         this.setState({
             imgUrl: imgUrl
         })
@@ -42,7 +46,7 @@ var CreatePost = React.createClass({
         return(
             <div>
             <h2>Create a new lost item</h2>
-                <form>
+                
                     <p>Enter a title for the item you found:</p>
                     <input ref="titleInput" className="form-control input-lg" type="text"/>
                     <p>Select Category:</p>
@@ -56,15 +60,17 @@ var CreatePost = React.createClass({
                     </select>
                     <p>Description:</p>
                     <textarea rows="10" ref="descriptionInput" className="form-control input-lg"></textarea>
-                    <p>Upload an image:</p>
+                    <p><span className="glyphicon glyphicon-camera"></span>  Upload an image:</p>
                     
                     <ImageUpload handleImageUrl={this._handleImageUrl}/>
                     
-                    <Link to={"/postSuccess"}><button className="btn btn-success btn-lg" onClick={that._handleClick}><span className="glyphicon glyphicon-send"></span>  Submit</button></Link>
-                </form>
+                    <button className="btn btn-success btn-lg" onClick={that._handleClick}><span className="glyphicon glyphicon-send"></span>  Submit</button>
+                
             </div>
             )
     }
 })
 
-module.exports = CreatePost;
+
+var CreatePostRoute = withRouter(CreatePost)
+module.exports = CreatePostRoute;

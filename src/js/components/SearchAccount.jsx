@@ -16,7 +16,7 @@ var SearchAccount = React.createClass({
         event.preventDefault();
         var that = this;
         axios.post('/searchAccount', {
-                account: this.refs.userInput.value.toLowerCase()
+                account: that.refs.userInput.value.toLowerCase()
             })
             .then(function(response) {
                 if(response.data.msg === 'ok'){
@@ -48,10 +48,10 @@ var SearchAccount = React.createClass({
                 
                 <ul className="list-group">
                 {that.state.accounts ? that.state.accounts.map(acc => {
-                    return <li className="list-group-item" key={acc.id}><Link to={`/account/${acc.name}/searchItem`}><h4>{acc.name}</h4></Link><p className="addressAccount"><span className="glyphicon glyphicon-pushpin"></span>  {acc.address}</p></li>
+                    return <li className="list-group-item" key={acc.id}><Link to={`/account/${acc.id}/searchItem`}><h4>{acc.name}</h4></Link><p className="addressAccount"><span className="glyphicon glyphicon-map-marker"></span>  {acc.address}</p></li>
                 }) : ""}
                 </ul>
-                {this.props.children}
+                {that.props.children}
                 
             </div>
             

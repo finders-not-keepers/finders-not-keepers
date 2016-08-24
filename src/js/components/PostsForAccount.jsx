@@ -20,6 +20,7 @@ var PostsForAccount = React.createClass({
             subid: subid
         })
         .then (function (response){
+            console.log(response)
             if (response.data.msg === 'ok'){
                that.setState({allItems: response.data.allitems})
             }
@@ -42,7 +43,8 @@ var PostsForAccount = React.createClass({
         
         var that = this;
         return (
-            <div>
+            <div>   
+                <h2>Your posts:</h2>
                 
                    {that.state.allItems.map(function(item) {
                   
@@ -55,7 +57,7 @@ var PostsForAccount = React.createClass({
                           
                             <div className = "caption">
                                  <h4>{item.title}</h4>
-                                 <p className="postsDateP">Found on: <span id="accountName">{item.createdAt}</span></p>
+                                 <p className="postsDateP">Found on: <span id="accountName">{item.createdAt.substring(0,10)}</span></p>
                                  
                                  <button className="btn btn-default" type="button" data-toggle="modal" data-target={itemIdTarget}><span className="glyphicon glyphicon-eye-open"></span>  View Description</button>
                                  <Link to={`/`}><button className="btn btn-default"><span className="glyphicon glyphicon-pencil"></span>  Edit</button></Link>

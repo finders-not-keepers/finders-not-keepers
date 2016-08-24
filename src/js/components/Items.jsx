@@ -10,11 +10,25 @@ var Items = React.createClass({
             <div>
                    {this.props.items.map(function(item) {
                    var itemIdTarget = ("#" + item.id)
+                   var itemIdTargetImg = ("#" + item.id + "69")
                     return (
                         <div key={item.id} className = "col-xs-12 col-sm-4 col-md-3 col-lg-3 well">
-                            <div className = "thumbnail">
-                                 <img src={item.media} alt="Generic placeholder thumbnail"/>
+                            <div className="thumbnail">
+                                 <a data-target={itemIdTargetImg} data-toggle="modal"><img id="imageToBeClicked" src={item.media} alt={item.title} /></a>
                             </div>
+                            <div className="modal fade" id={item.id + "69"}>
+                                <div className="modal-dialog">
+                                        <div className="modal-content">
+                                            <div className="modal-body">
+                                                <img className="modalImage text-center img-responsive" src={item.media}></img>
+                                            </div>
+                                            <div className="modal-footer">
+                                                <button type="button" className="btn btn-danger btn-sm" data-dismiss="modal"><span className="glyphicon glyphicon-remove"></span></button>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
+                            
                           
                             <div className = "caption">
                                  <h4>{item.title}</h4>

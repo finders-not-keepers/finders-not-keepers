@@ -5,7 +5,7 @@ var DeletePostSuccess = React.createClass({
     render: function(){
         return(
             <div className="postSuccess">
-                <span className="glyphicon glyphicon-ok-circle element-animation"></span>
+                <span className="glyphicon glyphicon-ok-circle fadein"></span>
                 <h1 className="text-center">Thank you!</h1>
                 <h2 className="text-center">You're post was successfully deleted. We hope it found it's home.</h2>
                 <br/>

@@ -1,6 +1,7 @@
 var React = require('react');
 var axios = require("axios");
 var Link = require('react-router').Link;
+import { withRouter } from 'react-router';
 
 
 var ClaimItemForm = React.createClass ({
@@ -51,6 +52,7 @@ var ClaimItemForm = React.createClass ({
     _handleClick: function(event) {
         event.preventDefault();
         this._sendData();
+        this.props.router.push(`/claimSuccess`);
     },
     render: function() {
         var that = this;
@@ -60,7 +62,7 @@ var ClaimItemForm = React.createClass ({
             <img src={that.state.media} className="col-xs-6 thumbnail claimPhoto"/>
             <div className="row">
             <div className="col-xs-12">
-            <p>We highly suggest reading our guidelines, <a href="/guidelines">here</a>, for claiming an item if this is your first time.</p>
+            <p>We highly suggest reading our guidelines, <a href="/guidelines" className="decodeMTL">here</a>, for claiming an item if this is your first time.</p>
                 <hr/>
                 <form className="form-group form-group-lg">
                     <p>First name:</p>
@@ -81,4 +83,5 @@ var ClaimItemForm = React.createClass ({
     }
 })
 
-module.exports = ClaimItemForm;
+var ClaimItemFormRoute = withRouter(ClaimItemForm)
+module.exports = ClaimItemFormRoute;
