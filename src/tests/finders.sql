@@ -266,3 +266,11 @@ SELECT * FROM items WHERE items.title LIKE '%hello%';
 UPDATE accounts
   SET name = 'black and white knitted hat'
 WHERE id = 134;
+
+SELECT accounts.name, items.title, items.id, items.media , items.description, items.createdAt
+            FROM accounts 
+            LEFT JOIN items 
+            ON items.accountId = accounts.id 
+            WHERE accounts.id = 3 AND ((MATCH (title, description)
+            AGAINST ('phone' IN BOOLEAN MODE)) OR (items.title LIKE 'phone' OR items.description LIKE 'phone'))
+            ORDER BY items.createdAt;

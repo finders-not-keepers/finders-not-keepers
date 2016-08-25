@@ -10,15 +10,14 @@ var EditPost = React.createClass({
     getInitialState : function (){
         return {}
     },
-    componentDidMount: function (){
+    componentWillMount: function (){
         this._fetchData();
     },
     _fetchData : function () {
         var that = this;
-        axios.post('/editpost/:id', {
-          itemId: this.props.params.itemId
-        })
+        axios.get(`/getpost/${this.props.params.itemId}`)
         .then(function(response){
+            console.log(response)
             if(response.data.msg === 'ok'){
               console.log(response.data.allitem);
               var item = response.data.allitem[0];
@@ -26,7 +25,8 @@ var EditPost = React.createClass({
               that.setState({
                   title: item.title, 
                   description: item.description, 
-                  category: item.category
+                  category: item.category,
+                  media: item.media
               })
               
             }
@@ -35,27 +35,44 @@ var EditPost = React.createClass({
             console.log(error);
         })
     },
-    // _handleClick: function(event) {
-    //     event.preventDefault();
-    //     this._sendData();
-    //     //this.props.router.push("/claimSuccess");
-    // },
+    _handleClick: function(event) {
+        
+        console.log()
+        event.preventDefault();
+        var imageUrl = this.state.imgUrl;
+        var subid = localStorage.getItem('sub');
+        var that = this;
+        axios.post(`/editpost/:id`, {
+            itemId : this.props.params.itemId,
+            title: that.refs.titleInput.value.toLowerCase(), 
+            description: that.refs.descriptionInput.value.toLowerCase(),
+            category: that.refs.category.value.toLowerCase(),
+            subid: subid, 
+            imageUrl : imageUrl
+        })
+        .then(function(response){
+            if(response.data.msg === 'ok'){
+               console.log(response);
+            }
+        })
+        .catch (function(error){
+            console.log(error);
+        })
+    },
     render: function() {
-        console.log("IN THE RENDER", this.state.media)
-        console.log(this.state.title, "test avec max");
+        console.log(this.state.media);
+        
          var that = this;
-         if(!this.state){
+         if(!this.state.title){
             return <div> RIEN</div>
                 
         }
          
         return(
-            
             <div>
             <h2>Edit Item</h2>
-                
                     <p>Enter a title for the item you found:</p>
-                    <input ref="titleInput" className="form-control input-lg" type="text" value={that.state.title}/>
+                    <input ref="titleInput" className="form-control input-lg" type="text" defaultValue={that.state.title}/>
                     <p>Select Category:</p>
                     <select ref="category" className="form-control input-lg"  data-width="100%" defaultValue={that.state.category}>
                         <option value="Accessories">Accessory</option>
@@ -68,8 +85,8 @@ var EditPost = React.createClass({
                     <p>Description:</p>
                     <textarea rows="10" ref="descriptionInput" className="form-control input-lg" defaultValue={that.state.description}></textarea>
                     
-                    
-                    <ImageUpload handleImageUrl={this._handleImageUrl}/>
+                    <img className="imgPreview" id="preview" src={this.state.media} />
+                    <ImageUpload handleImageUrl={this._handleImageUrl} />
                     
                     <button className="btn btn-success btn-lg" onClick={that._handleClick}><span className="glyphicon glyphicon-send"></span>  Submit</button>
                 

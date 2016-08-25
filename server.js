@@ -394,14 +394,26 @@ app.post("/allItems", function(req, res) {
   })
 });
 
-app.post('/editpost/:id', function (req, res){
-  console.log("EDITPOST STUFF", req.body);
-  findersAPI.getItem(req.body.itemId, function(err, allItem) {
+app.get('/getpost/:id', function (req, res){
+  findersAPI.getItem(req.params.id, function(err, allItem) {
     if (err) {
       res.send(err);
     }
     else {
-      console.log("ALL ITEM", allItem)
+      res.send({
+        msg: 'ok',
+        allitem: allItem
+      });
+    }
+  })
+})
+
+app.post('/editpost/:id', function (req, res){
+  findersAPI.editItem(req.body, function(err, allItem) {
+    if (err) {
+      res.send(err);
+    }
+    else {
       res.send({
         msg: 'ok',
         allitem: allItem

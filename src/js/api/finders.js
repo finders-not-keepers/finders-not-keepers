@@ -166,19 +166,23 @@ return {
                 }
             })
         }, 
-        // editItem: function (itemid, callback) {
-        //     conn.query( `INSERT INTO items (accountId, title, description, media, updatedAt)
-        //         VALUES (?,?,?,?,?,?,?)`, [accountid, item.title, item.description, item.imageUrl, new Date()],
-        //         function (err, res){
-        //             if(err){
-        //                 console.log(err);
-        //                 callback(err);
-        //             }
-        //             else{
-        //                 callback(null, res);
-        //             }
-        //         })
-        //  }, 
+        editItem: function (item,  callback) {
+            console.log("INSIDE EDIT POST", item);
+            conn.query( `UPDATE items
+                    SET title = ?, description = ?, category = ? 
+                    WHERE items.id = ?;`     
+            , [ item.title, item.description, item.category, item.itemId] ,
+                function (err, res){
+                    if(err){
+                        console.log(err);
+                        callback(err);
+                    }
+                    else{
+                        console.log(res);
+                        callback(null, res);
+                    }
+                })
+         }, 
         getItemDescription: function(itemid, callback) {
             conn.query(`
                     SELECT  description, title, media, createdAt
