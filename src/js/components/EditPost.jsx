@@ -5,7 +5,6 @@ var Link = require('react-router').Link;
 import ImageUpload from './ImageUpload';
 import { withRouter } from 'react-router';
 
-
 var EditPost = React.createClass({
     getInitialState : function (){
         return {}
@@ -17,16 +16,14 @@ var EditPost = React.createClass({
         var that = this;
         axios.get(`/getpost/${this.props.params.itemId}`)
         .then(function(response){
-            console.log(response)
+            console.log("GET POST RES", response.data.allitem[0].media)
             if(response.data.msg === 'ok'){
-              console.log(response.data.allitem);
               var item = response.data.allitem[0];
-              console.log(item.title);
               that.setState({
                   title: item.title, 
                   description: item.description, 
                   category: item.category,
-                  media: item.media
+                  imgUrl: item.media
               })
               
             }
@@ -36,8 +33,6 @@ var EditPost = React.createClass({
         })
     },
     _handleClick: function(event) {
-        
-        console.log()
         event.preventDefault();
         var imageUrl = this.state.imgUrl;
         var subid = localStorage.getItem('sub');
@@ -48,7 +43,7 @@ var EditPost = React.createClass({
             description: that.refs.descriptionInput.value.toLowerCase(),
             category: that.refs.category.value.toLowerCase(),
             subid: subid, 
-            imageUrl : imageUrl
+            imgUrl : imageUrl
         })
         .then(function(response){
             if(response.data.msg === 'ok'){
@@ -58,11 +53,17 @@ var EditPost = React.createClass({
         .catch (function(error){
             console.log(error);
         })
+        this.props.router.push("/accountPosts");
+    },
+    _handleImageUrl: function(imgUrl) {
+        this.setState({
+            imgUrl: imgUrl
+        });
     },
     render: function() {
-        console.log(this.state.media);
-        
+        console.log("IN THE RENDER", this.state.imgUrl);
          var that = this;
+         var imgURL = this.state.imgUrl;
          if(!this.state.title){
             return <div> RIEN</div>
                 
@@ -85,8 +86,7 @@ var EditPost = React.createClass({
                     <p>Description:</p>
                     <textarea rows="10" ref="descriptionInput" className="form-control input-lg" defaultValue={that.state.description}></textarea>
                     
-                    <img className="imgPreview" id="preview" src={this.state.media} />
-                    <ImageUpload handleImageUrl={this._handleImageUrl} />
+                    <ImageUpload handleImageUrl={that._handleImageUrl} imgURL={imgURL} />
                     
                     <button className="btn btn-success btn-lg" onClick={that._handleClick}><span className="glyphicon glyphicon-send"></span>  Submit</button>
                 

@@ -409,6 +409,7 @@ app.get('/getpost/:id', function (req, res){
 })
 
 app.post('/editpost/:id', function (req, res){
+  console.log("ON THE EDIT POST SERVER ROUTE", req.body)
   findersAPI.editItem(req.body, function(err, allItem) {
     if (err) {
       res.send(err);

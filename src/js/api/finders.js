@@ -142,7 +142,7 @@ return {
         }, 
         getAccounts: function (accountname, callback){
             conn.query (`
-            SELECT * FROM accounts WHERE name LIKE '%${accountname.account}%'`,
+            SELECT * FROM accounts WHERE name LIKE '%${accountname.account}%' ORDER BY name`,
             function (err, res) {
                 if(err){
                     callback(err);
@@ -169,9 +169,9 @@ return {
         editItem: function (item,  callback) {
             console.log("INSIDE EDIT POST", item);
             conn.query( `UPDATE items
-                    SET title = ?, description = ?, category = ? 
+                    SET title = ?, description = ?, category = ? , media = ?
                     WHERE items.id = ?;`     
-            , [ item.title, item.description, item.category, item.itemId] ,
+            , [ item.title, item.description, item.category, item.imgUrl, item.itemId] ,
                 function (err, res){
                     if(err){
                         console.log(err);

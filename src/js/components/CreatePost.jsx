@@ -45,6 +45,7 @@ var CreatePost = React.createClass({
     },
     render: function() {
          var that = this;
+
         return(
             <div>
             <h2>Create a new lost item</h2>
@@ -63,7 +64,7 @@ var CreatePost = React.createClass({
                     <p>Description:</p>
                     <textarea rows="10" ref="descriptionInput" className="form-control input-lg"></textarea>
                     
-                    <ImageUpload handleImageUrl={this._handleImageUrl}/>
+                    <ImageUpload handleImageUrl={this._handleImageUrl} imgURL={this.state.imgUrl}/>
                     
                     <button className="btn btn-success btn-lg" onClick={that._handleClick}><span className="glyphicon glyphicon-send"></span>  Submit</button>
                 

@@ -20,7 +20,6 @@ var ImageUpload = React.createClass({
       .then(function(res){
         var imageUrl = res.data.url;
         axios.put(imageUrl, file).then(function(res){
-            var blah = res.config.url;
         }).catch(function(err){
             console.log(err);
         })
@@ -34,6 +33,7 @@ var ImageUpload = React.createClass({
   },
   render: function () {
       var that = this;
+      console.log('props', this.props);
       return (
           <div>
             
@@ -41,7 +41,7 @@ var ImageUpload = React.createClass({
             <span><span className="glyphicon glyphicon-camera"></span>  Upload an image</span>
             <input type="file" className="upload image-upload-btn" id="file-input" ref="fileInput" onChange={that._handleSubmit}/>
             </div>
-              <img className="imgPreview" id="preview" src={that.state.imgPreview} />
+              <img className="imgPreview" id="preview" src={this.props.imgURL} />
             
           </div>
       );

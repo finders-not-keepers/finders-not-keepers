@@ -274,3 +274,7 @@ SELECT accounts.name, items.title, items.id, items.media , items.description, it
             WHERE accounts.id = 3 AND ((MATCH (title, description)
             AGAINST ('phone' IN BOOLEAN MODE)) OR (items.title LIKE 'phone' OR items.description LIKE 'phone'))
             ORDER BY items.createdAt;
+
+UPDATE items
+SET title = 'black clutch', description = 'hello world', category = 'Accessories' , media = 'https://findersnotkeepers.s3.amazonaws.com/clutch.jpg '
+WHERE items.id = 88
