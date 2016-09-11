@@ -8,14 +8,14 @@ var bodyParser = require('body-parser');
 var axios = require('axios');
 var nodemailer = require("nodemailer");
 var jwt = require('express-jwt');
-var aws = require('aws-sdk');
+var AWS = require('aws-sdk');
 var finders = require('./src/js/api/finders');
 require('dotenv').config();
 
 
 
 //AWS ACCESS 
-aws.config.update({
+AWS.config.update({
   accessKeyId: process.env.AWS_ACCESS_KEY_ID,
   secretAccessKey: process.env.AWS_SECRET_KEY
 });
@@ -300,7 +300,7 @@ app.post('/login', jwtCheck, function(req, res) {
 });
 
 app.post('/save-details', function(req, res) {
-  var s3 = new aws.S3();
+  var s3 = new AWS.S3();
   var fileName = req.query['file-name'];
   var fileType = req.query['file-type'];
   var s3Params = {
