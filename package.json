@@ -26,7 +26,6 @@
   "dependencies": {
     "auth0-js": "^7.1.0",
     "auth0-lock": "^10.1.0",
-    "aws-lib": "^0.3.0",
     "aws-sdk": "^2.6.1",
     "axios": "^0.13.1",
     "babel-core": "^6.13.2",
