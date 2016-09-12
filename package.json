@@ -1,6 +1,10 @@
 {
   "name": "finders-not-keepers",
   "version": "1.0.0",
+  "engines": {
+    "node": "4.4.5",
+    "npm": "3.10.7"
+  }
   "description": "final project",
   "main": "server.js",
   "scripts": {
